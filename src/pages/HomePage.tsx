@@ -35,7 +35,6 @@ function HomePage() {
                     </p>
                 </header>
             </div>
-
             {
                 showingJoinGameOptions ?
                     <div className="RoomInputForm">
@@ -47,19 +46,37 @@ function HomePage() {
                             onChange={handleRoomNameChange}
                             className="text-input-field"
                         />
-                        <Button component={Link} to={`/${gameName}`} variant="contained" color="primary">
+                        <Button
+                            component={Link}
+                            to={`/${gameName}`}
+                            variant="contained"
+                            color="primary"
+                            className="button">
                             join game
                         </Button>
-                        <Button variant="contained" color="primary" onClick={() => { setShowingJoinGameOptions(false) }}>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            onClick={() => { setShowingJoinGameOptions(false) }}
+                            className="button">
                             back
                         </Button>
                     </div>
                     :
                     <div className="GameOptions">
-                        <Button component={Link} to={`/${generateGameID()}`} variant="contained" color="primary">
+                        <Button 
+                            component={Link} 
+                            to={`/${generateGameID()}`} 
+                            variant="contained" 
+                            color="primary"
+                            className="button">
                             create new game
                         </Button>
-                        <Button variant="contained" color="primary" onClick={() => { setShowingJoinGameOptions(true) }}>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            onClick={() => { setShowingJoinGameOptions(true) }}
+                            className="button">
                             join game
                         </Button>
                     </div>

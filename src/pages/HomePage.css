@@ -9,6 +9,8 @@ body {
   font-size: calc(20px + 2vmin);
   color: #282c34;
   /* color: white; */
+  display: flex;
+  justify-content: center;
 }
 
 .App {
@@ -16,11 +18,6 @@ body {
   display: flex;
   justify-content: center;
   height: 80vh; 
-}
-
-Link {
-  text-decoration: none;
-  color: white;
 }
 
 .GameOptions {
