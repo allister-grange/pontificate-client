@@ -25,7 +25,15 @@ body {
   justify-content: space-around;
 }
 
-.RoomInputForm {
+.RoomDetailsButtons {
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.RoomDetailsInputs {
   display: flex;
   justify-content: space-around;
+
 }
