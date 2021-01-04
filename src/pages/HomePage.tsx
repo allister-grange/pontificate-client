@@ -20,14 +20,6 @@ function HomePage() {
         setUserName(event.target.value);
     };
 
-    //   useEffect(() => {
-    //     const socket = socketIOClient(ENDPOINT);
-    //     socket.on('message', (data: SocketIOClient.Socket) => {
-    //       setResponse(data as unknown as string);   
-    //       console.log(data);
-    //     });
-    //   }, []);
-
     const generateGameID = () => {
         return Math.floor(1000 + Math.random() * 9000) - 1;
     }

@@ -4,7 +4,7 @@ import socketIOClient from "socket.io-client";
 import '../../hooks/useLobby';
 import './LobbyPage.css';
 import useLobby from '../../hooks/useLobby';
-import { Input } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 
 const ENDPOINT = "http://127.0.0.1:3000";
 
@@ -12,7 +12,7 @@ const LobbyPage = (props: any): any => {
 
   const { roomId } = props.match.params; // Gets roomId from URL
   const { userName } = props.location.state; // Gets username from props
-  const { players, addPlayer } = useLobby(roomId, userName); // Creates a websocket and manages the lobby participants
+  const { players, addPlayer, setPlayerReady } = useLobby(roomId, userName); // Creates a websocket and manages the lobby participants
 
   useEffect(() => {
     addPlayer(userName, roomId);
@@ -31,14 +31,18 @@ const LobbyPage = (props: any): any => {
         {
           players.map((player: any) => {
             return (
-              <p>{player.userName}</p>
+              <p>{player.userName + ' ' + player.isReady}</p>
             )
           })
         }
       </div>
-      {/* {
-          userName
-        } */}
+      <Button
+        variant="contained" 
+        color="primary" 
+        onClick={() => { setPlayerReady() }}
+        className="button">
+          ready
+      </Button>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 
-const LOBBY_GAME_EVENT = "playerLobbyEvent"; // Name of the event
+const LOBBY_GAME_EVENT = "playerLobbyEvent"; 
+const PLAYER_READY_EVENT = "playerReadyEvent"; // Name of the event
 const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const useLobby = (gameId: string, userName: string) => {
@@ -16,8 +17,8 @@ const useLobby = (gameId: string, userName: string) => {
         });
 
         // Listens for incoming players
-        socketRef.current.on(LOBBY_GAME_EVENT, (player: any) => {
-            const incomingPlayers = player.playersInGame      
+        socketRef.current.on(LOBBY_GAME_EVENT, (players: any) => {
+            const incomingPlayers = players.playersInGame      
 
             setPlayers(incomingPlayers);
         });
@@ -38,7 +39,25 @@ const useLobby = (gameId: string, userName: string) => {
         });
     };
 
-    return { players, addPlayer };
+    const setPlayerReady = () => {  
+        
+        console.log("CAllinngg");
+        
+        socketRef.current.emit(PLAYER_READY_EVENT, {
+            userName, 
+            gameId
+        });
+
+        socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
+            const incomingPlayers = players.playersInGame      
+            console.log(JSON.stringify(incomingPlayers));
+            setPlayers(incomingPlayers);
+        });
+        
+
+    }
+
+    return { players, addPlayer, setPlayerReady };
 };
 
 export default useLobby;
