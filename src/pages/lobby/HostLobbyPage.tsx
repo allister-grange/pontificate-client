@@ -20,14 +20,13 @@ const HostLobbyPage = (props: any): any => {
     }, []);
 
     const allPlayersAreReady = (): boolean => {
-        // let allReady = true;
-        // players.map((player: any) => {
-        //     if (!player.isReady) {
-        //         allReady = false;
-        //     }
-        // });
-        // return allReady;
-        return false;
+        let allReady = true;
+        players.map((player: any) => {
+            if (!player.isReady) {
+                allReady = false;
+            }
+        });
+        return allReady;
     }
 
     return (
@@ -42,15 +41,30 @@ const HostLobbyPage = (props: any): any => {
                     </p>
                     :
                     <div>
-                    {
-                      players.map((player: any, index: number) => {
-                        return (
-                          <p key={index}>{player.userName + ' ' + player.isReady}</p>
-                        )
-                      })
-                    }
-                  </div>
+                        {
+                            players.map((player: any, index: number) => {
+                                return (
+                                    <p key={index}>{player.userName + ' ' + player.isReady}</p>
+                                )
+                            })
+                        }
+                    </div>
             }
+
+            <div>
+                {
+                    allPlayersAreReady() && players.length > 0 ?
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => { console.log("starting game");}}
+                            className="button">
+                            Start game
+                        </Button>
+                        :
+                        null
+                }
+            </div>
 
         </div >
     );

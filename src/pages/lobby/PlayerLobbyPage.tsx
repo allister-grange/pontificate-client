@@ -18,16 +18,6 @@ const PlayerLobbyPage = (props: any): any => {
     
   }, []);
 
-  const allPlayersAreReady = (): boolean => {
-    let allReady = true;
-    players.map((player: any) => {
-      if (!player.isReady) {
-        allReady = false;
-      }
-    });
-    return allReady;
-  }
-
   return (
     <div>
       <h1>
@@ -61,20 +51,6 @@ const PlayerLobbyPage = (props: any): any => {
         ready
       </Button>
 
-      <div>
-        {
-          allPlayersAreReady() ?
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => { setPlayerReady() }}
-              className="button">
-              Start game
-          </Button>
-            :
-            null
-        }
-      </div>
     </div >
   );
 }
