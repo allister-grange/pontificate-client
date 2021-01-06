@@ -8,12 +8,12 @@ const ENDPOINT = "http://127.0.0.1:3000";
 
 function HomePage() {
 
-    const [gameName, setGameName] = React.useState("");
+    const [gameId, setGameId] = React.useState("");
     const [userName, setUserName] = React.useState("");
     const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(false);
 
     const handleRoomNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setGameName(event.target.value);
+        setGameId(event.target.value);
     };
 
     const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +49,7 @@ function HomePage() {
                                 color="primary"
                                 type="text"
                                 placeholder="room"
-                                value={gameName}
+                                value={gameId}
                                 onChange={handleRoomNameChange}
                                 className="text-input-field"
                             />
@@ -58,7 +58,7 @@ function HomePage() {
                             <Button
                                 component={Link}
                                 to={{
-                                    pathname: `/${gameName}`,
+                                    pathname: `/player-lobby/${gameId}`,
                                     state: {
                                         userName
                                     }
@@ -81,7 +81,7 @@ function HomePage() {
                     <div className="GameOptions">
                         <Button 
                             component={Link} 
-                            to={`/${generateGameID()}`} 
+                            to={`/host-lobby/${generateGameID()}`} 
                             variant="contained" 
                             color="primary"
                             className="button">

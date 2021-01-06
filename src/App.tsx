@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
-import LobbyPage from './pages/lobby/LobbyPage';
+import PlayerLobbyPage from './pages/lobby/PlayerLobbyPage';
+import HostLobbyPage from './pages/lobby/HostLobbyPage';
 import BoardPage from './pages/game/BoardPage';
 import CardPage from './pages/game/CardPage';
 
@@ -12,7 +13,8 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/:roomId" component={LobbyPage} />
+        <Route exact path="/host-lobby/:gameId" component={HostLobbyPage} />
+        <Route exact path="/player-lobby/:gameId" component={PlayerLobbyPage} />
       </Switch>
     </Router>
   );
