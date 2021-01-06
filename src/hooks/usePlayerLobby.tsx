@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 
 const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent"; 
-const PLAYER_READY_EVENT = "playerReadyEvent"; // Name of the event
+const PLAYER_READY_EVENT = "playerReadyEvent"; 
+const GAME_STARTED_EVENT = "gameStartedEvent"; 
+
 const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const usePlayerLobby = (gameId: string, userName: string) => {
     const [players, setPlayers] = useState([] as any[]);
+    const history = useHistory();
     const socketRef = useRef({} as SocketIOClient.Socket);
 
     useEffect(() => {
@@ -19,6 +23,12 @@ const usePlayerLobby = (gameId: string, userName: string) => {
             const incomingPlayers = players.playersInGame      
 
             setPlayers(incomingPlayers);
+        });
+
+        socketRef.current.on(GAME_STARTED_EVENT, (players: any) => {
+            //send the client to the card screen
+            console.log(`Received game start event for game ${gameId}`);
+            history.push(`/player-game/${gameId}`);
         });
 
         // Destroys the socket reference

@@ -1,13 +1,18 @@
 import { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 
 const CREATE_NEW_LOBBY_EVENT = "createNewLobbyEvent";
-const PLAYER_READY_EVENT = "playerReadyEvent"; // Name of the event
-const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
+const START_NEW_GAME_EVENT = "startNewGameEvent";
+const PLAYER_READY_EVENT = "playerReadyEvent"; 
+const GAME_STARTED_EVENT = "gameStartedEvent"; 
 const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent"; 
+
+const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const useHostLobby = (gameId: string) => {
     const [players, setPlayers] = useState([] as any[]);
+    const history = useHistory();
     const socketRef = useRef({} as SocketIOClient.Socket);
 
     useEffect(() => {
@@ -22,21 +27,23 @@ const useHostLobby = (gameId: string) => {
             setPlayers(incomingPlayers);
         });
 
+        socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
+            const incomingPlayers = players.playersInGame      
+            setPlayers(incomingPlayers);
+        });
+
+        socketRef.current.on(GAME_STARTED_EVENT, (players: any) => {
+            //send the client to the card screen
+            console.log(`Received game start event for game ${gameId}`);
+            history.push(`/host-game/${gameId}`);
+        });
+
         // Destroys the socket reference
         // when the connection is closed
         return () => {
             socketRef.current.disconnect();
         };
     }, [gameId]);
-
-    // Sends a message to the server that
-    // forwards it to all users in the same game
-    // const addPlayer = (userName: string, gameId: string) => {
-    //     socketRef.current.emit(LOBBY_GAME_EVENT, {
-    //         userName, 
-    //         gameId
-    //     });
-    // };
 
     const createNewGame = (gameId: string) => {
 
@@ -47,25 +54,18 @@ const useHostLobby = (gameId: string) => {
         );
     }
 
-    // const setPlayerReady = () => {  
+    
 
-    //     console.log("CAllinngg");
+    const startGame = (gameId: string) => {
 
-    //     socketRef.current.emit(PLAYER_READY_EVENT, {
-    //         userName, 
-    //         gameId
-    //     });
+        console.log(`Starting game with id of ${gameId}`);
 
-    //     socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
-    //         const incomingPlayers = players.playersInGame      
-    //         console.log(JSON.stringify(incomingPlayers));
-    //         setPlayers(incomingPlayers);
-    //     });
+        socketRef.current.emit(START_NEW_GAME_EVENT, 
+            { query: { gameId } }
+        );
+    }
 
-
-    // }
-
-    return { players, createNewGame };
+    return { players, createNewGame, startGame };
 };
 
 export default useHostLobby;

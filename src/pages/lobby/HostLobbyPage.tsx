@@ -10,8 +10,7 @@ const ENDPOINT = "http://127.0.0.1:3000";
 const HostLobbyPage = (props: any): any => {
 
     const { gameId } = props.match.params; // Gets roomId from URL
-    // todo think of a better way then having a ghost "host" user
-    const { players, createNewGame } = useHostLobby(gameId);
+    const { players, createNewGame, startGame } = useHostLobby(gameId);
 
     useEffect(() => {
         //nothing
@@ -57,7 +56,7 @@ const HostLobbyPage = (props: any): any => {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => { console.log("starting game");}}
+                            onClick={() => { startGame(gameId); }}
                             className="button">
                             Start game
                         </Button>
