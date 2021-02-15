@@ -18,6 +18,7 @@ body {
   display: flex;
   justify-content: center;
   height: 80vh; 
+  width: 100vw;
 }
 
 .GameOptions {
@@ -28,12 +29,12 @@ body {
 .RoomDetailsButtons {
   padding-top: 15px;
   display: flex;
-  justify-content: space-evenly;
-
+  flex: 1;
+  justify-content: space-around;
 }
 
 .RoomDetailsInputs {
   display: flex;
+  width: 100%;
   justify-content: space-around;
-
 }
