@@ -9,6 +9,10 @@ html, body, #app, #app>div {
   flex-direction: column;
 }
 
+.words {
+  margin-bottom: 100px;
+}
+
 .buttons {
   position: absolute;
   margin-left: auto;
