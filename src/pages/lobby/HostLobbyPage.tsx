@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import socketIOClient from "socket.io-client";
-import './PlayerLobbyPage.css';
+import './HostLobbyPage.css';
 import useHostLobby from '../../hooks/useHostLobby';
 import { Button, Input } from '@material-ui/core';
 
@@ -13,8 +13,6 @@ const HostLobbyPage = (props: any): any => {
   const { players, createNewGame, startGame } = useHostLobby(gameId);
 
   useEffect(() => {
-    //nothing
-    console.log(props.match.params);
     createNewGame(gameId);
   }, []);
 
@@ -30,27 +28,44 @@ const HostLobbyPage = (props: any): any => {
 
   return (
     <div>
-      <h1>
-        HOST LOBBY: GAMEID: {gameId}
-      </h1>
-      {
-        players.length === 0 ?
-          < p >
-            no one in the lobby yet g unit
-					</p>
-          :
-          <div>
-            {
-              players.map((player: any, index: number) => {
-                return (
-                  <p key={index}>{player.userName + ' ' + player.isReady}</p>
-                )
-              })
-            }
-          </div>
-      }
+      <div className="title">
+        <h1>
+          join on your at phone at
+        </h1>
+        <h1 style={{ color: 'coral' }}>
+          {" " + "pontificate.tv"}
+        </h1>
+      </div>
 
-      <div>
+      <div className="roomCode">
+        <h3>
+          your room code is
+        </h3>
+        <h2 style={{ color: 'coral' }}>
+          {" " + gameId}
+        </h2>
+      </div>
+
+      <div className="playerList">
+        {
+          players.length === 0 ?
+            <p>
+              no one in the lobby yet g unit
+					</p>
+            :
+            <div>
+              {
+                players.map((player: any, index: number) => {
+                  return (
+                    <p key={index}>{player.userName + ' ' + player.isReady}</p>
+                  )
+                })
+              }
+            </div>
+        }
+      </div>
+
+      <div className="startGameButton">
         {
           allPlayersAreReady() && players.length > 0 ?
             <Button
