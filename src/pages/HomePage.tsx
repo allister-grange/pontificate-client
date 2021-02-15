@@ -35,11 +35,12 @@ function HomePage() {
       </div>
       {
         showingJoinGameOptions ?
-          <div>
+          <div className="RoomDetails">
             <div className="RoomDetailsInputs">
               <Input
                 color="primary"
                 type="text"
+                style={{ marginRight: '10px'}}
                 placeholder="username"
                 value={userName}
                 onChange={handleUserNameChange}
@@ -48,6 +49,7 @@ function HomePage() {
               <Input
                 color="primary"
                 type="text"
+                style={{ marginLeft: '10px'}}
                 placeholder="room"
                 value={gameId}
                 onChange={handleRoomNameChange}
@@ -56,7 +58,16 @@ function HomePage() {
             </div>
             <div className="RoomDetailsButtons">
               <Button
+                variant="outlined"
+                color="primary"
+                style={{ marginRight: '5px'}}
+                onClick={() => { setShowingJoinGameOptions(false) }}
+                className="button">
+                back
+              </Button>
+              <Button
                 component={Link}
+                style={{ marginLeft: '5px'}}
                 to={{
                   pathname: `/player-lobby/${gameId}`,
                   state: {
@@ -68,19 +79,13 @@ function HomePage() {
                 className="button">
                 join game
               </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => { setShowingJoinGameOptions(false) }}
-                className="button">
-                back
-              </Button>
             </div>
           </div>
           :
           <div className="GameOptions">
             <Button
               component={Link}
+              style={{ marginRight: '5px'}}
               to={`/host-lobby/${generateGameID()}`}
               variant="outlined"
               color="primary"
@@ -89,6 +94,7 @@ function HomePage() {
             </Button>
             <Button
               variant="outlined"
+              style={{ marginLeft: '5px'}}
               color="primary"
               onClick={() => { setShowingJoinGameOptions(true) }}
               className="button">

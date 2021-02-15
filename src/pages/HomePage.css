@@ -23,18 +23,24 @@ body {
 
 .GameOptions {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.RoomDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .RoomDetailsButtons {
   padding-top: 15px;
   display: flex;
-  flex: 1;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .RoomDetailsInputs {
   display: flex;
-  width: 100%;
-  justify-content: space-around;
+  justify-content: center;
+  width: 70%;
 }
