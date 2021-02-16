@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import socketIOClient from "socket.io-client";
 import './HostLobbyPage.css';
 import useHostLobby from '../../hooks/useHostLobby';
-import { Button, Input } from '@material-ui/core';
+import { Button, Input, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 const ENDPOINT = "http://127.0.0.1:3000";
 
@@ -51,17 +51,31 @@ const HostLobbyPage = (props: any): any => {
           players.length === 0 ?
             <p>
               no one in the lobby yet g unit
-					</p>
+            </p>
             :
-            <div>
-              {
-                players.map((player: any, index: number) => {
-                  return (
-                    <p key={index}>{player.userName + ' ' + player.isReady}</p>
-                  )
-                })
-              }
-            </div>
+            <Table className="playerTable">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">player</TableCell>
+                  <TableCell align="center">status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  players.map((player: any, index: number) => {
+                    console.log(player);
+                    console.log(player.isReady);
+                    
+                    return (
+                      <TableRow key={index}>
+                        <TableCell align="center">{player.userName}</TableCell>
+                        <TableCell align="center">{player.isReady ? "ready" : "not ready"}</TableCell>
+                      </TableRow>
+                    )
+                  })
+                }
+              </TableBody>
+            </Table>
         }
       </div>
 

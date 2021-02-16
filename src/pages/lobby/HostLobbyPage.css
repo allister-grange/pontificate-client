@@ -3,6 +3,14 @@
   white-space: pre-wrap;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.playerTable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
 }
 
 .container {
