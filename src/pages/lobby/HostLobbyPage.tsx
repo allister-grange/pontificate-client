@@ -27,7 +27,7 @@ const HostLobbyPage = (props: any): any => {
   }
 
   return (
-    <div>
+    <div className="container">
       <div className="title">
         <h1>
           join on your at phone at

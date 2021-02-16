@@ -28,9 +28,9 @@ function HomePage() {
     <div className="App">
       <div className="Title">
         <header className="App-header">
-          <p>
+          <h1>
             welcome to pontificate
-          </p>
+          </h1>
         </header>
       </div>
       {
