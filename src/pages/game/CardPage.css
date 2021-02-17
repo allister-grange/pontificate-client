@@ -14,6 +14,8 @@ html, body, #app, #app>div {
 
 .words {
   margin-bottom: 100px;
+  max-width: 50%;
+  font-size: calc(12px + 1vmin);
 }
 
 .buttons {
