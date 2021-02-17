@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import logo from './logo.svg';
-import socketIOClient from "socket.io-client";
 import './CardPage.css';
-import { Box, Button, Grid } from '@material-ui/core';
-import { borders } from '@material-ui/system';
+import { Button } from '@material-ui/core';
 
 function CardPage() {
 
@@ -33,7 +30,7 @@ function CardPage() {
 
   return (
     <div className="root">
-      <div className="words">
+      <div className="wordsToGuess">
         <h1>
           {objectsCards[indexOfCurrentCard]}
         </h1>
