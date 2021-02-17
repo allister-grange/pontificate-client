@@ -29,7 +29,7 @@ function CardPage() {
   }
 
   return (
-    <div className="root">
+    <div className="cardContainer">
       <div className="wordsToGuess">
         <h1>
           {objectsCards[indexOfCurrentCard]}

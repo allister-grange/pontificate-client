@@ -3,18 +3,20 @@ html, body, #app, #app>div {
   width: 100%;
 }
 
-.root {
+#root {
+  width: 100%;
+}
+
+.cardContainer {
   height: 100%;
-  width: 100vw;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding-left: 25%;
+  padding-left: 15%;
 }
 
 .wordsToGuess {
   margin-bottom: 100px;
-  max-width: 50%;
   font-size: calc(12px + 1vmin);
 }
 
