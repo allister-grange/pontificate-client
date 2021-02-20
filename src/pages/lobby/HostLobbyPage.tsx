@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import socketIOClient from "socket.io-client";
 import './HostLobbyPage.css';
 import useHostLobby from '../../hooks/useHostLobby';
-import { Button, Input, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 const ENDPOINT = "http://127.0.0.1:3000";
 

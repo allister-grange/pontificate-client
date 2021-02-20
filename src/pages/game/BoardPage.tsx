@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react';
+import useGameState from '../../hooks/useGameState';
 
 import './BoardPage.css';
 
-function BoardPage() {
+const BoardPage = (props: any): any => {
+
+  const { gameId } = props.match.params; // Gets roomId from URL
+  const { players, getPlayersInGame } = useGameState(gameId);
+
+  useEffect(() => {
+    getPlayersInGame(gameId);
+  }, []);
 
   return (
     <div>
@@ -12,6 +20,12 @@ function BoardPage() {
             this is the game board
           </h1>
         </header>
+      </div>
+
+      <div>
+        {players.map((player, idx) => {
+          <p>{player.userName}</p>
+        })}
       </div>
     </div>
   );
