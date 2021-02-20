@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import socketIOClient from "socket.io-client";
+import socketIOClient, { Socket } from "socket.io-client";
 import { Player } from "../types";
 
 const CREATE_NEW_LOBBY_EVENT = "createNewLobbyEvent";

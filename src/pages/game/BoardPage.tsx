@@ -12,6 +12,11 @@ const BoardPage = (props: any): any => {
     getPlayersInGame(gameId);
   }, []);
 
+  useEffect(() => {
+    console.log(players);
+    
+  }, [players]);
+
   return (
     <div>
       <div className="Title">
@@ -23,9 +28,9 @@ const BoardPage = (props: any): any => {
       </div>
 
       <div>
-        {players.map((player, idx) => {
+        {players.map((player, idx) => (
           <p>{player.userName}</p>
-        })}
+        ))}
       </div>
     </div>
   );

@@ -4,14 +4,13 @@ import socketIOClient from "socket.io-client";
 import { Player } from "../types";
 
 const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
-
+const PLAYERS_IN_GAME = "playersInGame"
 
 const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 const GAME_STARTED_EVENT = "gameStartedEvent";
 
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
-  const history = useHistory();
   const socketRef = useRef({} as SocketIOClient.Socket);
 
   useEffect(() => {
@@ -20,8 +19,8 @@ const useGameState = (gameId: string) => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players when a game is started
-    socketRef.current.on(GET_CURRENT_PLAYERS_IN_GAME_EVENT, (players: any) => {
-      console.log("GET_CURRENT_PLAYERS_IN_GAME_EVENT triggered, setting players in game");
+    socketRef.current.on(PLAYERS_IN_GAME, (players: any) => {
+      console.log("PLAYERS_IN_GAME triggered, setting players in game");
       const incomingPlayers = players.playersInGame
 
       setPlayers(incomingPlayers);

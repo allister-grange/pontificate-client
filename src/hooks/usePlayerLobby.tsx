@@ -26,7 +26,7 @@ const usePlayerLobby = (gameId: string, userName: string) => {
             setPlayers(incomingPlayers);
         });
 
-        socketRef.current.on(GAME_STARTED_EVENT, (players: any) => {
+        socketRef.current.on(GAME_STARTED_EVENT, () => {
             //send the client to the card screen
             console.log(`Received game start event for game ${gameId}`);
             history.push(`/player-game/${gameId}`);
