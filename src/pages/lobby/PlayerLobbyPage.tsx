@@ -15,43 +15,45 @@ const PlayerLobbyPage = (props: any): any => {
   useEffect(() => {
     addPlayer(userName, gameId);
     console.log(userName + ' ' + gameId);
-    
+
   }, []);
 
   return (
-    <div>
-      <h1>
-        PLAYER LOBBY GAMEID: {gameId}
-      </h1>
-      {
-        players.length === 0 ?
-          < p >
-            You see this because there's no one in this lobby. 
-            This is an ERROR
-          </p>
-          :
-          null
-      }
-
-      <div>
+    <div className="player-lobby-container">
+      <div className="player-lobby-text">
+        <h2>
+          PLAYER LOBBY GAMEID: {gameId}
+        </h2>
         {
-          players.map((player: any, index: number) => {
-            return (
-              <p key={index}>{player.userName + ' ' + player.isReady}</p>
-            )
-          })
+          players.length === 0 ?
+            <p>
+              This is an error, if you'd like to start a new game
+              head back to awardit.info
+            </p>
+            :
+            <>
+              <div>
+                {
+                  players.map((player: any, index: number) => {
+                    return (
+                      <p key={index}>{player.userName + ' ' + player.isReady}</p>
+                    )
+                  })
+                }
+              </div>
+              <div className="player-ready-button">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => { setPlayerReady() }}
+                  className="button">
+                  ready
+                </Button>
+              </div>
+            </>
         }
       </div>
-
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => { setPlayerReady() }}
-        className="button">
-        ready
-      </Button>
-
-    </div >
+    </div>
   );
 }
 

@@ -1,6 +1,18 @@
-.body {
+.player-lobby-container {
+  display: flex;
+  flex: 1;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
 }
 
-h1 {
-    color: black;
+.player-ready-button {
+  width: 100%;
+}
+
+.player-lobby-text {
+  width: 90%;
 }
