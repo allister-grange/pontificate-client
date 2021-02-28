@@ -18,6 +18,17 @@ const PlayerLobbyPage = (props: any): any => {
     console.log(userName + ' ' + gameId);
   }, []);
 
+  const onReadyClick = () => {
+    if (ready) {
+      setReady(false);
+      setPlayerReady(false);
+    }
+    else {
+      setReady(true);
+      setPlayerReady(true);
+    }
+  }
+
   return (
     <div className="player-lobby-container">
       <div className="player-lobby-text">
@@ -26,7 +37,7 @@ const PlayerLobbyPage = (props: any): any => {
             you're in game:&nbsp;
           </h2>
           <h2 style={{ color: 'coral' }}>
-            {" "  +gameId}
+            {" " + gameId}
           </h2>
         </div>
         {
@@ -74,7 +85,7 @@ const PlayerLobbyPage = (props: any): any => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => { setPlayerReady(); setReady(!ready); }}
+                  onClick={onReadyClick}
                   className="button">
                   {ready ? "not ready" : "ready"}
                 </Button>

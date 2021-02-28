@@ -11,6 +11,7 @@ const HostLobbyPage = (props: any): any => {
   const { players, createNewGame, startGame } = useHostLobby(gameId);
 
   useEffect(() => {
+    //TODO, if someone refreshes the host page, it will create a new game and kick people off
     createNewGame(gameId);
   }, []);
 
