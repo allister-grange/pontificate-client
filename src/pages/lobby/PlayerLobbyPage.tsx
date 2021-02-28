@@ -21,9 +21,14 @@ const PlayerLobbyPage = (props: any): any => {
   return (
     <div className="player-lobby-container">
       <div className="player-lobby-text">
-        <h2>
-          you're in game: {gameId}
-        </h2>
+        <div className="player-lobby-title">
+          <h2>
+            you're in game:&nbsp;
+          </h2>
+          <h2 style={{ color: 'coral' }}>
+            {" "  +gameId}
+          </h2>
+        </div>
         {
           players.length === 0 ?
             <p>

@@ -33,3 +33,9 @@
 .player-lobby-text {
   width: 90%;
 }
+
+.player-lobby-title {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
