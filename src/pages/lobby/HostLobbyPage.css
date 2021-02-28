@@ -6,13 +6,6 @@
   flex-wrap: wrap;
 }
 
-.playerTable {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 400px;
-}
-
 .container {
   display: flex;
   height: 100%;
@@ -21,7 +14,14 @@
   align-items: center;
 }
 
-.roomCode {
+.host-player-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+}
+
+.host-player-list {
   display: flex;
   white-space: pre-wrap;
   justify-content: center;
@@ -29,7 +29,7 @@
   align-items: center;
 }
 
-.playerList {
+.room-code {
   display: flex;
   white-space: pre-wrap;
   justify-content: center;
@@ -37,7 +37,7 @@
   align-items: center;
 }
 
-.startGameButton {
+.start-game-button {
   display: flex;
   white-space: pre-wrap;
   justify-content: center;

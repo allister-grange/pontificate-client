@@ -9,7 +9,24 @@
   width: 100%;
 }
 
+.player-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.player-list {
+  display: flex;
+  white-space: pre-wrap;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
 .player-ready-button {
+  padding-top: 20px;
   width: 100%;
 }
 

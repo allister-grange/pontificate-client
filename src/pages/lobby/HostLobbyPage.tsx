@@ -35,7 +35,7 @@ const HostLobbyPage = (props: any): any => {
         </h1>
       </div>
 
-      <div className="roomCode">
+      <div className="room-code">
         <h3>
           your room code is
         </h3>
@@ -44,14 +44,14 @@ const HostLobbyPage = (props: any): any => {
         </h2>
       </div>
 
-      <div className="playerList">
+      <div className="host-player-list">
         {
           players.length === 0 ?
             <p>
               no one in the lobby yet g unit
             </p>
             :
-            <Table className="playerTable">
+            <Table className="host-player-table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">player</TableCell>
@@ -77,7 +77,7 @@ const HostLobbyPage = (props: any): any => {
         }
       </div>
 
-      <div className="startGameButton">
+      <div className="start-game-button">
         {
           allPlayersAreReady() && players.length > 0 ?
             <Button
