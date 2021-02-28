@@ -65,9 +65,6 @@ const PlayerLobbyPage = (props: any): any => {
                       <TableBody>
                         {
                           players.map((player: any, index: number) => {
-                            console.log(player);
-                            console.log(player.isReady);
-
                             return (
                               <TableRow key={index}>
                                 <TableCell align="center">{player.userName}</TableCell>

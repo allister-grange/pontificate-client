@@ -34,7 +34,7 @@ const usePlayerLobby = (gameId: string, userName: string) => {
 
     socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
       const incomingPlayers = players.playersInGame
-      console.log(JSON.stringify(incomingPlayers));
+      console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
 

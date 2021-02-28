@@ -61,10 +61,7 @@ const HostLobbyPage = (props: any): any => {
               </TableHead>
               <TableBody>
                 {
-                  players.map((player: any, index: number) => {
-                    console.log(player);
-                    console.log(player.isReady);
-                    
+                  players.map((player: any, index: number) => {                    
                     return (
                       <TableRow key={index}>
                         <TableCell align="center">{player.userName}</TableCell>
