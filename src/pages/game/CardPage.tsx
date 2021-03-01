@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
-import './CardPage.css';
 import { Button } from '@material-ui/core';
+import '../../styles/CardPage.css';
 
 function CardPage() {
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import PlayerLobbyPage from './pages/lobby/PlayerLobbyPage';
@@ -7,8 +7,6 @@ import CardPage from './pages/game/CardPage';
 import BoardPage from './pages/game/BoardPage';
 import { ThemeProvider } from '@material-ui/core/styles'
 import { theme } from './components/theme';
-
-const ENDPOINT = "http://127.0.0.1:3000";
 
 function App() {
   return (

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import '../../hooks/usePlayerLobby';
-import './PlayerLobbyPage.css';
 import usePlayerLobby from '../../hooks/usePlayerLobby';
-import { Button, Input, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
-
-const ENDPOINT = "http://127.0.0.1:3000";
+import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import '../../hooks/usePlayerLobby';
+import '../../styles/PlayerLobbyPage.css';
 
 const PlayerLobbyPage = (props: any): any => {
 

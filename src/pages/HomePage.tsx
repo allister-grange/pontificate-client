@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './HomePage.css';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
-
-const ENDPOINT = "http://127.0.0.1:3000";
+import '../styles/HomePage.css';
 
 function HomePage() {
 

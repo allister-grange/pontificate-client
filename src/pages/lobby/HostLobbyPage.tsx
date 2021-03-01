@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import './HostLobbyPage.css';
-import useHostLobby from '../../hooks/useHostLobby';
+import React, { useEffect } from 'react';
 import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
-
-const ENDPOINT = "http://127.0.0.1:3000";
+import useHostLobby from '../../hooks/useHostLobby';
+import '../../styles/HostLobbyPage.css';
 
 const HostLobbyPage = (props: any): any => {
 

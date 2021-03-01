@@ -1,8 +1,7 @@
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import useGameState from '../../hooks/useGameState';
-
-import './BoardPage.css';
+import '../../styles/BoardPage.css';
 
 const BoardPage = (props: any): any => {
 
