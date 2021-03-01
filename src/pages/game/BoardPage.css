@@ -1,0 +1,23 @@
+.board-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.board-page-player-table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  max-width: 850px;
+}
+
+.board-page-player-container {
+  display: flex;
+  white-space: pre-wrap;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+}

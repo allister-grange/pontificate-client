@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import useGameState from '../../hooks/useGameState';
 
 import './BoardPage.css';
@@ -12,13 +13,8 @@ const BoardPage = (props: any): any => {
     getPlayersInGame(gameId);
   }, []);
 
-  useEffect(() => {
-    console.log(players);
-    
-  }, [players]);
-
   return (
-    <div>
+    <div className="board-page-container">
       <div className="Title">
         <header className="App-header">
           <h1>
@@ -27,10 +23,34 @@ const BoardPage = (props: any): any => {
         </header>
       </div>
 
-      <div>
-        {players.map((player, idx) => (
-          <p>{player.userName}</p>
-        ))}
+      <div className="board-page-player-container">
+        {
+          players.length === 0 ?
+            <p>
+              no one is in your game :( something must be wrong!
+            </p>
+            :
+            <Table className="board-page-player-table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">player</TableCell>
+                  <TableCell align="center">points</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  players.map((player: any, index: number) => {                    
+                    return (
+                      <TableRow key={index}>
+                        <TableCell align="center">{player.userName}</TableCell>
+                        <TableCell align="center">{player.points}</TableCell>
+                      </TableRow>
+                    )
+                  })
+                }
+              </TableBody>
+            </Table>
+        }
       </div>
     </div>
   );

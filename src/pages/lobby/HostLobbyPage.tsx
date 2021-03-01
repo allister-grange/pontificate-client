@@ -49,7 +49,7 @@ const HostLobbyPage = (props: any): any => {
         {
           players.length === 0 ?
             <p>
-              no one in the lobby yet g unit
+              no one has joined the game yet, get out your phones!
             </p>
             :
             <Table className="host-player-table">

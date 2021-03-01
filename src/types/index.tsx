@@ -3,6 +3,8 @@ export type Player = {
   gameId: string,
   userName: string,
   isReady: boolean,
+  points: number,
+  turnActive: boolean
 }
 
 export type GameData = {
