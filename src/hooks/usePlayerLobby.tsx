@@ -11,8 +11,9 @@ const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const usePlayerLobby = (gameId: string, userName: string) => {
   const [players, setPlayers] = useState([] as Player[]);
-  const history = useHistory();
   const socketRef = useRef({} as SocketIOClient.Socket);
+  const userId = useRef({});
+  const history = useHistory();
 
   useEffect(() => {
     // Creates a WebSocket connection
@@ -20,16 +21,18 @@ const usePlayerLobby = (gameId: string, userName: string) => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players
-    socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (players: any) => {
-      const incomingPlayers = players.playersInGame
+    socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (data: any) => {
+      const incomingPlayers = data.playersInGame
 
+      userId.current = data.userId;
       setPlayers(incomingPlayers);
     });
 
     socketRef.current.on(GAME_STARTED_EVENT, () => {
       //send the client to the card screen
       console.log(`Received game start event for game ${gameId}`);
-      history.push(`/player-game/${gameId}`);
+      console.log(`User's ID at this point is ${userId.current}`);
+      history.push({pathname: `/player-game/gameId=${gameId}`, state: {gameId, userId: userId.current}});
     });
 
     socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
@@ -65,7 +68,7 @@ const usePlayerLobby = (gameId: string, userName: string) => {
     );
   }
 
-  return { players, addPlayer, setPlayerReady };
+  return { userId, players, addPlayer, setPlayerReady };
 };
 
 export default usePlayerLobby;

@@ -1,30 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@material-ui/core';
 import '../../styles/CardPage.css';
+import useGameState from '../../hooks/useGameState';
 
-function CardPage() {
+const CardPage = (props: any): any => {
 
   const objectsCards = ['Suspension Bridge', 'Syringe', 'Paper Clip', 'Accessory',
     'Bill', 'Log', 'Camera', 'Flint', 'Signpost']
+    
+  const { gameId, userId } = props.location.state;
 
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
   const [correctCount, setCorrectCount] = useState(0);
+  const { players, getPlayersInGame, addPointToPlayer } = useGameState(gameId);
 
   useEffect(() => {
+    console.log(userId);
+    
     setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
   }, []);
 
   const nextCard = () => {
+    addPointToPlayer(correctCount + 1, userId);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
     setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
   }
 
-  //use a stack?
   const lastCard = () => {
-    setIndexOfCurrentCard(indexOfLastCard);
-    setIndexOfLastCard(indexOfCurrentCard);
+    if(indexOfLastCard === -1){      
+      setIndexOfLastCard(indexOfCurrentCard);
+      setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
+    }
+    else{
+      setIndexOfCurrentCard(indexOfLastCard);
+      setIndexOfLastCard(indexOfCurrentCard);  
+    }
   }
 
   return (
@@ -40,13 +52,13 @@ function CardPage() {
 
       <div className="correctCardCount">
         <h4 style={{ paddingRight: '2px'}}>{correctCount}</h4>
-        <p style={{ paddingLeft: '2px'}}>correct cards</p>
+        <p style={{ paddingLeft: '2px'}}>correct</p>
       </div>
 
       <div className="buttons">
         <div style={{ paddingRight: '15px' }}>
           <Button variant="outlined" onClick={lastCard}>
-            incorrect
+            skip
           </Button>
         </div>
 

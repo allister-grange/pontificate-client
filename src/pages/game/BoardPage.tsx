@@ -9,7 +9,7 @@ const BoardPage = (props: any): any => {
   const { players, getPlayersInGame } = useGameState(gameId);
 
   useEffect(() => {
-    getPlayersInGame(gameId);
+    getPlayersInGame();
   }, []);
 
   return (

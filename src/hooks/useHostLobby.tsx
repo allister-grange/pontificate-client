@@ -36,7 +36,7 @@ const useHostLobby = (gameId: string) => {
         socketRef.current.on(GAME_STARTED_EVENT, (players: any) => {
             //send the client to the card screen
             console.log(`Received game start event for game ${gameId}`);
-            history.push(`/host-game/${gameId}`);
+            history.push({ pathname: `/host-game/${gameId}`});
         });
 
         // Destroys the socket reference
