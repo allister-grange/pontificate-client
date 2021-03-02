@@ -1,7 +1,8 @@
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import useGameState from '../../hooks/useGameState';
 import '../../styles/BoardPage.css';
+import { Player } from '../../types';
 
 const BoardPage = (props: any): any => {
 
@@ -17,7 +18,7 @@ const BoardPage = (props: any): any => {
       <div className="Title">
         <header className="App-header">
           <h1>
-            this is the game board
+            game board
           </h1>
         </header>
       </div>
@@ -38,11 +39,24 @@ const BoardPage = (props: any): any => {
               </TableHead>
               <TableBody>
                 {
-                  players.map((player: any, index: number) => {                    
+                  players.map((player: Player, index: number) => {
                     return (
                       <TableRow key={index}>
                         <TableCell align="center">{player.userName}</TableCell>
                         <TableCell align="center">{player.points}</TableCell>
+                        {
+                          player.turnStatus === "ready" ?
+                            <TableCell align="center">
+                              <Button
+                                color="primary"
+                                variant="outlined"
+                              >
+                                take turn
+                              </Button>
+                            </TableCell>
+                            :
+                            null
+                        }
                       </TableRow>
                     )
                   })

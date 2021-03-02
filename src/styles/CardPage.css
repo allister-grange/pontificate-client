@@ -7,7 +7,7 @@ html, body, #app, #app>div {
   width: 100%;
 }
 
-.cardContainer {
+.card-container {
   height: 100%;
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@ html, body, #app, #app>div {
   padding-left: 15%;
 }
 
-.wordsToGuess {
+.words-to-guess {
   margin-bottom: 100px;
   font-size: calc(12px + 1vmin);
 }
@@ -32,7 +32,7 @@ html, body, #app, #app>div {
   justify-content: center;
 }
 
-.correctCardCount {
+.correct-card-count {
   position: absolute;
   bottom: 100px;
   margin-left: auto;

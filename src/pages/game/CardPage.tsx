@@ -7,19 +7,26 @@ const CardPage = (props: any): any => {
 
   const objectsCards = ['Suspension Bridge', 'Syringe', 'Paper Clip', 'Accessory',
     'Bill', 'Log', 'Camera', 'Flint', 'Signpost']
-    
+
   const { gameId, userId } = props.location.state;
 
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
   const [correctCount, setCorrectCount] = useState(0);
-  const { players, getPlayersInGame, addPointToPlayer } = useGameState(gameId);
+  const [counter, setCounter] = useState(60);
+  const { addPointToPlayer } = useGameState(gameId);
 
   useEffect(() => {
     console.log(userId);
-    
+
     setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
   }, []);
+
+  useEffect(() => {
+    if (counter > 0) {
+      setTimeout(() => setCounter(counter - 1), 1000);
+    }
+  }, [counter]);
 
   const nextCard = () => {
     addPointToPlayer(correctCount + 1, userId);
@@ -29,19 +36,19 @@ const CardPage = (props: any): any => {
   }
 
   const lastCard = () => {
-    if(indexOfLastCard === -1){      
+    if (indexOfLastCard === -1) {
       setIndexOfLastCard(indexOfCurrentCard);
       setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
     }
-    else{
+    else {
       setIndexOfCurrentCard(indexOfLastCard);
-      setIndexOfLastCard(indexOfCurrentCard);  
+      setIndexOfLastCard(indexOfCurrentCard);
     }
   }
 
   return (
-    <div className="cardContainer">
-      <div className="wordsToGuess">
+    <div className="card-container">
+      <div className="words-to-guess">
         <h1>
           {objectsCards[indexOfCurrentCard]}
         </h1>
@@ -50,9 +57,9 @@ const CardPage = (props: any): any => {
         </h4>
       </div>
 
-      <div className="correctCardCount">
-        <h4 style={{ paddingRight: '2px'}}>{correctCount}</h4>
-        <p style={{ paddingLeft: '2px'}}>correct</p>
+      <div className="correct-card-count">
+        <p style={{ paddingLeft: '2px' }}>time left: {counter} | correct&nbsp;</p>
+        <h4 style={{ paddingRight: '2px' }}>{correctCount}</h4>
       </div>
 
       <div className="buttons">
