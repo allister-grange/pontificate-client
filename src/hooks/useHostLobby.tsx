@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import socketIOClient, { Socket } from "socket.io-client";
 import { Player } from "../types";
+import * as ROUTES from '../constants/routes'
 
 const CREATE_NEW_LOBBY_EVENT = "createNewLobbyEvent";
 const START_NEW_GAME_EVENT = "startNewGameEvent";
@@ -36,7 +37,7 @@ const useHostLobby = (gameId: string) => {
         socketRef.current.on(GAME_STARTED_EVENT, (players: any) => {
             //send the client to the card screen
             console.log(`Received game start event for game ${gameId}`);
-            history.push({ pathname: `/host-game/${gameId}`});
+            history.push({ pathname: ROUTES.BOARDPAGE.replace(":gameId", gameId)});
         });
 
         // Destroys the socket reference

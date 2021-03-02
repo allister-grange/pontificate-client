@@ -14,7 +14,7 @@ const CardPage = (props: any): any => {
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
   const [correctCount, setCorrectCount] = useState(0);
   const [counter, setCounter] = useState(60);
-  const { addPointToPlayer } = useGameState(gameId);
+  const { player, addPointToPlayer } = useGameState(gameId);
 
   useEffect(() => {
     console.log(userId);

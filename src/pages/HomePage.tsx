@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
+import * as ROUTES from '../constants/routes'
 import '../styles/HomePage.css';
 
 function HomePage() {
@@ -18,8 +19,8 @@ function HomePage() {
     setUserName(event.target.value);
   };
 
-  const generateGameID = () => {
-    return Math.floor(1000 + Math.random() * 9000) - 1;
+  const generateGameID = (): string => {
+    return (Math.floor(1000 + Math.random() * 9000) - 1).toString();
   }
 
   return (
@@ -67,7 +68,7 @@ function HomePage() {
                 component={Link}
                 style={{ marginLeft: '5px'}}
                 to={{
-                  pathname: `/player-lobby/${gameId}`,
+                  pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
                   state: {
                     userName
                   }
@@ -84,7 +85,7 @@ function HomePage() {
             <Button
               component={Link}
               style={{ marginRight: '5px'}}
-              to={`/host-lobby/${generateGameID()}`}
+              to={ROUTES.HOSTLOBBY.replace(":gameId", generateGameID())}
               variant="outlined"
               color="primary"
               className="button">

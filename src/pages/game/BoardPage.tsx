@@ -7,10 +7,10 @@ import { Player } from '../../types';
 const BoardPage = (props: any): any => {
 
   const { gameId } = props.match.params; // Gets roomId from URL
-  const { players, getPlayersInGame } = useGameState(gameId);
+  const { players, getAllPlayersInGame } = useGameState(gameId);
 
   useEffect(() => {
-    getPlayersInGame();
+    getAllPlayersInGame();
   }, []);
 
   return (
@@ -35,6 +35,7 @@ const BoardPage = (props: any): any => {
                 <TableRow>
                   <TableCell align="center">player</TableCell>
                   <TableCell align="center">points</TableCell>
+                  <TableCell align="center">status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -42,11 +43,11 @@ const BoardPage = (props: any): any => {
                   players.map((player: Player, index: number) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell align="center">{player.userName}</TableCell>
-                        <TableCell align="center">{player.points}</TableCell>
+                        <TableCell size="small" align="center">{player.userName}</TableCell>
+                        <TableCell size="small" align="center">{player.points}</TableCell>
                         {
                           player.turnStatus === "ready" ?
-                            <TableCell align="center">
+                            <TableCell size="small" align="center">
                               <Button
                                 color="primary"
                                 variant="outlined"
@@ -55,7 +56,12 @@ const BoardPage = (props: any): any => {
                               </Button>
                             </TableCell>
                             :
-                            null
+                            <TableCell size="small" align="center">
+                              <h4>
+                                {player.turnStatus}
+                              </h4>
+                            </TableCell>
+
                         }
                       </TableRow>
                     )

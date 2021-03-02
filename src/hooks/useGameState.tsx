@@ -12,6 +12,7 @@ const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse"
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
   const socketRef = useRef({} as SocketIOClient.Socket);
+  const player = useRef({} as Player);
 
   useEffect(() => {
     // Creates a WebSocket connection
@@ -21,7 +22,7 @@ const useGameState = (gameId: string) => {
     // Listens for incoming players when a game is started
     socketRef.current.on(PLAYERS_IN_GAME, (data: any) => {
       console.log("PLAYERS_IN_GAME triggered, setting players in game");
-      const incomingPlayers = data.playersInGame
+      const incomingPlayers = data.playersInGame as Player[];
 
       setPlayers(incomingPlayers);
     });
@@ -29,7 +30,7 @@ const useGameState = (gameId: string) => {
     // Listens for incoming points update for a game, updates all players in game
     socketRef.current.on(POINTS_ADDED_TO_PLAYER_RESPONSE, (data: any) => {
       console.log("POINTS_ADDED_TO_PLAYER_RESPONSE triggered, setting players in game");
-      const incomingPlayers = data.playersInGame
+      const incomingPlayers = data.playersInGame as Player[];
 
       setPlayers(incomingPlayers);
     });
@@ -41,12 +42,21 @@ const useGameState = (gameId: string) => {
     };
   }, [gameId]);
 
-  const getPlayersInGame = () => {
+  const getAllPlayersInGame = () => {
 
     console.log(`Getting players in game with id of ${gameId}`);
 
     socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT,
       { query: { gameId } }
+    );
+  }
+
+  const getCurrentPlayerInGame = (playerId: string) => {
+
+    console.log(`Getting players in game with id of ${gameId}`);
+
+    socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT,
+      { query: { gameId, playerId } }
     );
   }
 
@@ -58,7 +68,7 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  return { players, getPlayersInGame, addPointToPlayer };
+  return { players, player, getAllPlayersInGame, addPointToPlayer };
 };
 
 export default useGameState;

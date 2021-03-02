@@ -8,16 +8,18 @@ import BoardPage from './pages/game/BoardPage';
 import { ThemeProvider } from '@material-ui/core/styles'
 import { theme } from './components/theme';
 
+import * as ROUTES from './constants/routes'
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/host-lobby/:gameId" component={HostLobbyPage} />
-          <Route exact path="/player-lobby/:gameId" component={PlayerLobbyPage} />
-          <Route exact path="/host-game/:gameId" component={BoardPage} />
-          <Route exact path="/player-game/:gameId" component={CardPage} />
+          <Route exact path={ROUTES.HOMEPAGE} component={HomePage} />
+          <Route exact path={ROUTES.HOSTLOBBY} component={HostLobbyPage} />
+          <Route exact path={ROUTES.PLAYERLOBBY} component={PlayerLobbyPage} />
+          <Route exact path={ROUTES.BOARDPAGE} component={BoardPage} />
+          <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
         </Switch>
       </Router>
     </ThemeProvider>

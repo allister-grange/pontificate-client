@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { Player } from "../types";
+import * as ROUTES from '../constants/routes'
 
 const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
 const PLAYER_READY_EVENT = "playerReadyEvent";
@@ -32,7 +33,8 @@ const usePlayerLobby = (gameId: string, userName: string) => {
       //send the client to the card screen
       console.log(`Received game start event for game ${gameId}`);
       console.log(`User's ID at this point is ${userId.current}`);
-      history.push({pathname: `/player-game/gameId=${gameId}`, state: {gameId, userId: userId.current}});
+      history.push({pathname: ROUTES.CARDPAGE.replace(":gameId", gameId), 
+        state: {gameId, userId: userId.current}});
     });
 
     socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
