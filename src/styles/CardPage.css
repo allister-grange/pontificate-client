@@ -10,6 +10,16 @@ html, body, #app, #app>div {
 .card-page-container {
   height: 100%;
   width: 100%;
+  display: flex;
+}
+
+.waiting-turn-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+  padding-bottom: 15%;
 }
 
 .display-card-container {

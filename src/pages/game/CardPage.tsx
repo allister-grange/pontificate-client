@@ -8,7 +8,11 @@ const CardPage = (props: any): any => {
   const { gameId, userName } = props.location.state;
 
   const [counter, setCounter] = useState(60);
+  const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(5);
   const { player, addPointToPlayer } = useGameState(gameId);
+
+  //to come from game state later
+  const isTurn = true;
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`
@@ -20,13 +24,35 @@ const CardPage = (props: any): any => {
     }
   }, [counter]);
 
+  useEffect(() => {
+    if (countdownBeforePlaying > 0) {
+      setTimeout(() => setCountDownBeforePlaying(countdownBeforePlaying - 1), 1000);
+    }
+  }, [countdownBeforePlaying]);
+
   return (
     <div className="card-page-container">
-      <DisplayCard 
-        addPointToPlayer={addPointToPlayer}
-        counter={counter}
-        userName={userName}
-      />
+      {
+        !isTurn ?
+          <div className="waiting-turn-message-container">
+            <h3>
+              please wait your turn :)
+            </h3>
+          </div>
+          :
+          countdownBeforePlaying > 0 ?
+            <div className="waiting-turn-message-container">
+              <h1>
+                {countdownBeforePlaying}
+              </h1>
+            </div>
+            :
+            <DisplayCard
+              addPointToPlayer={addPointToPlayer}
+              counter={counter}
+              userName={userName}
+            />
+      }
     </div>
   );
 }
