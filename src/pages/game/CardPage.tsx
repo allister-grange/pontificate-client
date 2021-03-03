@@ -7,9 +7,9 @@ const CardPage = (props: any): any => {
 
   const { gameId, userName } = props.location.state;
 
-  const [counter, setCounter] = useState(-1);
-  const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(-1);
-  const { players, addPointToPlayer, getAllPlayersInGame } = useGameState(gameId);
+  const [counter, setCounter] = useState(60);
+  const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(5);
+  const {players, addPointToPlayer, getAllPlayersInGame} = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
 
   useEffect(() => {
@@ -20,30 +20,26 @@ const CardPage = (props: any): any => {
   useEffect(() => {
     console.log("called now because players was updated");
     console.log(players);
-    
+
     players.map(player => {
-      if (player.userName === userName) {      
+      if (player.userName === userName) {
         setTurnIsActive(player.turnStatus === 'active');
-        setCountDownBeforePlaying(5);
       }
     });
 
   }, [players]);
 
   useEffect(() => {
-    if (counter > 0 && turnIsActive) {
+    if (counter > 0 && countdownBeforePlaying === 0) {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
-  }, [counter]);
+  }, [counter, countdownBeforePlaying]);
 
   useEffect(() => {
     if (countdownBeforePlaying > 0 && turnIsActive) {
       setTimeout(() => setCountDownBeforePlaying(countdownBeforePlaying - 1), 1000);
     }
-    else if(countdownBeforePlaying === 0){
-      setCounter(60);
-    }
-  }, [countdownBeforePlaying]);
+  }, [countdownBeforePlaying, turnIsActive]);
 
   return (
     <div className="card-page-container">
