@@ -12,7 +12,7 @@ const PlayerLobbyPage = (props: any): any => {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    document.title = 'Player Lobby'
+    document.title = 'Player Lobby | Pontificate'
     addPlayer(userName, gameId);
     console.log(userName + ' ' + gameId);
   }, []);

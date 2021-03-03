@@ -1,13 +1,13 @@
 import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
 import React, { useEffect } from 'react';
-import useHostGameState from '../../hooks/useHostGameState';
+import useGameState from '../../hooks/useGameState';
 import { Player } from '../../types';
 import '../../styles/BoardPage.css';
 
 const BoardPage = (props: any): any => {
 
   const { gameId } = props.match.params; // Gets roomId from URL
-  const { players, getAllPlayersInGame } = useHostGameState(gameId);
+  const { players, getAllPlayersInGame, setPlayerTurnStatusActive } = useGameState(gameId);
 
   useEffect(() => {
     document.title = `${gameId} | Pontificate`
@@ -52,6 +52,7 @@ const BoardPage = (props: any): any => {
                               <Button
                                 color="primary"
                                 variant="outlined"
+                                onClick={() => {setPlayerTurnStatusActive(player)}}
                               >
                                 take turn
                               </Button>
