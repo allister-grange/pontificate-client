@@ -23,15 +23,14 @@ const useGameState = (gameId: string) => {
     socketRef.current.on(PLAYERS_IN_GAME, (data: any) => {
       console.log("PLAYERS_IN_GAME triggered, setting players in game");
       const incomingPlayers = data.playersInGame as Player[];
-
+      console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
 
     // Listens for incoming points update for a game, updates all players in game
     socketRef.current.on(POINTS_ADDED_TO_PLAYER_RESPONSE, (data: any) => {
       console.log("POINTS_ADDED_TO_PLAYER_RESPONSE triggered, setting players in game");
-      const incomingPlayers = data.playersInGame as Player[];
-
+      const incomingPlayers = data.playersInGame as Player[];      
       setPlayers(incomingPlayers);
     });
 
@@ -60,11 +59,11 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  const addPointToPlayer = (points: number, userId: string) => {
-    console.log(`Adding point to player ${userId} in game with id of ${gameId}`);
+  const addPointToPlayer = (points: number, userName: string) => {
+    console.log(`Adding point to player ${userName} in game with id of ${gameId}`);
 
     socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT,
-      { query: { points, userId } }
+      { query: { points, userName } }
     );
   }
 

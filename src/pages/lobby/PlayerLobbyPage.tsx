@@ -8,7 +8,7 @@ const PlayerLobbyPage = (props: any): any => {
 
   const { gameId } = props.match.params; // Gets gameId from URL
   const { userName } = props.location.state; // Gets username from props
-  const { userId, players, addPlayer, setPlayerReady } = usePlayerLobby(gameId, userName); // Creates a websocket and manages the lobby participants
+  const { players, addPlayer, setPlayerReady } = usePlayerLobby(gameId, userName); // Creates a websocket and manages the lobby participants
   const [ready, setReady] = useState(false);
 
   useEffect(() => {

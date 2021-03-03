@@ -8,7 +8,7 @@ const CardPage = (props: any): any => {
   const objectsCards = ['Suspension Bridge', 'Syringe', 'Paper Clip', 'Accessory',
     'Bill', 'Log', 'Camera', 'Flint', 'Signpost']
 
-  const { gameId, userId } = props.location.state;
+  const { gameId, userName } = props.location.state;
 
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
@@ -17,8 +17,6 @@ const CardPage = (props: any): any => {
   const { player, addPointToPlayer } = useGameState(gameId);
 
   useEffect(() => {
-    console.log(userId);
-
     setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
   }, []);
 
@@ -29,7 +27,7 @@ const CardPage = (props: any): any => {
   }, [counter]);
 
   const nextCard = () => {
-    addPointToPlayer(correctCount + 1, userId);
+    addPointToPlayer(correctCount + 1, userName);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
     setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
