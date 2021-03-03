@@ -75,7 +75,7 @@ const HostLobbyPage = (props: any): any => {
 
       <div className="start-game-button">
         {
-          allPlayersAreReady() && players.length > 1 ?
+          allPlayersAreReady() && players.length > 0 ?
             <Button
               variant="contained"
               color="primary"

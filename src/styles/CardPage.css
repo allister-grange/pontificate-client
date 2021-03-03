@@ -7,7 +7,12 @@ html, body, #app, #app>div {
   width: 100%;
 }
 
-.card-container {
+.card-page-container {
+  height: 100%;
+  width: 100%;
+}
+
+.display-card-container {
   height: 100%;
   display: flex;
   justify-content: center;
