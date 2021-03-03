@@ -10,8 +10,7 @@ const PLAYERS_IN_GAME_RESPONSE = "playersInGame"
 const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent"
 const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse"
 const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer"
-const SET_PLAYER_TURN_STATUS_TO_ACTIVE = "setPlayerTurnStatusToActive"
-const SET_PLAYER_TURN_STATUS_TO_WAITING = "setPlayerTurnStatusToWaiting"
+const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus"
 
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
@@ -81,16 +80,16 @@ const useGameState = (gameId: string) => {
   const setPlayerTurnStatusActive = (player: Player) => {
     console.log(`Setting player ${player.userName} in game ${gameId}'s status active`);
 
-    socketRef.current.emit(SET_PLAYER_TURN_STATUS_TO_ACTIVE,
-      { query: { player, gameId } }
+    socketRef.current.emit(SET_PLAYER_TURN_STATUS,
+      { query: { userName: player.userName, gameId, turnStatus: "active" } }
     );
   }
 
   const triggerTurnOverForUser = (userName: string) => {
     console.log(`Ending turn for ${userName} in game ${gameId}`);
 
-    socketRef.current.emit(SET_PLAYER_TURN_STATUS_TO_WAITING,
-      { query: { userName, gameId } }
+    socketRef.current.emit(SET_PLAYER_TURN_STATUS,
+      { query: { userName, gameId, turnStatus: "waiting" } }
     );
   }
 
