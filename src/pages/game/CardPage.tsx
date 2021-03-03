@@ -9,7 +9,7 @@ const CardPage = (props: any): any => {
 
   const [counter, setCounter] = useState(5);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(5);
-  const {players, addPointToPlayer, getAllPlayersInGame, triggerTurnOverForUser} = useGameState(gameId);
+  const {players, addPointToPlayer, getAllPlayersInGame, triggerChangeTurnStatusForUser} = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const CardPage = (props: any): any => {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
     else if(counter === 0) {
-      triggerTurnOverForUser(userName);
+      triggerChangeTurnStatusForUser(userName, "waiting");
     }
   }, [counter, countdownBeforePlaying]);
 

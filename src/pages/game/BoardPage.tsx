@@ -7,7 +7,7 @@ import '../../styles/BoardPage.css';
 const BoardPage = (props: any): any => {
 
   const { gameId } = props.match.params; // Gets roomId from URL
-  const { players, getAllPlayersInGame, setPlayerTurnStatusActive } = useGameState(gameId);
+  const { players, getAllPlayersInGame, triggerChangeTurnStatusForUser } = useGameState(gameId);
 
   useEffect(() => {
     document.title = `${gameId} | Pontificate`
@@ -52,7 +52,7 @@ const BoardPage = (props: any): any => {
                               <Button
                                 color="primary"
                                 variant="outlined"
-                                onClick={() => {setPlayerTurnStatusActive(player)}}
+                                onClick={() => {triggerChangeTurnStatusForUser(player.userName, "active")}}
                               >
                                 take turn
                               </Button>

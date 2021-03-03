@@ -4,8 +4,10 @@ export type Player = {
   userName: string,
   isReady: boolean,
   points: number,
-  turnStatus: "ready"|"active"|"waiting"
+  turnStatus: TurnStatusOptions
 }
+
+export type TurnStatusOptions = "ready"|"active"|"waiting"
 
 export type GameData = {
   playersInGame: Player[]

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import { isGetAccessorDeclaration } from "typescript";
-import { Player } from "../types";
+import { Player, TurnStatusOptions } from "../types";
 
 const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
@@ -77,23 +77,15 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  const setPlayerTurnStatusActive = (player: Player) => {
-    console.log(`Setting player ${player.userName} in game ${gameId}'s status active`);
+  const triggerChangeTurnStatusForUser = (userName: string, turnStatus: TurnStatusOptions) => {
+    console.log(`Setting player ${userName} in game ${gameId}'s status ${turnStatus}`);
 
     socketRef.current.emit(SET_PLAYER_TURN_STATUS,
-      { query: { userName: player.userName, gameId, turnStatus: "active" } }
+      { query: { userName, gameId, turnStatus: turnStatus } }
     );
   }
 
-  const triggerTurnOverForUser = (userName: string) => {
-    console.log(`Ending turn for ${userName} in game ${gameId}`);
-
-    socketRef.current.emit(SET_PLAYER_TURN_STATUS,
-      { query: { userName, gameId, turnStatus: "waiting" } }
-    );
-  }
-
-  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, setPlayerTurnStatusActive, triggerTurnOverForUser };
+  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, triggerChangeTurnStatusForUser };
 };
 
 export default useGameState;
