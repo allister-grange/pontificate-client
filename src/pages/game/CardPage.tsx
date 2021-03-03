@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/CardPage.css';
-import useGameState from '../../hooks/useGameState';
 import DisplayCard from '../../components/DisplayCard';
+import usePlayerGameState from '../../hooks/usePlayerGameState';
 
 const CardPage = (props: any): any => {
 
@@ -9,10 +9,7 @@ const CardPage = (props: any): any => {
 
   const [counter, setCounter] = useState(60);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(5);
-  const { player, addPointToPlayer } = useGameState(gameId);
-
-  //to come from game state later
-  const isTurn = true;
+  const { player, turnIsActive, addPointToPlayer } = usePlayerGameState(gameId);
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`
@@ -33,7 +30,7 @@ const CardPage = (props: any): any => {
   return (
     <div className="card-page-container">
       {
-        !isTurn ?
+        !turnIsActive ?
           <div className="waiting-turn-message-container">
             <h3>
               please wait your turn :)

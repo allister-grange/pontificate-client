@@ -1,16 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
+import { isGetAccessorDeclaration } from "typescript";
 import { Player } from "../types";
 
 const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
-const PLAYERS_IN_GAME = "playersInGame"
+const PLAYERS_IN_GAME_RESPONSE = "playersInGame"
 const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent"
 const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse"
+const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer"
 
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
+  const [turnIsActive, setTurnIsActive] = useState(false);
   const socketRef = useRef({} as SocketIOClient.Socket);
   const player = useRef({} as Player);
 
@@ -20,7 +23,7 @@ const useGameState = (gameId: string) => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players when a game is started
-    socketRef.current.on(PLAYERS_IN_GAME, (data: any) => {
+    socketRef.current.on(PLAYERS_IN_GAME_RESPONSE, (data: any) => {
       console.log("PLAYERS_IN_GAME triggered, setting players in game");
       const incomingPlayers = data.playersInGame as Player[];
       console.log(incomingPlayers);
@@ -30,8 +33,29 @@ const useGameState = (gameId: string) => {
     // Listens for incoming points update for a game, updates all players in game
     socketRef.current.on(POINTS_ADDED_TO_PLAYER_RESPONSE, (data: any) => {
       console.log("POINTS_ADDED_TO_PLAYER_RESPONSE triggered, setting players in game");
-      const incomingPlayers = data.playersInGame as Player[];      
+      const incomingPlayers = data.playersInGame as Player[];
       setPlayers(incomingPlayers);
+    });
+
+    // Listens for backend telling a player it's their turn to play
+    socketRef.current.on(CHANGE_TURN_STATUS_FOR_PLAYER, (data: any) => {
+      const player = data.player as Player;
+      const turnStatus = data.turnStatus;
+
+      const playerToChange = players.find((toFind) => toFind.userName === player.userName);
+      
+      if (playerToChange) {
+        console.log(`START_A_TURN_FOR_PLAYER triggered, changing ${player.userName}'s status to ${turnStatus}`);
+        playerToChange.turnStatus = turnStatus
+      }
+      else {
+        console.error(`Cannot find player ${player.userName}`);
+        return;
+      }
+
+      if (turnStatus === 'active') {
+        setTurnIsActive(true);
+      }
     });
 
     // Destroys the socket reference
@@ -67,7 +91,7 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  return { players, player, getAllPlayersInGame, addPointToPlayer };
+  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer };
 };
 
 export default useGameState;
