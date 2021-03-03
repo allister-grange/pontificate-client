@@ -13,13 +13,10 @@ const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer"
 
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
-  const [turnIsActive, setTurnIsActive] = useState(false);
   const socketRef = useRef({} as SocketIOClient.Socket);
-  const player = useRef({} as Player);
 
   useEffect(() => {
     // Creates a WebSocket connection
-    // TODO make sure that the username is unique
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players when a game is started
@@ -28,34 +25,6 @@ const useGameState = (gameId: string) => {
       const incomingPlayers = data.playersInGame as Player[];
       console.log(incomingPlayers);
       setPlayers(incomingPlayers);
-    });
-
-    // Listens for incoming points update for a game, updates all players in game
-    socketRef.current.on(POINTS_ADDED_TO_PLAYER_RESPONSE, (data: any) => {
-      console.log("POINTS_ADDED_TO_PLAYER_RESPONSE triggered, setting players in game");
-      const incomingPlayers = data.playersInGame as Player[];
-      setPlayers(incomingPlayers);
-    });
-
-    // Listens for backend telling a player it's their turn to play
-    socketRef.current.on(CHANGE_TURN_STATUS_FOR_PLAYER, (data: any) => {
-      const player = data.player as Player;
-      const turnStatus = data.turnStatus;
-
-      const playerToChange = players.find((toFind) => toFind.userName === player.userName);
-      
-      if (playerToChange) {
-        console.log(`START_A_TURN_FOR_PLAYER triggered, changing ${player.userName}'s status to ${turnStatus}`);
-        playerToChange.turnStatus = turnStatus
-      }
-      else {
-        console.error(`Cannot find player ${player.userName}`);
-        return;
-      }
-
-      if (turnStatus === 'active') {
-        setTurnIsActive(true);
-      }
     });
 
     // Destroys the socket reference
@@ -74,24 +43,7 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  const getCurrentPlayerInGame = (playerId: string) => {
-
-    console.log(`Getting players in game with id of ${gameId}`);
-
-    socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT,
-      { query: { gameId, playerId } }
-    );
-  }
-
-  const addPointToPlayer = (points: number, userName: string) => {
-    console.log(`Adding point to player ${userName} in game with id of ${gameId}`);
-
-    socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT,
-      { query: { points, userName } }
-    );
-  }
-
-  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer };
+  return { players, getAllPlayersInGame };
 };
 
 export default useGameState;
