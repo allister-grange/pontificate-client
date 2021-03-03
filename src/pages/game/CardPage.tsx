@@ -17,6 +17,7 @@ const CardPage = (props: any): any => {
   const { player, addPointToPlayer } = useGameState(gameId);
 
   useEffect(() => {
+    document.title = `${userName} | Pontificate`
     setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
   }, []);
 

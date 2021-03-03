@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -22,6 +22,10 @@ function HomePage() {
   const generateGameID = (): string => {
     return (Math.floor(1000 + Math.random() * 9000) - 1).toString();
   }
+
+  useEffect(() => {
+    document.title = `Home | Pontificate`
+  })
 
   return (
     <div className="App">

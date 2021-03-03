@@ -10,6 +10,7 @@ const BoardPage = (props: any): any => {
   const { players, getAllPlayersInGame } = useGameState(gameId);
 
   useEffect(() => {
+    document.title = `${gameId} | Pontificate`
     getAllPlayersInGame();
   }, []);
 
