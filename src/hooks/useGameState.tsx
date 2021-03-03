@@ -11,6 +11,7 @@ const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent"
 const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse"
 const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer"
 const SET_PLAYER_TURN_STATUS_TO_ACTIVE = "setPlayerTurnStatusToActive"
+const SET_PLAYER_TURN_STATUS_TO_WAITING = "setPlayerTurnStatusToWaiting"
 
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
@@ -38,7 +39,7 @@ const useGameState = (gameId: string) => {
       const turnStatus = data.turnStatus;
 
       const playerToChange = players.find((toFind) => toFind.userName === player.userName);
-      
+
       if (playerToChange) {
         console.log(`START_A_TURN_FOR_PLAYER triggered, changing ${player.userName}'s status to ${turnStatus}`);
         playerToChange.turnStatus = turnStatus
@@ -85,7 +86,15 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, setPlayerTurnStatusActive };
+  const triggerTurnOverForUser = (userName: string) => {
+    console.log(`Ending turn for ${userName} in game ${gameId}`);
+
+    socketRef.current.emit(SET_PLAYER_TURN_STATUS_TO_WAITING,
+      { query: { userName, gameId } }
+    );
+  }
+
+  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, setPlayerTurnStatusActive, triggerTurnOverForUser };
 };
 
 export default useGameState;
