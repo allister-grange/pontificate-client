@@ -32,9 +32,6 @@ const PlayerLobbyPage = (props: any): any => {
     <div className="player-lobby-container">
       <div className="player-lobby-text">
         <div className="player-lobby-title">
-          {/* <p>
-            {`${userId}`}
-          </p> */}
           <h2>
             you're in game:&nbsp;
           </h2>

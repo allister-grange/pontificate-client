@@ -5,10 +5,13 @@ import useGameState from '../../hooks/useGameState';
 
 const CardPage = (props: any): any => {
 
+  const TURN_LENGTH = 5;
+  const COUNTDOWN_LENGTH = 5;
+    
   const { gameId, userName } = props.location.state;
 
-  const [counter, setCounter] = useState(5);
-  const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(5);
+  const [counter, setCounter] = useState(TURN_LENGTH);
+  const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(COUNTDOWN_LENGTH);
   const {players, addPointToPlayer, getAllPlayersInGame, triggerChangeTurnStatusForUser} = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
 
@@ -35,6 +38,8 @@ const CardPage = (props: any): any => {
     }
     else if(counter === 0) {
       triggerChangeTurnStatusForUser(userName, "waiting");
+      setCounter(TURN_LENGTH);
+      setCountDownBeforePlaying(COUNTDOWN_LENGTH);
     }
   }, [counter, countdownBeforePlaying]);
 
