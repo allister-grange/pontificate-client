@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/CardPage.css';
 import DisplayCard from '../../components/DisplayCard';
 import useGameState from '../../hooks/useGameState';
+import { Category } from '../../types';
 
 const CardPage = (props: any): any => {
 
@@ -15,6 +16,7 @@ const CardPage = (props: any): any => {
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(COUNTDOWN_LENGTH);
   const { players, getPointsForPlayer, addPointToPlayer, getAllPlayersInGame, triggerChangeTurnStatusForUser } = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
+  const [category, setCategory] = useState("object" as Category);
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`
@@ -28,7 +30,7 @@ const CardPage = (props: any): any => {
     players.map(player => {
       if (player.userName === userName) {
         setTurnIsActive(player.turnStatus === 'active');
-        // setPoints(player.points);
+        setCategory(player.category);
       }
     });
 
@@ -77,6 +79,7 @@ const CardPage = (props: any): any => {
               }}
               counter={counter}
               userName={userName}
+              category={category}
             />
       }
     </div>

@@ -1,7 +1,7 @@
 import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import useGameState from '../../hooks/useGameState';
-import { Player } from '../../types';
+import { Category, Player } from '../../types';
 import '../../styles/BoardPage.css';
 
 const BoardPage = (props: any): any => {
@@ -36,6 +36,7 @@ const BoardPage = (props: any): any => {
                 <TableRow>
                   <TableCell align="center">player</TableCell>
                   <TableCell align="center">points</TableCell>
+                  <TableCell align="center">category</TableCell>
                   <TableCell align="center">status</TableCell>
                 </TableRow>
               </TableHead>
@@ -46,8 +47,9 @@ const BoardPage = (props: any): any => {
                       <TableRow key={index}>
                         <TableCell size="small" align="center">{player.userName}</TableCell>
                         <TableCell size="small" align="center">{player.points}</TableCell>
+                        <TableCell size="small" align="center">{player.category}</TableCell>
                         {
-                          player.turnStatus === "ready" ?
+                          player.turnStatus === 'ready' ?
                             <TableCell size="small" align="center">
                               <Button
                                 color="primary"
