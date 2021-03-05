@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Player } from '../types/index';
+import * as WORDS from '../constants/words';
 
 
 type DisplayCardProps = {
@@ -10,29 +10,26 @@ type DisplayCardProps = {
 }
 
 const DisplayCard = ({userName, counter, addPointToPlayer}: DisplayCardProps): any => {
-  
-  const objectsCards = ['Suspension Bridge', 'Syringe', 'Paper Clip', 'Accessory',
-  'Bill', 'Log', 'Camera', 'Flint', 'Signpost']
 
   const [correctCount, setCorrectCount] = useState(0);
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
 
   useEffect(() => {
-    setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
+    setIndexOfCurrentCard(Math.floor(Math.random() * WORDS.objectsWords.length));
   }, [])
 
   const nextCard = () => {
     addPointToPlayer(correctCount + 1, userName);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
-    setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
+    setIndexOfCurrentCard(Math.floor(Math.random() * WORDS.objectsWords.length));
   }
 
   const lastCard = () => {
     if (indexOfLastCard === -1) {
       setIndexOfLastCard(indexOfCurrentCard);
-      setIndexOfCurrentCard(Math.floor(Math.random() * objectsCards.length));
+      setIndexOfCurrentCard(Math.floor(Math.random() * WORDS.objectsWords.length));
     }
     else {
       setIndexOfCurrentCard(indexOfLastCard);
@@ -44,10 +41,10 @@ const DisplayCard = ({userName, counter, addPointToPlayer}: DisplayCardProps): a
     <div className="display-card-container">
       <div className="words-to-guess">
         <h1>
-          {objectsCards[indexOfCurrentCard]}
+          {WORDS.objectsWords[indexOfCurrentCard]}
         </h1>
         <h4>
-          {objectsCards[indexOfLastCard]}
+          {WORDS.objectsWords[indexOfLastCard]}
         </h4>
       </div>
 
