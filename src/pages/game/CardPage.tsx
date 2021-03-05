@@ -7,12 +7,13 @@ const CardPage = (props: any): any => {
 
   const TURN_LENGTH = 5;
   const COUNTDOWN_LENGTH = 5;
-    
+
   const { gameId, userName } = props.location.state;
 
   const [counter, setCounter] = useState(TURN_LENGTH);
+  const [points, setPoints] = useState(0);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(COUNTDOWN_LENGTH);
-  const {players, addPointToPlayer, getAllPlayersInGame, triggerChangeTurnStatusForUser} = useGameState(gameId);
+  const { players, getPointsForPlayer, addPointToPlayer, getAllPlayersInGame, triggerChangeTurnStatusForUser } = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
 
   useEffect(() => {
@@ -27,8 +28,11 @@ const CardPage = (props: any): any => {
     players.map(player => {
       if (player.userName === userName) {
         setTurnIsActive(player.turnStatus === 'active');
+        // setPoints(player.points);
       }
     });
+
+    setPoints(getPointsForPlayer(userName));
 
   }, [players]);
 
@@ -36,7 +40,7 @@ const CardPage = (props: any): any => {
     if (counter > 0 && countdownBeforePlaying === 0) {
       setTimeout(() => setCounter(counter - 1), 1000);
     }
-    else if(counter === 0) {
+    else if (counter === 0) {
       triggerChangeTurnStatusForUser(userName, "waiting");
       setCounter(TURN_LENGTH);
       setCountDownBeforePlaying(COUNTDOWN_LENGTH);
@@ -67,7 +71,10 @@ const CardPage = (props: any): any => {
             </div>
             :
             <DisplayCard
-              addPointToPlayer={addPointToPlayer}
+              addPointToPlayer={() => {
+                addPointToPlayer(points + 1, userName);
+                setPoints(points + 1);
+              }}
               counter={counter}
               userName={userName}
             />

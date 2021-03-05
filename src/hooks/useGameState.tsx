@@ -70,7 +70,7 @@ const useGameState = (gameId: string) => {
   }
 
   const addPointToPlayer = (points: number, userName: string) => {
-    console.log(`Adding point to player ${userName} in game with id of ${gameId}`);
+    console.log(`Setting points ${points} to player ${userName} in game with id of ${gameId}`);
 
     socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT,
       { query: { points, userName } }
@@ -85,7 +85,17 @@ const useGameState = (gameId: string) => {
     );
   }
 
-  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, triggerChangeTurnStatusForUser };
+  const getPointsForPlayer = (userName: string): number => {
+    const player = players.find(toFind => toFind.userName === userName);
+    if(player){
+      return player.points;
+    }
+    else {
+      return -1;
+    }
+  }
+
+  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, triggerChangeTurnStatusForUser, getPointsForPlayer };
 };
 
 export default useGameState;
