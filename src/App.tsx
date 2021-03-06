@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import HomePage from './pages/HomePage';
-import PlayerLobbyPage from './pages/lobby/PlayerLobbyPage';
-import HostLobbyPage from './pages/lobby/HostLobbyPage';
-import CardPage from './pages/game/CardPage';
-import BoardPage from './pages/game/BoardPage';
-import { ThemeProvider } from '@material-ui/core/styles'
-import { theme } from './components/theme';
+import { ThemeProvider } from "@material-ui/core/styles";
+import HomePage from "./pages/HomePage";
+import PlayerLobbyPage from "./pages/lobby/PlayerLobbyPage";
+import HostLobbyPage from "./pages/lobby/HostLobbyPage";
+import CardPage from "./pages/game/CardPage";
+import BoardPage from "./pages/game/BoardPage";
+import theme from "./components/theme";
 
-import * as ROUTES from './constants/routes'
+import * as ROUTES from "./constants/routes";
 
-function App() {
+function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <Router>

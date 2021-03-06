@@ -6,11 +6,11 @@ import { Player, TurnStatusOptions } from "../types";
 const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
-const PLAYERS_IN_GAME_RESPONSE = "playersInGame"
-const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent"
-const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse"
-const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer"
-const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus"
+const PLAYERS_IN_GAME_RESPONSE = "playersInGame";
+const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent";
+const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse";
+const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
+const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
 
 const useGameState = (gameId: string) => {
   const [players, setPlayers] = useState([] as Player[]);
@@ -35,20 +35,23 @@ const useGameState = (gameId: string) => {
     // the other sockets will have the updated players with the new status come through playersInGame
     socketRef.current.on(CHANGE_TURN_STATUS_FOR_PLAYER, (data: any) => {
       const player = data.player as Player;
-      const turnStatus = data.turnStatus;
+      const { turnStatus } = data;
 
-      const playerToChange = players.find((toFind) => toFind.userName === player.userName);
+      const playerToChange = players.find(
+        (toFind) => toFind.userName === player.userName
+      );
 
       if (playerToChange) {
-        console.log(`START_A_TURN_FOR_PLAYER triggered, changing ${player.userName}'s status to ${turnStatus}`);
-        playerToChange.turnStatus = turnStatus
-      }
-      else {
+        console.log(
+          `START_A_TURN_FOR_PLAYER triggered, changing ${player.userName}'s status to ${turnStatus}`
+        );
+        playerToChange.turnStatus = turnStatus;
+      } else {
         console.error(`Cannot find player ${player.userName}`);
         return;
       }
 
-      if (turnStatus === 'active') {
+      if (turnStatus === "active") {
         setTurnIsActive(true);
       }
     });
@@ -61,41 +64,54 @@ const useGameState = (gameId: string) => {
   }, [gameId]);
 
   const getAllPlayersInGame = () => {
-
     console.log(`Getting players in game with id of ${gameId}`);
 
-    socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT,
-      { query: { gameId } }
-    );
-  }
+    socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT, {
+      query: { gameId },
+    });
+  };
 
   const addPointToPlayer = (points: number, userName: string) => {
-    console.log(`Setting points ${points} to player ${userName} in game with id of ${gameId}`);
-
-    socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT,
-      { query: { points, userName } }
+    console.log(
+      `Setting points ${points} to player ${userName} in game with id of ${gameId}`
     );
-  }
 
-  const triggerChangeTurnStatusForUser = (userName: string, turnStatus: TurnStatusOptions) => {
-    console.log(`Setting player ${userName} in game ${gameId}'s status ${turnStatus}`);
+    socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT, {
+      query: { points, userName },
+    });
+  };
 
-    socketRef.current.emit(SET_PLAYER_TURN_STATUS,
-      { query: { userName, gameId, turnStatus: turnStatus } }
+  const triggerChangeTurnStatusForUser = (
+    userName: string,
+    turnStatus: TurnStatusOptions
+  ) => {
+    console.log(
+      `Setting player ${userName} in game ${gameId}'s status ${turnStatus}`
     );
-  }
+
+    socketRef.current.emit(SET_PLAYER_TURN_STATUS, {
+      query: { userName, gameId, turnStatus },
+    });
+  };
 
   const getPointsForPlayer = (userName: string): number => {
-    const player = players.find(toFind => toFind.userName === userName);
-    if(player){
+    const player = players.find((toFind) => toFind.userName === userName);
+    if (player) {
       return player.points;
     }
-    else {
-      return -1;
-    }
-  }
 
-  return { players, player, turnIsActive, getAllPlayersInGame, addPointToPlayer, triggerChangeTurnStatusForUser, getPointsForPlayer };
+    return -1;
+  };
+
+  return {
+    players,
+    player,
+    turnIsActive,
+    getAllPlayersInGame,
+    addPointToPlayer,
+    triggerChangeTurnStatusForUser,
+    getPointsForPlayer,
+  };
 };
 
 export default useGameState;
