@@ -40,8 +40,8 @@ const usePlayerLobby = (gameId: string, userName: string) => {
       });
     });
 
-    socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
-      const incomingPlayers = players.playersInGame;
+    socketRef.current.on(PLAYER_READY_EVENT, (data: any) => {
+      const incomingPlayers = data.playersInGame;
       console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
@@ -55,10 +55,10 @@ const usePlayerLobby = (gameId: string, userName: string) => {
 
   // Sends a message to the server that
   // forwards it to all users in the same game
-  const addPlayer = (userName: string, gameId: string) => {
-    console.log(`adding new player ${userName} in game ${gameId}`);
+  const addPlayer = (userNameToAdd: string, gameIdToAddTo: string) => {
+    console.log(`adding new player ${userNameToAdd} in game ${gameId}`);
     socketRef.current.emit(NEW_PLAYER_IN_LOBBY_EVENT, {
-      query: { userName, gameId },
+      query: { userName: userNameToAdd, gameId: gameIdToAddTo },
     });
   };
 

@@ -23,18 +23,18 @@ const useHostLobby = (gameId: string) => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players
-    socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (players: any) => {
-      const incomingPlayers = players.playersInGame;
+    socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (data: any) => {
+      const incomingPlayers = data.playersInGame as Player[];
 
       setPlayers(incomingPlayers);
     });
 
-    socketRef.current.on(PLAYER_READY_EVENT, (players: any) => {
-      const incomingPlayers = players.playersInGame;
+    socketRef.current.on(PLAYER_READY_EVENT, (data: any) => {
+      const incomingPlayers = data.playersInGame as Player[];
       setPlayers(incomingPlayers);
     });
 
-    socketRef.current.on(GAME_STARTED_EVENT, (players: any) => {
+    socketRef.current.on(GAME_STARTED_EVENT, (data: any) => {
       // send the client to the card screen
       console.log(`Received game start event for game ${gameId}`);
       history.push({ pathname: ROUTES.BOARDPAGE.replace(":gameId", gameId) });
@@ -47,16 +47,20 @@ const useHostLobby = (gameId: string) => {
     // };
   }, [gameId]);
 
-  const createNewGame = (gameId: string) => {
-    console.log(`Creating new game with id of ${gameId}`);
+  const createNewGame = (newGameId: string) => {
+    console.log(`Creating new game with id of ${newGameId}`);
 
-    socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, { query: { gameId } });
+    socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, {
+      query: { gameId: newGameId },
+    });
   };
 
-  const startGame = (gameId: string) => {
-    console.log(`Starting game with id of ${gameId}`);
+  const startGame = (gameToStart: string) => {
+    console.log(`Starting game with id of ${gameToStart}`);
 
-    socketRef.current.emit(START_NEW_GAME_EVENT, { query: { gameId } });
+    socketRef.current.emit(START_NEW_GAME_EVENT, {
+      query: { gameId: gameToStart },
+    });
   };
 
   return { players, createNewGame, startGame };

@@ -22,7 +22,7 @@ const BoardPage = ({ match }: any): JSX.Element => {
   useEffect(() => {
     document.title = `${gameId} | Pontificate`;
     getAllPlayersInGame();
-  });
+  }, []);
 
   return (
     <div className="board-page-container">
@@ -46,8 +46,8 @@ const BoardPage = ({ match }: any): JSX.Element => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {players.map((player: Player, index: number) => (
-                <TableRow key={index}>
+              {players.map((player: Player) => (
+                <TableRow key={player.userName}>
                   <TableCell size="small" align="center">
                     {player.userName}
                   </TableCell>

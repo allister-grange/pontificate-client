@@ -28,6 +28,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 'off',
+    "react-hooks/exhaustive-deps": "off",
     'prettier/prettier': [
       'error',
       {

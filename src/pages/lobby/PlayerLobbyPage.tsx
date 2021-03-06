@@ -25,7 +25,7 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
     document.title = "Player Lobby | Pontificate";
     addPlayer(userName, gameId);
     console.log(`${userName} ${gameId}`);
-  });
+  }, []);
 
   const onReadyClick = (): void => {
     if (ready) {
@@ -41,12 +41,12 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
     <div className="player-lobby-container">
       <div className="player-lobby-text">
         <div className="player-lobby-title">
-          <h2>you're in game:&nbsp;</h2>
+          <h2>you&#39;re in game:&nbsp;</h2>
           <h2 style={{ color: "coral" }}>{` ${gameId}`}</h2>
         </div>
         {players.length === 0 ? (
           <p>
-            This is an error, if you'd like to start a new game head back to
+            This is an error, if you&#39;d like to start a new game head back to
             pontificate.tv
           </p>
         ) : (

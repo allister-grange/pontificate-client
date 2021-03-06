@@ -34,20 +34,20 @@ const useGameState = (gameId: string) => {
     // Listens for backend telling a player it's their turn to play, this is only sent to one socket
     // the other sockets will have the updated players with the new status come through playersInGame
     socketRef.current.on(CHANGE_TURN_STATUS_FOR_PLAYER, (data: any) => {
-      const player = data.player as Player;
+      const incomingPlayer = data.player as Player;
       const { turnStatus } = data;
 
       const playerToChange = players.find(
-        (toFind) => toFind.userName === player.userName
+        (toFind) => toFind.userName === incomingPlayer.userName
       );
 
       if (playerToChange) {
         console.log(
-          `START_A_TURN_FOR_PLAYER triggered, changing ${player.userName}'s status to ${turnStatus}`
+          `START_A_TURN_FOR_PLAYER triggered, changing ${playerToChange.userName}'s status to ${turnStatus}`
         );
         playerToChange.turnStatus = turnStatus;
       } else {
-        console.error(`Cannot find player ${player.userName}`);
+        console.error(`Cannot find player ${incomingPlayer.userName}`);
         return;
       }
 
@@ -95,9 +95,11 @@ const useGameState = (gameId: string) => {
   };
 
   const getPointsForPlayer = (userName: string): number => {
-    const player = players.find((toFind) => toFind.userName === userName);
-    if (player) {
-      return player.points;
+    const playerToGetPointsFor = players.find(
+      (toFind) => toFind.userName === userName
+    );
+    if (playerToGetPointsFor) {
+      return playerToGetPointsFor.points;
     }
 
     return -1;

@@ -15,7 +15,7 @@ const DisplayCard = ({
   counter,
   category,
   addPointToPlayer,
-}: DisplayCardProps): any => {
+}: DisplayCardProps): JSX.Element => {
   const [correctCount, setCorrectCount] = useState(0);
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
@@ -24,27 +24,33 @@ const DisplayCard = ({
   const lengthOfWordArray = WORDS.actionWords.length;
 
   useEffect(() => {
-    switch (category) {
-      case "action":
-        setWords(WORDS.actionWords);
-        break;
-      case "nature":
-        setWords(WORDS.natureWords);
-        break;
-      case "object":
-        setWords(WORDS.objectsWords);
-        break;
-      case "random":
-        setWords(WORDS.randomWords);
-        break;
-      case "people":
-        setWords(WORDS.peopleWords);
-        break;
-      case "world":
-        setWords(WORDS.worldWords);
-        break;
-    }
-    setIndexOfCurrentCard(Math.floor(Math.random() * lengthOfWordArray));
+    const setWordsForPlayer = () => {
+      switch (category) {
+        case "action":
+          setWords(WORDS.actionWords);
+          break;
+        case "nature":
+          setWords(WORDS.natureWords);
+          break;
+        case "object":
+          setWords(WORDS.objectsWords);
+          break;
+        case "random":
+          setWords(WORDS.randomWords);
+          break;
+        case "people":
+          setWords(WORDS.peopleWords);
+          break;
+        case "world":
+          setWords(WORDS.worldWords);
+          break;
+        default:
+          setWords([]);
+      }
+      setIndexOfCurrentCard(Math.floor(Math.random() * lengthOfWordArray));
+      console.log(words);
+    };
+    setWordsForPlayer();
   }, []);
 
   const nextCard = () => {

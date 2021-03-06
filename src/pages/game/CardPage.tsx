@@ -1,14 +1,15 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import "../../styles/CardPage.css";
 import DisplayCard from "../../components/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
 
-const CardPage = (props: any): JSX.Element => {
+const CardPage = ({ location }: any): JSX.Element => {
   const TURN_LENGTH = 5;
   const COUNTDOWN_LENGTH = 5;
 
-  const { gameId, userName } = props.location.state;
+  const { gameId, userName } = location.state;
 
   const [counter, setCounter] = useState(TURN_LENGTH);
   const [points, setPoints] = useState(0);
@@ -34,7 +35,7 @@ const CardPage = (props: any): JSX.Element => {
     console.log("called now because players was updated");
     console.log(players);
 
-    players.map((player) => {
+    players.forEach((player) => {
       if (player.userName === userName) {
         setTurnIsActive(player.turnStatus === "active");
         setCategory(player.category);

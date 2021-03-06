@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import useHostLobby from "../../hooks/useHostLobby";
 import "../../styles/HostLobbyPage.css";
+import { Player } from "../../types";
 
 const HostLobbyPage = ({ match }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
@@ -17,11 +18,11 @@ const HostLobbyPage = ({ match }: any): JSX.Element => {
   useEffect(() => {
     document.title = `${gameId} | Pontificate`;
     createNewGame(gameId);
-  });
+  }, []);
 
   const allPlayersAreReady = (): boolean => {
     let allReady = true;
-    players.forEach((player: any) => {
+    players.forEach((player: Player) => {
       if (!player.isReady) {
         allReady = false;
       }
@@ -53,8 +54,8 @@ const HostLobbyPage = ({ match }: any): JSX.Element => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {players.map((player: any, index: number) => (
-                <TableRow key={index}>
+              {players.map((player: Player) => (
+                <TableRow key={player.userName}>
                   <TableCell align="center">{player.userName}</TableCell>
                   <TableCell align="center">
                     {player.isReady ? "ready" : "not ready"}
