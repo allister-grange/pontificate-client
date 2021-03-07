@@ -3,12 +3,11 @@ import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { Player } from "../types";
 import * as ROUTES from "../constants/routes";
+import SOCKET_SERVER_URL from "../constants";
 
 const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
 const PLAYER_READY_EVENT = "playerReadyEvent";
 const GAME_STARTED_EVENT = "gameStartedEvent";
-
-const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const usePlayerLobby = (gameId: string, userName: string) => {
   const [players, setPlayers] = useState([] as Player[]);

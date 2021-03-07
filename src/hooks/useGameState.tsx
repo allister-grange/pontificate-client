@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import { isGetAccessorDeclaration } from "typescript";
+import SOCKET_SERVER_URL from "../constants";
 import { Player, TurnStatusOptions } from "../types";
-
-const SOCKET_SERVER_URL = "http://127.0.0.1:3000";
 
 const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
 const PLAYERS_IN_GAME_RESPONSE = "playersInGame";
