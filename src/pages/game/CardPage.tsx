@@ -6,7 +6,7 @@ import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
 
 const CardPage = ({ location }: any): JSX.Element => {
-  const TURN_LENGTH = 5;
+  const TURN_LENGTH = 30;
   const COUNTDOWN_LENGTH = 5;
 
   const { gameId, userName } = location.state;
@@ -73,6 +73,7 @@ const CardPage = ({ location }: any): JSX.Element => {
       ) : countdownBeforePlaying > 0 ? (
         <div className="waiting-turn-message-container">
           <h1>{countdownBeforePlaying}</h1>
+          <h4>{category}</h4>
         </div>
       ) : (
         <DisplayCard
