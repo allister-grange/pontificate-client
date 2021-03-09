@@ -5,6 +5,7 @@ import {
   TableCell,
   TableBody,
   Button,
+  Card,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import useGameState from "../../hooks/useGameState";
@@ -32,57 +33,59 @@ const BoardPage = ({ match }: any): JSX.Element => {
         </header>
       </div>
 
-      <div className="board-page-player-container">
-        {players.length === 0 ? (
-          <p>no one is in your game :( something must be wrong!</p>
-        ) : (
-          <Table className="board-page-player-table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">player</TableCell>
-                <TableCell align="center">points</TableCell>
-                <TableCell align="center">category</TableCell>
-                <TableCell align="center">status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {players.map((player: Player) => (
-                <TableRow key={player.userName}>
-                  <TableCell size="small" align="center">
-                    {player.userName}
-                  </TableCell>
-                  <TableCell size="small" align="center">
-                    {player.points}
-                  </TableCell>
-                  <TableCell size="small" align="center">
-                    {player.category}
-                  </TableCell>
-                  {player.turnStatus === "ready" ? (
-                    <TableCell size="small" align="center">
-                      <Button
-                        color="primary"
-                        variant="outlined"
-                        onClick={() => {
-                          triggerChangeTurnStatusForUser(
-                            player.userName,
-                            "active"
-                          );
-                        }}
-                      >
-                        take turn
-                      </Button>
-                    </TableCell>
-                  ) : (
-                    <TableCell size="small" align="center">
-                      <h4>{player.turnStatus}</h4>
-                    </TableCell>
-                  )}
+      <Card className="board-page-player-card">
+        <div className="board-page-player-container">
+          {players.length === 0 ? (
+            <p>no one is in your game :( something must be wrong!</p>
+          ) : (
+            <Table className="board-page-player-table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">player</TableCell>
+                  <TableCell align="center">points</TableCell>
+                  <TableCell align="center">category</TableCell>
+                  <TableCell align="center">status</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </div>
+              </TableHead>
+              <TableBody>
+                {players.map((player: Player) => (
+                  <TableRow key={player.userName}>
+                    <TableCell size="small" align="center">
+                      {player.userName}
+                    </TableCell>
+                    <TableCell size="small" align="center">
+                      {player.points}
+                    </TableCell>
+                    <TableCell size="small" align="center">
+                      {player.category}
+                    </TableCell>
+                    {player.turnStatus === "ready" ? (
+                      <TableCell size="small" align="center">
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          onClick={() => {
+                            triggerChangeTurnStatusForUser(
+                              player.userName,
+                              "active"
+                            );
+                          }}
+                        >
+                          take turn
+                        </Button>
+                      </TableCell>
+                    ) : (
+                      <TableCell size="small" align="center">
+                        <h4>{player.turnStatus}</h4>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </div>
+      </Card>
     </div>
   );
 };

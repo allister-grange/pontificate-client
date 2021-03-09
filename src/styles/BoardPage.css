@@ -15,9 +15,14 @@
 
 .board-page-player-container {
   display: flex;
-  white-space: pre-wrap;
-  justify-content: center;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 90%;
+}
+
+.board-page-player-card {
+  min-width: 80%;
+  display: flex;
+  justify-content: center;
 }
