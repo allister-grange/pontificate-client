@@ -64,13 +64,7 @@ const JoinGameSelection = ({
                 back
               </Button>
               <Button
-                component={Link}
-                to={{
-                  pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
-                  state: {
-                    userName,
-                  },
-                }}
+                type="submit"
                 fullWidth
                 color="primary"
                 variant="outlined"

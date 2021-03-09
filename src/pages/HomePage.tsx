@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { Card, CardActions, CardContent, TextField } from "@material-ui/core";
 import * as ROUTES from "../constants/routes";
@@ -7,15 +7,23 @@ import "../styles/HomePage.css";
 import JoinGameSelection from "../components/JoinGameSelection";
 
 function HomePage(): JSX.Element {
+  const history = useHistory();
   const [gameId, setGameId] = React.useState("");
   const [userName, setUserName] = React.useState("");
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
-  const isFormInValid = userName === "" || gameId === "";
+  const isFormInValid =
+    userName === "" ||
+    gameId === "" ||
+    gameId.length !== 4 ||
+    userName.length < 3;
 
   // todo check if there's any games with that id
   const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value.length > 4) {
+      return;
+    }
     setGameId(event.target.value);
   };
 
@@ -33,6 +41,13 @@ function HomePage(): JSX.Element {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    history.push({
+      pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
+      state: {
+        userName,
+      },
+    });
   };
 
   return (

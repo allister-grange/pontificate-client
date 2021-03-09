@@ -45,10 +45,12 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
           <h2 style={{ color: "coral" }}>{` ${gameId}`}</h2>
         </div>
         {players.length === 0 ? (
-          <p>
-            This is an error, if you&#39;d like to start a new game head back to
-            pontificate.tv
-          </p>
+          <>
+            <p>
+              this game doesn&#39;t exist yet! if you&#39;d like to start a new
+              game head back to pontificate.tv
+            </p>
+          </>
         ) : (
           <>
             <div className="player-list">
