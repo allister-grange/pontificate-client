@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
+import { Card, CardActions, CardContent, TextField } from "@material-ui/core";
 import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";
+import JoinGameSelection from "../components/JoinGameSelection";
 
 function HomePage(): JSX.Element {
   const [gameId, setGameId] = React.useState("");
@@ -11,11 +12,14 @@ function HomePage(): JSX.Element {
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
+  const isFormInValid = userName === "" || gameId === "";
 
-  const handleRoomNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // todo check if there's any games with that id
+  const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGameId(event.target.value);
   };
 
+  // todo check if there's any duplicate usernames in that game
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
@@ -27,6 +31,10 @@ function HomePage(): JSX.Element {
     document.title = `Home | Pontificate`;
   });
 
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="App">
       <div className="Title">
@@ -35,56 +43,15 @@ function HomePage(): JSX.Element {
         </header>
       </div>
       {showingJoinGameOptions ? (
-        <div className="RoomDetails">
-          <div className="RoomDetailsInputs">
-            <Input
-              color="primary"
-              type="text"
-              style={{ marginRight: "10px" }}
-              placeholder="username"
-              value={userName}
-              onChange={handleUserNameChange}
-              className="text-input-field"
-            />
-            <Input
-              color="primary"
-              type="text"
-              style={{ marginLeft: "10px" }}
-              placeholder="room"
-              value={gameId}
-              onChange={handleRoomNameChange}
-              className="text-input-field"
-            />
-          </div>
-          <div className="RoomDetailsButtons">
-            <Button
-              variant="outlined"
-              color="primary"
-              style={{ marginRight: "5px" }}
-              onClick={() => {
-                setShowingJoinGameOptions(false);
-              }}
-              className="button"
-            >
-              back
-            </Button>
-            <Button
-              component={Link}
-              style={{ marginLeft: "5px" }}
-              to={{
-                pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
-                state: {
-                  userName,
-                },
-              }}
-              color="primary"
-              variant="outlined"
-              className="button"
-            >
-              join game
-            </Button>
-          </div>
-        </div>
+        <JoinGameSelection
+          userName={userName}
+          handleGameIdChange={handleGameIdChange}
+          handleUserNameChange={handleUserNameChange}
+          isFormInValid={isFormInValid}
+          onSubmit={onSubmit}
+          gameId={gameId}
+          setShowingJoinGameOptions={setShowingJoinGameOptions}
+        />
       ) : (
         <div className="GameOptions">
           <Button

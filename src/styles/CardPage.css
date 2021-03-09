@@ -5,6 +5,7 @@ html, body, #app, #app>div {
 
 #root {
   width: 100%;
+  background-color: #EFF2F5;
 }
 
 .card-page-container {

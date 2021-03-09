@@ -1,5 +1,4 @@
 body {
-  /* background-color: #282c34; */
   background-color: white;
   display: flex;
   justify-content: center;
@@ -10,7 +9,6 @@ body {
   color: #282c34;
   display: flex;
   justify-content: center;
-  align-items: center;
   text-align: center;
 }
 
@@ -27,7 +25,7 @@ body {
   justify-content: center;
 }
 
-.RoomDetails {
+.room-details-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,13 +33,56 @@ body {
 }
 
 .RoomDetailsButtons {
-  padding-top: 15px;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
 }
 
-.RoomDetailsInputs {
+.room-form-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.card-room-details {
+  margin-left: auto;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: auto;
+  min-width: 400px;
+}
+
+.card-room-actions {
   display: flex;
-  justify-content: center;
-  width: 70%;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card-room-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.card-room-line {
+  width: 95%;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+.card-room-line {
+  color: gray;
+  background-color: gray;
+  height: 5;
+}
+
+.card-room-back {
+  margin-bottom: 0;
+  padding-top: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
