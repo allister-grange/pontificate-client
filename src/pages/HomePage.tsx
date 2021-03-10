@@ -58,7 +58,7 @@ function HomePage(): JSX.Element {
       </div>
       <div className="welcome-header-and-options">
         {showingJoinGameOptions ? (
-          <div className="room-details-form">
+          <div className="join-game-options">
             <JoinGameSelection
               userName={userName}
               handleGameIdChange={handleGameIdChange}

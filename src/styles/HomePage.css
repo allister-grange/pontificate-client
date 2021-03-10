@@ -37,11 +37,6 @@ body {
   width: 100vw;
 }
 
-.game-options {
-  display: flex;
-
-}
-
 .room-details-form {
   display: flex;
   flex-direction: column;
@@ -100,11 +95,16 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 850px) {
   .instructions-slideshow {
       display: none !important;
   }
   .game-options {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .join-game-options {
     display: flex;
     justify-content: center;
     align-content: center;
