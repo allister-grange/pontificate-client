@@ -4,6 +4,7 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  font-size: 2.5vw;
 }
 
 .container {
@@ -18,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 400px;
+  /* min-width: 40vw; */
 }
 
 .host-player-list {
@@ -28,6 +29,11 @@
   flex-direction: row;
   align-items: center;
   text-align: center;
+  font-size: 2.5vw;
+}
+
+.table-cell {
+  font-size: 2vw;
 }
 
 .room-code {
@@ -36,6 +42,7 @@
   justify-content: center;
   flex-direction: row;
   align-items: center;
+  font-size: 3vw;
 }
 
 .start-game-button {

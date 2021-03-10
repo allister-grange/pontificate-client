@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import {
   Button,
+  Card,
+  CardContent,
   Table,
   TableBody,
   TableCell,
@@ -32,38 +34,56 @@ const HostLobbyPage = ({ match }: any): JSX.Element => {
 
   return (
     <div className="container">
-      <div className="title">
-        <h1>join on your at phone at</h1>
-        <h1 style={{ color: "coral" }}>{" pontificate.tv"}</h1>
+      <div className="room-code">
+        <h1>your room code is</h1>
+        <h1 style={{ color: "coral" }}>{` ${gameId}`}</h1>
       </div>
 
-      <div className="room-code">
-        <h3>your room code is</h3>
-        <h2 style={{ color: "coral" }}>{` ${gameId}`}</h2>
+      <div className="title">
+        <h2>join on your at phone at</h2>
+        <h2 style={{ color: "coral" }}>{" pontificate.tv"}</h2>
       </div>
 
       <div className="host-player-list">
         {players.length === 0 ? (
-          <p>no one has joined the game yet, get out your phones!</p>
+          <h3>no one has joined the game yet, get out your phones!</h3>
         ) : (
-          <Table className="host-player-table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">player</TableCell>
-                <TableCell align="center">status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
+          <Card>
+            <CardContent>
+              {/* <Table className="host-player-table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">
+                      <h3 className="table-cell">player</h3>
+                    </TableCell>
+                    <TableCell align="center">
+                      <h3 className="table-cell">status</h3>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {players.map((player: Player) => (
+                    <TableRow key={player.userName}>
+                      <TableCell align="center">
+                        <p className="table-cell">{player.userName}</p>
+                      </TableCell>
+                      <TableCell align="center">
+                        <p className="table-cell">
+                          {player.isReady ? "ready" : "not ready"}
+                        </p>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table> */}
               {players.map((player: Player) => (
-                <TableRow key={player.userName}>
-                  <TableCell align="center">{player.userName}</TableCell>
-                  <TableCell align="center">
-                    {player.isReady ? "ready" : "not ready"}
-                  </TableCell>
-                </TableRow>
+                <div className="host-player-table">
+                  <p>{player.userName}</p>
+                  <p>{player.isReady ? ": ready" : ": not ready"}</p>
+                </div>
               ))}
-            </TableBody>
-          </Table>
+            </CardContent>
+          </Card>
         )}
       </div>
 
