@@ -6,8 +6,6 @@ import {
   CardActions,
   Button,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import * as ROUTES from "../constants/routes";
 
 type JoinGameSelectionProps = {
   userName: string;
@@ -57,10 +55,7 @@ const JoinGameSelection = ({
           <CardActions className="card-room-actions">
             <hr className="card-room-line" />
             <div className="card-room-buttons">
-              <Button
-                className="card-room-back"
-                onClick={() => setShowingJoinGameOptions(false)}
-              >
+              <Button onClick={() => setShowingJoinGameOptions(false)}>
                 back
               </Button>
               <Button

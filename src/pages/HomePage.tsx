@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Card, CardActions, CardContent, TextField } from "@material-ui/core";
+import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
+import boyPlaying from "../assets/boy-playing.svg";
 import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";
 import JoinGameSelection from "../components/JoinGameSelection";
@@ -19,7 +20,6 @@ function HomePage(): JSX.Element {
     gameId.length !== 4 ||
     userName.length < 3;
 
-  // todo check if there's any games with that id
   const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 4) {
       return;
@@ -27,7 +27,6 @@ function HomePage(): JSX.Element {
     setGameId(event.target.value);
   };
 
-  // todo check if there's any duplicate usernames in that game
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
@@ -39,6 +38,8 @@ function HomePage(): JSX.Element {
     document.title = `Home | Pontificate`;
   });
 
+  // todo check if there's any games with that id
+  // todo check if there's any duplicate usernames in that game
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -52,46 +53,53 @@ function HomePage(): JSX.Element {
 
   return (
     <div className="App">
-      <div className="Title">
-        <header className="App-header">
-          <h1>welcome to pontificate</h1>
-        </header>
+      <div className="instructions-slideshow">
+        <img src={boyPlaying} alt="boy playing" />
       </div>
-      {showingJoinGameOptions ? (
-        <JoinGameSelection
-          userName={userName}
-          handleGameIdChange={handleGameIdChange}
-          handleUserNameChange={handleUserNameChange}
-          isFormInValid={isFormInValid}
-          onSubmit={onSubmit}
-          gameId={gameId}
-          setShowingJoinGameOptions={setShowingJoinGameOptions}
-        />
-      ) : (
-        <div className="GameOptions">
-          <Button
-            component={Link}
-            style={{ marginRight: "5px" }}
-            to={ROUTES.HOSTLOBBY.replace(":gameId", generateGameID())}
-            variant="outlined"
-            color="primary"
-            className="button"
-          >
-            create new game
-          </Button>
-          <Button
-            variant="outlined"
-            style={{ marginLeft: "5px" }}
-            color="primary"
-            onClick={() => {
-              setShowingJoinGameOptions(true);
-            }}
-            className="button"
-          >
-            join game
-          </Button>
-        </div>
-      )}
+      <div className="welcome-header-and-options">
+        {showingJoinGameOptions ? (
+          <div className="room-details-form">
+            <JoinGameSelection
+              userName={userName}
+              handleGameIdChange={handleGameIdChange}
+              handleUserNameChange={handleUserNameChange}
+              isFormInValid={isFormInValid}
+              onSubmit={onSubmit}
+              gameId={gameId}
+              setShowingJoinGameOptions={setShowingJoinGameOptions}
+            />
+          </div>
+        ) : (
+          <div className="game-options">
+            <Card variant="outlined" className="home-page-card">
+              <CardContent>
+                <div className="home-page-button-container">
+                  <h1 style={{ textAlign: "center" }}>pontificate</h1>
+                  <Button
+                    component={Link}
+                    to={ROUTES.HOSTLOBBY.replace(":gameId", generateGameID())}
+                    variant="outlined"
+                    color="primary"
+                    className="button"
+                  >
+                    start new game
+                  </Button>
+                  <div style={{ margin: "10px" }} />
+                  <Button
+                    variant="outlined"
+                    onClick={() => {
+                      setShowingJoinGameOptions(true);
+                    }}
+                    className="button"
+                  >
+                    join game
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

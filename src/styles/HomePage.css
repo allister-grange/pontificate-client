@@ -12,15 +12,38 @@ body {
   text-align: center;
 }
 
-.App {
-  flex-direction: column;
+.instructions-slideshow {
   display: flex;
+  flex: 1;
+}
+
+.home-page-card {
+  width: 40vw;
+  transition-duration: 0.3s;
+}
+
+.welcome-header-and-options {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   justify-content: center;
-  height: 80vh; 
+}
+
+@media screen and (max-width: 600px) {
+  .instructions-slideshow {
+      display: none !important;
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 90vh; 
   width: 100vw;
 }
 
-.GameOptions {
+.game-options {
   display: flex;
   justify-content: center;
 }
@@ -39,17 +62,10 @@ body {
 
 .room-form-input {
   width: 100%;
-  padding: 10px;
-  margin: 10px;
 }
 
 .card-room-details {
-  margin-left: auto;
-  padding-top: 15px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: auto;
-  min-width: 300px;
+  width: 40vw;
 }
 
 .card-room-actions {
@@ -76,9 +92,9 @@ body {
   height: 5;
 }
 
-.card-room-back {
-  margin-bottom: 0;
-  padding-top: 10px;
+.home-page-button-container {
+  display: flex;
+  flex-direction: column;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
