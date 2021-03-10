@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
+import { Card, CardContent } from "@material-ui/core";
 import boyPlaying from "../assets/boy-playing.svg";
 import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";

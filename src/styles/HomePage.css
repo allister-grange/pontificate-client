@@ -14,17 +14,17 @@ body {
 
 .instructions-slideshow {
   display: flex;
-  flex: 2;
+  flex: 3;
 }
 
 .home-page-card {
-  width: 30vw;
+  width: 35vw;
   transition-duration: 0.3s;
 }
 
 .welcome-header-and-options {
   display: flex;
-  flex: 1;
+  flex: 2;
   flex-direction: column;
   justify-content: center;
   align-content: center;
@@ -54,7 +54,7 @@ body {
 }
 
 .card-room-details {
-  width: 30vw;
+  width: 35vw;
 }
 
 .card-room-actions {
