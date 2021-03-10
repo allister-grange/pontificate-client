@@ -14,11 +14,11 @@ body {
 
 .instructions-slideshow {
   display: flex;
-  flex: 1;
+  flex: 2;
 }
 
 .home-page-card {
-  width: 40vw;
+  width: 30vw;
   transition-duration: 0.3s;
 }
 
@@ -27,25 +27,19 @@ body {
   flex: 1;
   flex-direction: column;
   justify-content: center;
-}
-
-@media screen and (max-width: 600px) {
-  .instructions-slideshow {
-      display: none !important;
-  }
+  align-content: center;
 }
 
 .App {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   height: 90vh; 
   width: 100vw;
 }
 
 .game-options {
   display: flex;
-  justify-content: center;
+
 }
 
 .room-details-form {
@@ -65,7 +59,7 @@ body {
 }
 
 .card-room-details {
-  width: 40vw;
+  width: 30vw;
 }
 
 .card-room-actions {
@@ -77,6 +71,7 @@ body {
 .card-room-buttons {
   display: flex;
   flex-direction: row;
+  justify-content : center;
   width: 100%;
 }
 
@@ -95,10 +90,29 @@ body {
 .home-page-button-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+
+@media screen and (max-width: 800px) {
+  .instructions-slideshow {
+      display: none !important;
+  }
+  .game-options {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+  .card-room-details {
+    width: 70vw;
+  }
+  .home-page-card {
+    width: 70vw;
+  }  
 }
