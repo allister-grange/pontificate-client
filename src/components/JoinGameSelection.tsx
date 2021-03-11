@@ -15,6 +15,7 @@ type JoinGameSelectionProps = {
   gameId: string;
   setShowingJoinGameOptions: React.Dispatch<React.SetStateAction<boolean>>;
   isFormInValid: boolean;
+  errorMessage: string;
 };
 
 const JoinGameSelection = ({
@@ -25,6 +26,7 @@ const JoinGameSelection = ({
   gameId,
   setShowingJoinGameOptions,
   isFormInValid,
+  errorMessage,
 }: JoinGameSelectionProps): JSX.Element => {
   return (
     <Card className="card-room-details" variant="outlined">
@@ -68,6 +70,9 @@ const JoinGameSelection = ({
               >
                 join game
               </Button>
+            </div>
+            <div>
+              <p>{errorMessage}</p>
             </div>
           </CardActions>
         </form>

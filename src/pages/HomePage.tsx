@@ -6,19 +6,54 @@ import boyPlaying from "../assets/boy-playing.svg";
 import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";
 import JoinGameSelection from "../components/JoinGameSelection";
+import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
 
 function HomePage(): JSX.Element {
   const history = useHistory();
+  const {
+    userNameExists,
+    gameExists,
+    doesGameExist,
+    doesUserNameExistInGame,
+  } = useCheckCurrentGames();
   const [gameId, setGameId] = React.useState("");
   const [userName, setUserName] = React.useState("");
+  // TODO use this wait to set up a spinner while we wait on the socket giving us the a okay
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
+  const [hasSearched, setHasSearched] = React.useState(false);
   const isFormInValid =
     userName === "" ||
     gameId === "" ||
     gameId.length !== 4 ||
     userName.length < 3;
+
+  useEffect(() => {
+    console.log(`username exists ${userNameExists}`);
+    console.log(`gameExeists ${gameExists}`);
+
+    // to avoid the initial setting of the values triggering error messages
+    if (!hasSearched) {
+      return;
+    }
+
+    if (!userNameExists && gameExists) {
+      history.push({
+        pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
+        state: {
+          userName,
+        },
+      });
+    }
+    if (userNameExists && gameExists) {
+      setErrorMessage("that username already exists in that game");
+    } else if (!gameExists) {
+      setErrorMessage("that game doesn't exist yet");
+    }
+  }, [userNameExists, gameExists]);
 
   const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 4) {
@@ -38,17 +73,13 @@ function HomePage(): JSX.Element {
     document.title = `Home | Pontificate`;
   });
 
-  // todo check if there's any games with that id
-  // todo check if there's any duplicate usernames in that game
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    history.push({
-      pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
-      state: {
-        userName,
-      },
-    });
+    // used to check if the player can proceed
+    setHasSearched(true);
+    doesGameExist(gameId);
+    doesUserNameExistInGame(gameId, userName);
   };
 
   return (
@@ -66,6 +97,7 @@ function HomePage(): JSX.Element {
               isFormInValid={isFormInValid}
               onSubmit={onSubmit}
               gameId={gameId}
+              errorMessage={errorMessage}
               setShowingJoinGameOptions={setShowingJoinGameOptions}
             />
           </div>

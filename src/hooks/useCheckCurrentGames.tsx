@@ -14,16 +14,31 @@ const useCheckCurrentGames = () => {
   const socketRef = useRef({} as SocketIOClient.Socket);
   // do not allow a user to join a game until it's proven that
   // no user in that game has the same username
-  const [userNameExists, setUserNameExists] = useState(true);
-  const [gameExists, setGameExists] = useState(true);
+  const [userNameExists, setUserNameExists] = useState();
+  const [gameExists, setGameExists] = useState();
 
   useEffect(() => {
     // Creates a WebSocket connection
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     socketRef.current.on(DOES_GAME_EXIST_RES, (data: any) => {
-      // send the client to the card screen
       console.log(`Received does game exist event for game`);
+
+      if ("gameExists" in data) {
+        setGameExists(data.gameExists);
+      } else {
+        console.error("No game exists status was returned from server");
+      }
+    });
+
+    socketRef.current.on(DOES_USERNAME_EXIST_RES, (data: any) => {
+      console.log(`Received does username exist event for game`);
+
+      if ("userNameExists" in data) {
+        setUserNameExists(data.userNameExists);
+      } else {
+        console.error("No userNameExists status was returned from server");
+      }
     });
 
     // Destroys the socket reference
