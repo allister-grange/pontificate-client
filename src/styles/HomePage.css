@@ -17,6 +17,11 @@ body {
   flex: 3;
 }
 
+.join-game-error-message {
+  text-align: center;
+  color: red;
+}
+
 .home-page-card {
   width: 35vw;
   transition-duration: 0.3s;

@@ -14,7 +14,7 @@ const useCheckCurrentGames = () => {
   const socketRef = useRef({} as SocketIOClient.Socket);
   // do not allow a user to join a game until it's proven that
   // no user in that game has the same username
-  const [userNameExists, setUserNameExists] = useState();
+  const [userNameIsFree, setuserNameIsFree] = useState();
   const [gameExists, setGameExists] = useState();
 
   useEffect(() => {
@@ -33,11 +33,12 @@ const useCheckCurrentGames = () => {
 
     socketRef.current.on(DOES_USERNAME_EXIST_RES, (data: any) => {
       console.log(`Received does username exist event for game`);
+      console.log(data);
 
-      if ("userNameExists" in data) {
-        setUserNameExists(data.userNameExists);
+      if ("userNameIsFree" in data) {
+        setuserNameIsFree(data.userNameIsFree);
       } else {
-        console.error("No userNameExists status was returned from server");
+        console.error("No userNameIsFree status was returned from server");
       }
     });
 
@@ -65,7 +66,7 @@ const useCheckCurrentGames = () => {
   };
 
   return {
-    userNameExists,
+    userNameIsFree,
     gameExists,
     doesGameExist,
     doesUserNameExistInGame,

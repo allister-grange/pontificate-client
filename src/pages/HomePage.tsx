@@ -11,7 +11,7 @@ import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
 function HomePage(): JSX.Element {
   const history = useHistory();
   const {
-    userNameExists,
+    userNameIsFree,
     gameExists,
     doesGameExist,
     doesUserNameExistInGame,
@@ -32,15 +32,15 @@ function HomePage(): JSX.Element {
     userName.length < 3;
 
   useEffect(() => {
-    console.log(`username exists ${userNameExists}`);
-    console.log(`gameExeists ${gameExists}`);
+    console.log(`useEffectTriggered; username exists ${userNameIsFree}`);
+    console.log(`useEffectTriggered; gameExists ${gameExists}`);
 
     // to avoid the initial setting of the values triggering error messages
     if (!hasSearched) {
       return;
     }
 
-    if (!userNameExists && gameExists) {
+    if (userNameIsFree && gameExists) {
       history.push({
         pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
         state: {
@@ -48,12 +48,13 @@ function HomePage(): JSX.Element {
         },
       });
     }
-    if (userNameExists && gameExists) {
+
+    if (!userNameIsFree && gameExists) {
       setErrorMessage("that username already exists in that game");
     } else if (!gameExists) {
       setErrorMessage("that game doesn't exist yet");
     }
-  }, [userNameExists, gameExists]);
+  }, [userNameIsFree, gameExists]);
 
   const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 4) {

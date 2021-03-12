@@ -71,7 +71,7 @@ const JoinGameSelection = ({
                 join game
               </Button>
             </div>
-            <div>
+            <div className="join-game-error-message">
               <p>{errorMessage}</p>
             </div>
           </CardActions>
