@@ -18,7 +18,6 @@ function HomePage(): JSX.Element {
   } = useCheckCurrentGames();
   const [gameId, setGameId] = React.useState("");
   const [userName, setUserName] = React.useState("");
-  // TODO use this wait to set up a spinner while we wait on the socket giving us the a okay
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
@@ -39,6 +38,10 @@ function HomePage(): JSX.Element {
     if (!hasSearched) {
       return;
     }
+
+    // once we've received a response from the socket backend we can
+    // stop the spinner
+    setIsLoading(false);
 
     if (userNameIsFree && gameExists) {
       history.push({
@@ -79,6 +82,7 @@ function HomePage(): JSX.Element {
 
     // used to check if the player can proceed
     setHasSearched(true);
+    setIsLoading(true);
     doesGameExist(gameId);
     doesUserNameExistInGame(gameId, userName);
   };
@@ -98,6 +102,7 @@ function HomePage(): JSX.Element {
               isFormInValid={isFormInValid}
               onSubmit={onSubmit}
               gameId={gameId}
+              isLoading={isLoading}
               errorMessage={errorMessage}
               setShowingJoinGameOptions={setShowingJoinGameOptions}
             />

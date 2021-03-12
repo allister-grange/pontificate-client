@@ -5,6 +5,7 @@ import {
   TextField,
   CardActions,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
 
 type JoinGameSelectionProps = {
@@ -16,6 +17,7 @@ type JoinGameSelectionProps = {
   setShowingJoinGameOptions: React.Dispatch<React.SetStateAction<boolean>>;
   isFormInValid: boolean;
   errorMessage: string;
+  isLoading: boolean;
 };
 
 const JoinGameSelection = ({
@@ -27,6 +29,7 @@ const JoinGameSelection = ({
   setShowingJoinGameOptions,
   isFormInValid,
   errorMessage,
+  isLoading,
 }: JoinGameSelectionProps): JSX.Element => {
   return (
     <Card className="card-room-details" variant="outlined">
@@ -68,7 +71,7 @@ const JoinGameSelection = ({
                 className="button"
                 disabled={isFormInValid}
               >
-                join game
+                {isLoading ? <CircularProgress color="primary" /> : "join game"}
               </Button>
             </div>
             <div className="join-game-error-message">

@@ -16,7 +16,6 @@ const usePlayerLobby = (gameId: string, userName: string) => {
 
   useEffect(() => {
     // Creates a WebSocket connection
-    // TODO make sure that the username is unique
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players
