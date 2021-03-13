@@ -1,17 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
-import { isGetAccessorDeclaration } from "typescript";
 import SOCKET_SERVER_URL from "../constants";
 import { Player, TurnStatusOptions } from "../types";
 
 const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
 const PLAYERS_IN_GAME_RESPONSE = "playersInGame";
 const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent";
-const POINTS_ADDED_TO_PLAYER_RESPONSE = "pointsAddedToPlayerResponse";
 const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
 const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
 
-const useGameState = (gameId: string) => {
+type UseGameState = {
+  players: Player[];
+  player: React.MutableRefObject<Player>;
+  turnIsActive: boolean;
+  getAllPlayersInGame: () => void;
+  addPointToPlayer: (points: number, userName: string) => void;
+  triggerChangeTurnStatusForUser: (
+    userName: string,
+    turnStatus: TurnStatusOptions
+  ) => void;
+  getPointsForPlayer: (userName: string) => number;
+};
+
+const useGameState = (gameId: string): UseGameState => {
   const [players, setPlayers] = useState([] as Player[]);
   const [turnIsActive, setTurnIsActive] = useState(false);
   const socketRef = useRef({} as SocketIOClient.Socket);

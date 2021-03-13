@@ -13,8 +13,8 @@ function HomePage(): JSX.Element {
   const {
     userNameIsFree,
     gameExists,
-    doesGameExist,
-    doesUserNameExistInGame,
+    doesGameExistEmit,
+    doesUserNameExistInGameEmit,
   } = useCheckCurrentGames();
   const [gameId, setGameId] = React.useState("");
   const [userName, setUserName] = React.useState("");
@@ -83,8 +83,8 @@ function HomePage(): JSX.Element {
     // used to check if the player can proceed
     setHasSearched(true);
     setIsLoading(true);
-    doesGameExist(gameId);
-    doesUserNameExistInGame(gameId, userName);
+    doesGameExistEmit(gameId);
+    doesUserNameExistInGameEmit(gameId, userName);
   };
 
   return (

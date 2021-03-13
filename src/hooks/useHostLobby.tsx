@@ -11,7 +11,13 @@ const PLAYER_READY_EVENT = "playerReadyEvent";
 const GAME_STARTED_EVENT = "gameStartedEvent";
 const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
 
-const useHostLobby = (gameId: string) => {
+type UseHostLobby = {
+  players: Player[];
+  createNewGame: (newGameId: string) => void;
+  startGame: (gameToStart: string) => void;
+};
+
+const useHostLobby = (gameId: string): UseHostLobby => {
   const [players, setPlayers] = useState([] as Player[]);
   const history = useHistory();
   const socketRef = useRef({} as SocketIOClient.Socket);
