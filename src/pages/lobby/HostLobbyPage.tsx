@@ -13,13 +13,14 @@ import useHostLobby from "../../hooks/useHostLobby";
 import "../../styles/HostLobbyPage.css";
 import { Player } from "../../types";
 
-const HostLobbyPage = ({ match }: any): JSX.Element => {
+const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
+  const { pointsToWin } = location.state; // Gets roomId from URL
   const { players, createNewGame, startGame } = useHostLobby(gameId);
 
   useEffect(() => {
     document.title = `${gameId} | Pontificate`;
-    createNewGame(gameId);
+    createNewGame(gameId, pointsToWin);
   }, []);
 
   const allPlayersAreReady = (): boolean => {

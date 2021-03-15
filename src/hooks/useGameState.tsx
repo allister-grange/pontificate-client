@@ -8,6 +8,7 @@ const PLAYERS_IN_GAME_RESPONSE = "playersInGame";
 const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent";
 const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
 const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
+const GAME_OVER_RES = "gameOverRes";
 
 type UseGameState = {
   players: Player[];
@@ -38,6 +39,11 @@ const useGameState = (gameId: string): UseGameState => {
       const incomingPlayers = data.playersInGame as Player[];
       console.log(incomingPlayers);
       setPlayers(incomingPlayers);
+    });
+
+    // Listens for a game ended event when a player reaches max points
+    socketRef.current.on(GAME_OVER_RES, (data: any) => {
+      console.log("GAME_OVER_RES triggered, GAME IS OVER");
     });
 
     // Listens for backend telling a player it's their turn to play, this is only sent to one socket

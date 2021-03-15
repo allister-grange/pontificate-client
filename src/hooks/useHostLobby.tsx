@@ -13,7 +13,7 @@ const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
 
 type UseHostLobby = {
   players: Player[];
-  createNewGame: (newGameId: string) => void;
+  createNewGame: (newGameId: string, pointsToWin: number) => void;
   startGame: (gameToStart: string) => void;
 };
 
@@ -51,16 +51,18 @@ const useHostLobby = (gameId: string): UseHostLobby => {
     // };
   }, [gameId]);
 
-  const createNewGame = (newGameId: string) => {
-    console.log(`Creating new game with id of ${newGameId}`);
+  const createNewGame = (newGameId: string, pointsToWin: number) => {
+    console.log(
+      `Creating new game with id of ${newGameId}, with pointsToWin: ${pointsToWin}`
+    );
 
     socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, {
-      query: { gameId: newGameId },
+      query: { gameId: newGameId, pointsToWin },
     });
   };
 
   const startGame = (gameToStart: string) => {
-    console.log(`Starting game with id of ${gameToStart}`);
+    console.log(`Starting game with id of ${gameToStart},`);
 
     socketRef.current.emit(START_NEW_GAME_EVENT, {
       query: { gameId: gameToStart },

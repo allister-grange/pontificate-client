@@ -23,12 +23,12 @@ const StartNewGameSelection = ({
   setShowingStartGameOptions,
 }: StartNewGameSelectionProps): JSX.Element => {
   const history = useHistory();
-  const [gameLength, setGameLength] = useState(50);
+  const [pointsToWin, setPointsToWin] = useState(10);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (gameLength <= 0) {
+    if (pointsToWin <= 0) {
       return;
     }
 
@@ -38,7 +38,7 @@ const StartNewGameSelection = ({
       pathname: ROUTES.HOSTLOBBY.replace(":gameId", gameId),
       state: {
         gameId,
-        gameLength,
+        pointsToWin,
       },
     });
   };
@@ -51,14 +51,14 @@ const StartNewGameSelection = ({
             <Select
               native
               fullWidth
-              value={gameLength}
-              onChange={(e) => setGameLength(e.target.value as number)}
+              value={pointsToWin}
+              onChange={(e) => setPointsToWin(e.target.value as number)}
               inputProps={{
                 name: "rounds",
                 id: "round-pick-simple",
               }}
             >
-              <option value={50}>50 points (10 minutes)</option>
+              <option value={10}>10 points (10 minutes)</option>
               <option value={100}>100 points (20 minutes)</option>
               <option value={200}>200 points (40 minutes)</option>
             </Select>
