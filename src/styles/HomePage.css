@@ -47,6 +47,11 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.start-new-game-form {
+  width: 80%;
 }
 
 .RoomDetailsButtons {

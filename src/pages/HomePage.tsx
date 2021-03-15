@@ -7,6 +7,7 @@ import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";
 import JoinGameSelection from "../components/JoinGameSelection";
 import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
+import StartNewGameSelection from "../components/StartNewGameSelection";
 
 function HomePage(): JSX.Element {
   const history = useHistory();
@@ -23,12 +24,22 @@ function HomePage(): JSX.Element {
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
+  const [showingStartGameOptions, setShowingStartGameOptions] = React.useState(
+    false
+  );
   const [hasSearched, setHasSearched] = React.useState(false);
   const isFormInValid =
     userName === "" ||
     gameId === "" ||
     gameId.length !== 4 ||
     userName.length < 3;
+
+  const generateGameID = (): string =>
+    (Math.floor(1000 + Math.random() * 9000) - 1).toString();
+
+  useEffect(() => {
+    setGameId(generateGameID());
+  }, []);
 
   useEffect(() => {
     console.log(`useEffectTriggered; username exists ${userNameIsFree}`);
@@ -70,9 +81,6 @@ function HomePage(): JSX.Element {
     setUserName(event.target.value);
   };
 
-  const generateGameID = (): string =>
-    (Math.floor(1000 + Math.random() * 9000) - 1).toString();
-
   useEffect(() => {
     document.title = `Home | Pontificate`;
   });
@@ -93,7 +101,7 @@ function HomePage(): JSX.Element {
         <img src={boyPlaying} alt="boy playing" />
       </div>
       <div className="welcome-header-and-options">
-        {showingJoinGameOptions ? (
+        {showingJoinGameOptions && (
           <div className="join-game-options">
             <JoinGameSelection
               userName={userName}
@@ -107,19 +115,34 @@ function HomePage(): JSX.Element {
               setShowingJoinGameOptions={setShowingJoinGameOptions}
             />
           </div>
-        ) : (
+        )}
+        {showingStartGameOptions && (
+          <div className="join-game-options">
+            <StartNewGameSelection
+              gameId={gameId}
+              setShowingStartGameOptions={setShowingStartGameOptions}
+            />
+          </div>
+        )}
+        {!showingJoinGameOptions && !showingStartGameOptions && (
           <div className="game-options">
             <Card variant="outlined" className="home-page-card">
               <CardContent>
                 <div className="home-page-button-container">
                   <h1 style={{ textAlign: "center" }}>pontificate</h1>
                   <Button
+                    onClick={() => setShowingStartGameOptions(true)}
+                    variant="outlined"
+                    color="primary"
+                    className="button"
+                  >
+                    {/* <Button
                     component={Link}
                     to={ROUTES.HOSTLOBBY.replace(":gameId", generateGameID())}
                     variant="outlined"
                     color="primary"
                     className="button"
-                  >
+                  > */}
                     start new game
                   </Button>
                   <div style={{ margin: "10px" }} />
