@@ -12,7 +12,6 @@ const GAME_OVER_RES = "gameOverRes";
 
 type UseGameState = {
   players: Player[];
-  player: React.MutableRefObject<Player>;
   turnIsActive: boolean;
   getAllPlayersInGame: () => void;
   addPointToPlayer: (points: number, userName: string) => void;
@@ -21,13 +20,14 @@ type UseGameState = {
     turnStatus: TurnStatusOptions
   ) => void;
   getPointsForPlayer: (userName: string) => number;
+  playerWhoWon: Player | undefined;
 };
 
 const useGameState = (gameId: string): UseGameState => {
   const [players, setPlayers] = useState([] as Player[]);
+  const [playerWhoWon, setPlayerWhoWon] = useState<Player>();
   const [turnIsActive, setTurnIsActive] = useState(false);
   const socketRef = useRef({} as SocketIOClient.Socket);
-  const player = useRef({} as Player);
 
   useEffect(() => {
     // Creates a WebSocket connection
@@ -44,6 +44,11 @@ const useGameState = (gameId: string): UseGameState => {
     // Listens for a game ended event when a player reaches max points
     socketRef.current.on(GAME_OVER_RES, (data: any) => {
       console.log("GAME_OVER_RES triggered, GAME IS OVER");
+      const incomingPlayer = data.player as Player;
+      if (incomingPlayer) {
+        console.log(incomingPlayer);
+        setPlayerWhoWon(incomingPlayer);
+      }
     });
 
     // Listens for backend telling a player it's their turn to play, this is only sent to one socket
@@ -122,7 +127,7 @@ const useGameState = (gameId: string): UseGameState => {
 
   return {
     players,
-    player,
+    playerWhoWon,
     turnIsActive,
     getAllPlayersInGame,
     addPointToPlayer,

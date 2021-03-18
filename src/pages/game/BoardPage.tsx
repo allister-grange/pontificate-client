@@ -8,16 +8,20 @@ import {
   Card,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
+import Confetti from "react-confetti";
 import useGameState from "../../hooks/useGameState";
 import { Player } from "../../types";
 import "../../styles/BoardPage.css";
+import useWindowDimensions from "../../components/WindowDimensions";
 
 const BoardPage = ({ match }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
+  const { height, width } = useWindowDimensions();
   const {
     players,
     getAllPlayersInGame,
     triggerChangeTurnStatusForUser,
+    playerWhoWon,
   } = useGameState(gameId);
 
   useEffect(() => {
@@ -33,11 +37,19 @@ const BoardPage = ({ match }: any): JSX.Element => {
         </header>
       </div>
 
+      {playerWhoWon && (
+        <div>
+          <Confetti width={width} height={height} />
+          <h1>{`player ${playerWhoWon.userName} won!!!!`}</h1>
+        </div>
+      )}
+
       <Card className="board-page-player-card">
         <div className="board-page-player-container">
-          {players.length === 0 ? (
+          {players.length === 0 && !playerWhoWon && (
             <p>no one is in your game :( something must be wrong!</p>
-          ) : (
+          )}
+          {!playerWhoWon && (
             <Table className="board-page-player-table">
               <TableHead>
                 <TableRow>

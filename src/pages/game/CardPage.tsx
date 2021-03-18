@@ -1,9 +1,11 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from "react";
 import "../../styles/CardPage.css";
+import Confetti from "react-confetti";
 import DisplayCard from "../../components/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
+import useWindowDimensions from "../../components/WindowDimensions";
 
 const CardPage = ({ location }: any): JSX.Element => {
   const TURN_LENGTH = 30;
@@ -20,11 +22,13 @@ const CardPage = ({ location }: any): JSX.Element => {
     players,
     getPointsForPlayer,
     addPointToPlayer,
+    playerWhoWon,
     getAllPlayersInGame,
     triggerChangeTurnStatusForUser,
   } = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
   const [category, setCategory] = useState("object" as Category);
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`;
@@ -66,7 +70,12 @@ const CardPage = ({ location }: any): JSX.Element => {
 
   return (
     <div className="card-page-container">
-      {!turnIsActive ? (
+      {playerWhoWon ? (
+        <div className="waiting-turn-message-container">
+          <Confetti width={width} height={height} />
+          <h3>{`${playerWhoWon.userName} won!!!`}</h3>
+        </div>
+      ) : !turnIsActive ? (
         <div className="waiting-turn-message-container">
           <h3>please wait your turn :)</h3>
         </div>
