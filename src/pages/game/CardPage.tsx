@@ -72,7 +72,9 @@ const CardPage = ({ location }: any): JSX.Element => {
     <div className="card-page-container">
       {playerWhoWon ? (
         <div className="waiting-turn-message-container">
-          <Confetti width={width} height={height} />
+          {userName === playerWhoWon.userName ? (
+            <Confetti width={width} height={height} />
+          ) : null}
           <h3>{`${playerWhoWon.userName} won!!!`}</h3>
         </div>
       ) : !turnIsActive ? (
