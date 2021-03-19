@@ -1,15 +1,9 @@
-body {
-  background-color: white;
+.home-page-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
-}
-
-.App-header {
-  font-size: calc(16px + 1vmin);
-  color: #282c34;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+  align-items: center;
+  height: 90%;
 }
 
 .instructions-slideshow {
@@ -33,13 +27,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-}
-
-.App {
-  display: flex;
-  flex-direction: row;
-  height: 90vh; 
-  width: 100vw;
 }
 
 .room-details-form {
@@ -103,7 +90,6 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
-
 
 @media screen and (max-width: 850px) {
   .instructions-slideshow {

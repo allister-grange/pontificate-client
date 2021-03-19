@@ -96,7 +96,7 @@ function HomePage(): JSX.Element {
   };
 
   return (
-    <div className="App">
+    <div className="home-page-container">
       <div className="instructions-slideshow">
         <img src={boyPlaying} alt="boy playing" />
       </div>

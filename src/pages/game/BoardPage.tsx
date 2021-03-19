@@ -49,7 +49,7 @@ const BoardPage = ({ match }: any): JSX.Element => {
           {players.length === 0 && !playerWhoWon && (
             <p>no one is in your game :( something must be wrong!</p>
           )}
-          {!playerWhoWon && (
+          {!playerWhoWon && players.length > 0 && (
             <Table className="board-page-player-table">
               <TableHead>
                 <TableRow>

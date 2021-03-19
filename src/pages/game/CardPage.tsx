@@ -109,6 +109,7 @@ const CardPage = ({ location }: any): JSX.Element => {
       ) : !turnIsActive ? (
         <div className="waiting-turn-message-container">
           <h1 className="card-word-styling">please wait your turn :)</h1>
+          <h3 className="card-word-styling">{category}</h3>
         </div>
       ) : countdownBeforePlaying > 0 ? (
         <div className="waiting-turn-message-container">
