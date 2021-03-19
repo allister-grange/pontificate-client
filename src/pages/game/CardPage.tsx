@@ -28,12 +28,38 @@ const CardPage = ({ location }: any): JSX.Element => {
   } = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
   const [category, setCategory] = useState("object" as Category);
+  const [cardBackGroundColor, setCardBackGroundColor] = useState("");
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`;
     getAllPlayersInGame();
   }, []);
+
+  useEffect(() => {
+    switch (category) {
+      case "action":
+        setCardBackGroundColor("#C96567");
+        break;
+      case "object":
+        setCardBackGroundColor("#5aB9EA");
+        break;
+      case "people":
+        setCardBackGroundColor("#FFE400");
+        break;
+      case "random":
+        setCardBackGroundColor("#F79E02");
+        break;
+      case "world":
+        setCardBackGroundColor("#5680E9");
+        break;
+      case "nature":
+        setCardBackGroundColor("#3AAFA9");
+        break;
+      default:
+        setCardBackGroundColor("");
+    }
+  }, [category]);
 
   useEffect(() => {
     console.log("called now because players was updated");
@@ -69,22 +95,25 @@ const CardPage = ({ location }: any): JSX.Element => {
   }, [countdownBeforePlaying, turnIsActive]);
 
   return (
-    <div className="card-page-container">
+    <div
+      className="card-page-container"
+      style={{ backgroundColor: cardBackGroundColor }}
+    >
       {playerWhoWon ? (
         <div className="waiting-turn-message-container">
           {userName === playerWhoWon.userName ? (
             <Confetti width={width} height={height} />
           ) : null}
-          <h3>{`${playerWhoWon.userName} won!!!`}</h3>
+          <h3 className="card-word-styling">{`${playerWhoWon.userName} won!!!`}</h3>
         </div>
       ) : !turnIsActive ? (
         <div className="waiting-turn-message-container">
-          <h3>please wait your turn :)</h3>
+          <h1 className="card-word-styling">please wait your turn :)</h1>
         </div>
       ) : countdownBeforePlaying > 0 ? (
         <div className="waiting-turn-message-container">
-          <h1>{countdownBeforePlaying}</h1>
-          <h4>{category}</h4>
+          <h1 className="card-word-styling">{countdownBeforePlaying}</h1>
+          <h4 className="card-word-styling">{category}</h4>
         </div>
       ) : (
         <DisplayCard

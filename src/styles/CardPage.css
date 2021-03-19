@@ -62,3 +62,8 @@ html, body, #app, #app>div {
   justify-content: center;
   align-items: center;
 }
+
+.card-word-styling {
+    /* Prefix required. Even Firefox only supports the -webkit- prefix */
+  color: white;
+}

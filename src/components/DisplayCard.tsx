@@ -73,26 +73,42 @@ const DisplayCard = ({
   return (
     <div className="display-card-container">
       <div className="words-to-guess">
-        <h1>{words[indexOfCurrentCard]}</h1>
-        <h4>{words[indexOfLastCard]}</h4>
+        <h1 className="card-word-styling">{words[indexOfCurrentCard]}</h1>
+        <h4 className="card-word-styling">{words[indexOfLastCard]}</h4>
       </div>
 
       <div className="correct-card-count">
-        <p style={{ paddingLeft: "2px" }}>
+        <p className="card-word-styling" style={{ paddingLeft: "2px" }}>
           time left: {counter} | correct&nbsp;
         </p>
-        <h4 style={{ paddingRight: "2px" }}>{correctCount}</h4>
+        <h4 className="card-word-styling" style={{ paddingRight: "2px" }}>
+          {correctCount}
+        </h4>
       </div>
 
       <div className="buttons">
         <div style={{ paddingRight: "15px" }}>
-          <Button variant="outlined" onClick={lastCard}>
+          <Button
+            variant="outlined"
+            style={{
+              borderColor: "white",
+              color: "white",
+            }}
+            onClick={lastCard}
+          >
             skip
           </Button>
         </div>
 
         <div style={{ paddingLeft: "15px" }}>
-          <Button variant="outlined" onClick={nextCard}>
+          <Button
+            variant="outlined"
+            style={{
+              borderColor: "white",
+              color: "white",
+            }}
+            onClick={nextCard}
+          >
             correct
           </Button>
         </div>
