@@ -1,7 +1,7 @@
 export type TurnStatusOptions = "ready" | "active" | "waiting";
 
 export type Category =
-  | "people"
+  | "person"
   | "object"
   | "nature"
   | "random"

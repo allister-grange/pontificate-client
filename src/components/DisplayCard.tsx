@@ -38,8 +38,8 @@ const DisplayCard = ({
         case "random":
           setWords(WORDS.randomWords);
           break;
-        case "people":
-          setWords(WORDS.peopleWords);
+        case "person":
+          setWords(WORDS.personWords);
           break;
         case "world":
           setWords(WORDS.worldWords);

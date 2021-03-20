@@ -12,7 +12,6 @@ const CardPage = ({ location }: any): JSX.Element => {
   const COUNTDOWN_LENGTH = 5;
 
   const { gameId, userName } = location.state;
-
   const [counter, setCounter] = useState(TURN_LENGTH);
   const [points, setPoints] = useState(0);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(
@@ -44,8 +43,8 @@ const CardPage = ({ location }: any): JSX.Element => {
       case "object":
         setCardBackGroundColor("#5aB9EA");
         break;
-      case "people":
-        setCardBackGroundColor("#FFE400");
+      case "person":
+        setCardBackGroundColor("#ffd800");
         break;
       case "random":
         setCardBackGroundColor("#F79E02");
@@ -78,7 +77,7 @@ const CardPage = ({ location }: any): JSX.Element => {
   useEffect(() => {
     if (counter > 0 && countdownBeforePlaying === 0) {
       setTimeout(() => setCounter(counter - 1), 1000);
-    } else if (counter === 0) {
+    } else if (counter === 0 && !playerWhoWon) {
       triggerChangeTurnStatusForUser(userName, "waiting");
       setCounter(TURN_LENGTH);
       setCountDownBeforePlaying(COUNTDOWN_LENGTH);

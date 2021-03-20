@@ -40,12 +40,12 @@ const BoardPage = ({ match }: any): JSX.Element => {
       {playerWhoWon && (
         <div>
           <Confetti width={width} height={height} />
-          <h1>{`player ${playerWhoWon.userName} won!!!!`}</h1>
         </div>
       )}
 
       <Card className="board-page-player-card">
         <div className="board-page-player-container">
+          {playerWhoWon && <h1>{`player ${playerWhoWon.userName} won!!!!`}</h1>}
           {players.length === 0 && !playerWhoWon && (
             <p>no one is in your game :( something must be wrong!</p>
           )}

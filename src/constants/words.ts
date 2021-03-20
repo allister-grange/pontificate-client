@@ -1,4 +1,4 @@
-export const peopleWords = [
+export const personWords = [
   "Louis Pastuer",
   "Casanova",
   "Ludwig Van Beethoven",
