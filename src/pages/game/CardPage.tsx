@@ -61,9 +61,6 @@ const CardPage = ({ location }: any): JSX.Element => {
   }, [category]);
 
   useEffect(() => {
-    console.log("called now because players was updated");
-    console.log(players);
-
     players.forEach((player) => {
       if (player.userName === userName) {
         setTurnIsActive(player.turnStatus === "active");

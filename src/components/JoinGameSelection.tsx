@@ -15,7 +15,6 @@ type JoinGameSelectionProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   gameId: string;
   setShowingJoinGameOptions: React.Dispatch<React.SetStateAction<boolean>>;
-  isFormInValid: boolean;
   errorMessage: string;
   isLoading: boolean;
 };
@@ -27,10 +26,15 @@ const JoinGameSelection = ({
   onSubmit,
   gameId,
   setShowingJoinGameOptions,
-  isFormInValid,
   errorMessage,
   isLoading,
 }: JoinGameSelectionProps): JSX.Element => {
+  const isFormInValid =
+    userName === "" ||
+    gameId === "" ||
+    gameId.length !== 4 ||
+    userName.length < 3;
+
   return (
     <Card className="card-room-details" variant="outlined">
       <CardContent>

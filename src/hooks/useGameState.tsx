@@ -37,7 +37,7 @@ const useGameState = (gameId: string): UseGameState => {
     socketRef.current.on(PLAYERS_IN_GAME_RESPONSE, (data: any) => {
       console.log("PLAYERS_IN_GAME triggered, setting players in game");
       const incomingPlayers = data.playersInGame as Player[];
-      console.log(incomingPlayers);
+      // console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
 

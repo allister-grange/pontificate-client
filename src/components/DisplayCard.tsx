@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as WORDS from "../constants/words";
 import { Category } from "../types";
 
@@ -22,7 +22,8 @@ const DisplayCard = ({
   const [words, setWords] = useState([] as string[]);
   // assumes that all categories have the same amount of words (they should)
   const lengthOfWordArray = WORDS.actionWords.length;
-  const wordsSeen = Array<string>();
+  const wordsSeen = useRef(Array<string>());
+  const skipped = useRef(false);
 
   useEffect(() => {
     const setWordsForPlayer = () => {
@@ -49,33 +50,42 @@ const DisplayCard = ({
           setWords([]);
       }
       setIndexOfCurrentCard(Math.floor(Math.random() * lengthOfWordArray));
-      console.log(words);
     };
     setWordsForPlayer();
   }, []);
 
+  const getNextCardNumber = (): number => {
+    let randomNum = Math.floor(Math.random() * lengthOfWordArray);
+    while (
+      // eslint-disable-next-line @typescript-eslint/no-loop-func
+      wordsSeen.current.find((word) => word === words[randomNum]) !== undefined
+    ) {
+      randomNum = Math.floor(Math.random() * lengthOfWordArray);
+    }
+    return randomNum;
+  };
+
   const nextCard = () => {
+    skipped.current = false;
     addPointToPlayer(correctCount + 1, userName);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
-    let randomNum = Math.floor(Math.random() * lengthOfWordArray);
-    // cycle words until one that hasn't been played is found
-    // eslint-disable-next-line @typescript-eslint/no-loop-func
-    while (wordsSeen.find((word) => word === words[randomNum]) !== undefined) {
-      randomNum = Math.floor(Math.random() * lengthOfWordArray);
-    }
-    setIndexOfCurrentCard(randomNum);
-    wordsSeen.push(words[randomNum]);
+    const nextCardNumber = getNextCardNumber();
+    setIndexOfCurrentCard(nextCardNumber);
+    wordsSeen.current.push(words[nextCardNumber]);
   };
 
   const lastCard = () => {
-    if (indexOfLastCard === -1) {
+    // if you haven't skipped already, or you're just starting you get one new card
+    // if you've skipped once already, you should cycle through the same two cards
+    if (indexOfLastCard === -1 || skipped.current !== true) {
       setIndexOfLastCard(indexOfCurrentCard);
-      setIndexOfCurrentCard(Math.floor(Math.random() * lengthOfWordArray));
+      setIndexOfCurrentCard(getNextCardNumber());
     } else {
       setIndexOfCurrentCard(indexOfLastCard);
       setIndexOfLastCard(indexOfCurrentCard);
     }
+    skipped.current = true;
   };
 
   return (

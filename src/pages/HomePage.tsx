@@ -28,11 +28,6 @@ function HomePage(): JSX.Element {
     false
   );
   const [hasSearched, setHasSearched] = React.useState(false);
-  const isFormInValid =
-    userName === "" ||
-    gameId === "" ||
-    gameId.length !== 4 ||
-    userName.length < 3;
 
   const generateGameID = (): string =>
     (Math.floor(1000 + Math.random() * 9000) - 1).toString();
@@ -107,7 +102,6 @@ function HomePage(): JSX.Element {
               userName={userName}
               handleGameIdChange={handleGameIdChange}
               handleUserNameChange={handleUserNameChange}
-              isFormInValid={isFormInValid}
               onSubmit={onSubmit}
               gameId={gameId}
               isLoading={isLoading}
