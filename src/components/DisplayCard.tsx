@@ -22,6 +22,7 @@ const DisplayCard = ({
   const [words, setWords] = useState([] as string[]);
   // assumes that all categories have the same amount of words (they should)
   const lengthOfWordArray = WORDS.actionWords.length;
+  const wordsSeen = Array<string>();
 
   useEffect(() => {
     const setWordsForPlayer = () => {
@@ -57,7 +58,14 @@ const DisplayCard = ({
     addPointToPlayer(correctCount + 1, userName);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
-    setIndexOfCurrentCard(Math.floor(Math.random() * lengthOfWordArray));
+    let randomNum = Math.floor(Math.random() * lengthOfWordArray);
+    // cycle words until one that hasn't been played is found
+    // eslint-disable-next-line @typescript-eslint/no-loop-func
+    while (wordsSeen.find((word) => word === words[randomNum]) !== undefined) {
+      randomNum = Math.floor(Math.random() * lengthOfWordArray);
+    }
+    setIndexOfCurrentCard(randomNum);
+    wordsSeen.push(words[randomNum]);
   };
 
   const lastCard = () => {
