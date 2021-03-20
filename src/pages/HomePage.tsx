@@ -136,13 +136,6 @@ function HomePage(): JSX.Element {
                     color="primary"
                     className="button"
                   >
-                    {/* <Button
-                    component={Link}
-                    to={ROUTES.HOSTLOBBY.replace(":gameId", generateGameID())}
-                    variant="outlined"
-                    color="primary"
-                    className="button"
-                  > */}
                     start new game
                   </Button>
                   <div style={{ margin: "10px" }} />

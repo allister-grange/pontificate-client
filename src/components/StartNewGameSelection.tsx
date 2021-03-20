@@ -23,7 +23,7 @@ const StartNewGameSelection = ({
   setShowingStartGameOptions,
 }: StartNewGameSelectionProps): JSX.Element => {
   const history = useHistory();
-  const [pointsToWin, setPointsToWin] = useState(10);
+  const [pointsToWin, setPointsToWin] = useState(20);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,9 +58,9 @@ const StartNewGameSelection = ({
                 id: "round-pick-simple",
               }}
             >
-              <option value={10}>10 points (10 minutes)</option>
-              <option value={100}>100 points (20 minutes)</option>
-              <option value={200}>200 points (40 minutes)</option>
+              <option value={10}>20 points (short game)</option>
+              <option value={100}>40 points (standard game)</option>
+              <option value={200}>80 points (long game)</option>
             </Select>
             <FormHelperText>points required to win game</FormHelperText>
           </FormControl>
