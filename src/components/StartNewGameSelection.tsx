@@ -12,12 +12,12 @@ import { useHistory } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 
 type StartNewGameSelectionProps = {
-  gameId: string;
+  newGameId: string;
   setShowingStartGameOptions: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const StartNewGameSelection = ({
-  gameId,
+  newGameId,
   setShowingStartGameOptions,
 }: StartNewGameSelectionProps): JSX.Element => {
   const history = useHistory();
@@ -30,12 +30,12 @@ const StartNewGameSelection = ({
       return;
     }
 
-    console.log(`Starting game with id of ${gameId}`);
+    console.log(`Starting game with id of ${newGameId}`);
 
     history.push({
-      pathname: ROUTES.HOSTLOBBY.replace(":gameId", gameId),
+      pathname: ROUTES.HOSTLOBBY.replace(":gameId", newGameId),
       state: {
-        gameId,
+        gameId: newGameId,
         pointsToWin,
       },
     });

@@ -45,6 +45,7 @@ const JoinGameSelection = ({
             label="username"
             variant="outlined"
             placeholder="username"
+            autoComplete="off"
             value={userName}
             className="room-form-input"
             onChange={handleUserNameChange}
@@ -58,6 +59,7 @@ const JoinGameSelection = ({
             variant="outlined"
             placeholder="game id"
             className="room-form-input"
+            autoComplete="off"
             value={gameId}
             onChange={handleGameIdChange}
           />

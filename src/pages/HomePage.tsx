@@ -17,10 +17,11 @@ function HomePage(): JSX.Element {
     doesGameExistEmit,
     doesUserNameExistInGameEmit,
   } = useCheckCurrentGames();
-  const [gameId, setGameId] = React.useState("");
+  const [newGameId, setNewGameId] = React.useState("");
   const [userName, setUserName] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [gameId, setGameId] = React.useState("");
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
@@ -33,7 +34,7 @@ function HomePage(): JSX.Element {
     (Math.floor(1000 + Math.random() * 9000) - 1).toString();
 
   useEffect(() => {
-    setGameId(generateGameID());
+    setNewGameId(generateGameID());
   }, []);
 
   useEffect(() => {
@@ -113,7 +114,7 @@ function HomePage(): JSX.Element {
         {showingStartGameOptions && (
           <div className="join-game-options">
             <StartNewGameSelection
-              gameId={gameId}
+              newGameId={newGameId}
               setShowingStartGameOptions={setShowingStartGameOptions}
             />
           </div>
