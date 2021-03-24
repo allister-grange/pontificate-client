@@ -9,7 +9,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 400px;
   max-width: 850px;
 }
 
