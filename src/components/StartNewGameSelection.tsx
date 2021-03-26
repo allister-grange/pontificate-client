@@ -21,12 +21,13 @@ const StartNewGameSelection = ({
   setShowingStartGameOptions,
 }: StartNewGameSelectionProps): JSX.Element => {
   const history = useHistory();
-  const [pointsToWin, setPointsToWin] = useState(20);
+  const [pointsToWin, setPointsToWin] = useState(-1);
+  const invalidPoints = pointsToWin < 0;
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (pointsToWin <= 0) {
+    if (pointsToWin < 0) {
       return;
     }
 
@@ -56,7 +57,8 @@ const StartNewGameSelection = ({
                 id: "round-pick-simple",
               }}
             >
-              <option value={10}>20 points (short game)</option>
+              <option value={-1}>points to win</option>
+              <option value={20}>20 points (short game)</option>
               <option value={40}>40 points (standard game)</option>
               <option value={80}>80 points (long game)</option>
             </Select>
@@ -74,6 +76,7 @@ const StartNewGameSelection = ({
                 fullWidth
                 color="primary"
                 className="button"
+                disabled={invalidPoints}
               >
                 start new game
               </Button>
