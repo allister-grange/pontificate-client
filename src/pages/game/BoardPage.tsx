@@ -14,8 +14,9 @@ import { Player } from "../../types";
 import "../../styles/BoardPage.css";
 import useWindowDimensions from "../../components/WindowDimensions";
 
-const BoardPage = ({ match }: any): JSX.Element => {
+const BoardPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
+  const { pointsToWin } = location.state;
   const { height, width } = useWindowDimensions();
   const {
     players,
@@ -31,10 +32,9 @@ const BoardPage = ({ match }: any): JSX.Element => {
 
   return (
     <div className="board-page-container">
-      <div className="Title">
-        <header className="App-header">
-          <h1>game board</h1>
-        </header>
+      <div className="board-page-title">
+        <h1>game board</h1>
+        <h3>{`${pointsToWin} points to win!`}</h3>
       </div>
 
       {playerWhoWon && (

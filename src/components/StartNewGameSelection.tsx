@@ -57,8 +57,8 @@ const StartNewGameSelection = ({
               }}
             >
               <option value={10}>20 points (short game)</option>
-              <option value={100}>40 points (standard game)</option>
-              <option value={200}>80 points (long game)</option>
+              <option value={40}>40 points (standard game)</option>
+              <option value={80}>80 points (long game)</option>
             </Select>
             <FormHelperText>points required to win game</FormHelperText>
           </FormControl>

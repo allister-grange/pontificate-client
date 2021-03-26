@@ -17,7 +17,7 @@ type UseHostLobby = {
   startGame: (gameToStart: string) => void;
 };
 
-const useHostLobby = (gameId: string): UseHostLobby => {
+const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobby => {
   const [players, setPlayers] = useState([] as Player[]);
   const history = useHistory();
   const socketRef = useRef({} as SocketIOClient.Socket);
@@ -41,7 +41,10 @@ const useHostLobby = (gameId: string): UseHostLobby => {
     socketRef.current.on(GAME_STARTED_EVENT, (data: any) => {
       // send the client to the card screen
       console.log(`Received game start event for game ${gameId}`);
-      history.push({ pathname: ROUTES.BOARDPAGE.replace(":gameId", gameId) });
+      history.push({
+        pathname: ROUTES.BOARDPAGE.replace(":gameId", gameId),
+        state: { pointsToWin },
+      });
     });
 
     // Destroys the socket reference

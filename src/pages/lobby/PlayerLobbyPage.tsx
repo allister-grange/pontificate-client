@@ -48,7 +48,7 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
           <>
             <p>
               this game doesn&#39;t exist yet! if you&#39;d like to start a new
-              game head back to pontificate.tv
+              game head back to pontificate.click
             </p>
           </>
         ) : (

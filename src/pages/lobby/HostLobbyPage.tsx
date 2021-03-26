@@ -16,7 +16,10 @@ import { Player } from "../../types";
 const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
   const { pointsToWin } = location.state; // Gets roomId from URL
-  const { players, createNewGame, startGame } = useHostLobby(gameId);
+  const { players, createNewGame, startGame } = useHostLobby(
+    gameId,
+    pointsToWin
+  );
 
   useEffect(() => {
     document.title = `${gameId} | Pontificate`;
@@ -42,7 +45,7 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
 
       <div className="title">
         <h2>join on your at phone at</h2>
-        <h2 style={{ color: "coral" }}>{" pontificate.tv"}</h2>
+        <h2 style={{ color: "coral" }}>{" pontificate.click"}</h2>
       </div>
 
       <div className="host-player-list">
@@ -51,32 +54,6 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
         ) : (
           <Card>
             <CardContent>
-              {/* <Table className="host-player-table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">
-                      <h3 className="table-cell">player</h3>
-                    </TableCell>
-                    <TableCell align="center">
-                      <h3 className="table-cell">status</h3>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {players.map((player: Player) => (
-                    <TableRow key={player.userName}>
-                      <TableCell align="center">
-                        <p className="table-cell">{player.userName}</p>
-                      </TableCell>
-                      <TableCell align="center">
-                        <p className="table-cell">
-                          {player.isReady ? "ready" : "not ready"}
-                        </p>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table> */}
               {players.map((player: Player) => (
                 <div className="host-player-table">
                   <p>{player.userName}</p>

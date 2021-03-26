@@ -16,6 +16,13 @@
   background-color: aquamarine;
 }
 
+.board-page-title {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
 .board-page-player-container {
   display: flex;
   flex-direction: row;
@@ -27,6 +34,7 @@
 
 .board-page-player-card {
   min-width: 80%;
+  max-width: 95%;
   display: flex;
   justify-content: center;
   margin: 30px;
