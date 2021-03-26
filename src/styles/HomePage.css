@@ -8,12 +8,17 @@
 
 .instructions-slideshow {
   display: flex;
-  flex: 3;
+  flex: 2.5;
 }
 
 .join-game-error-message {
   text-align: center;
   color: red;
+}
+
+.cards-svg {
+  width: 100%; 
+  height: auto; 
 }
 
 .home-page-card {

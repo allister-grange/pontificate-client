@@ -54,13 +54,13 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobby => {
     // };
   }, [gameId]);
 
-  const createNewGame = (newGameId: string, pointsToWin: number) => {
+  const createNewGame = (newGameId: string, pointsRequiredToWin: number) => {
     console.log(
       `Creating new game with id of ${newGameId}, with pointsToWin: ${pointsToWin}, with socket url ${SOCKET_SERVER_URL}`
     );
 
     socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, {
-      query: { gameId: newGameId, pointsToWin },
+      query: { gameId: newGameId, pointsRequiredToWin },
     });
   };
 

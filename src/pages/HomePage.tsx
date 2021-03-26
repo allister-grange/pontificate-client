@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { Card, CardContent } from "@material-ui/core";
-import boyPlaying from "../assets/boy-playing.svg";
+import cardsSVG from "../assets/cards-svg.svg";
 import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";
 import JoinGameSelection from "../components/JoinGameSelection";
@@ -94,7 +94,7 @@ function HomePage(): JSX.Element {
   return (
     <div className="home-page-container">
       <div className="instructions-slideshow">
-        <img src={boyPlaying} alt="boy playing" />
+        <img className="cards-svg" src={cardsSVG} alt="cards stacked" />
       </div>
       <div className="welcome-header-and-options">
         {showingJoinGameOptions && (

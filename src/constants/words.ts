@@ -504,7 +504,7 @@ export const actionWords = [
   "Kidding",
   "Sampling",
   "Impaling",
-  "Galavanting",
+  "Gallivanting",
   "Correcting",
   "Salivating",
   "Stitching",
