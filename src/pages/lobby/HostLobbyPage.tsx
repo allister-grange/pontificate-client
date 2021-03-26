@@ -49,9 +49,13 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
       </div>
 
       <div className="host-player-list">
-        {players.length === 0 ? (
+        {players.length === 0 && (
           <h3>no one has joined the game yet, get out your phones!</h3>
-        ) : (
+        )}
+        {players.length === 1 && (
+          <h3>there&apos;s only one player joined, it takes two to tango!</h3>
+        )}
+        {players.length >= 1 && (
           <Card>
             <CardContent>
               {players.map((player: Player) => (
