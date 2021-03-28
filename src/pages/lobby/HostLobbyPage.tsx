@@ -15,7 +15,7 @@ import { Player } from "../../types";
 
 const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
-  const { pointsToWin } = location.state; // Gets roomId from URL
+  const { pointsToWin } = location.state; // Gets points to win from props
   const { players, createNewGame, startGame } = useHostLobby(
     gameId,
     pointsToWin

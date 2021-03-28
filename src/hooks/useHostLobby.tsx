@@ -11,13 +11,13 @@ const PLAYER_READY_EVENT = "playerReadyEvent";
 const GAME_STARTED_EVENT = "gameStartedEvent";
 const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
 
-type UseHostLobby = {
+type UseHostLobbyRes = {
   players: Player[];
   createNewGame: (newGameId: string, pointsToWin: number) => void;
   startGame: (gameToStart: string) => void;
 };
 
-const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobby => {
+const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
   const [players, setPlayers] = useState([] as Player[]);
   const history = useHistory();
   const socketRef = useRef({} as SocketIOClient.Socket);
@@ -60,7 +60,7 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobby => {
     );
 
     socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, {
-      query: { gameId: newGameId, pointsRequiredToWin },
+      query: { gameId: newGameId, pointsToWin: pointsRequiredToWin },
     });
   };
 
