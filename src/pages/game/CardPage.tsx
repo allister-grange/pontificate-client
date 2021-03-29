@@ -2,17 +2,19 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/CardPage.css";
 import Confetti from "react-confetti";
+import { Button } from "@material-ui/core";
 import DisplayCard from "../../components/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
 import useWindowDimensions from "../../components/WindowDimensions";
 
 const CardPage = ({ location }: any): JSX.Element => {
-  const TURN_LENGTH = 30;
+  const TURN_LENGTH = 45;
   const COUNTDOWN_LENGTH = 5;
 
   const { gameId, userName } = location.state;
   const [counter, setCounter] = useState(TURN_LENGTH);
+  const [isThisPlayersTurn, setIsThisPlayersTurn] = useState(false);
   const [points, setPoints] = useState(0);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(
     COUNTDOWN_LENGTH
@@ -29,6 +31,12 @@ const CardPage = ({ location }: any): JSX.Element => {
   const [category, setCategory] = useState("object" as Category);
   const [cardBackGroundColor, setCardBackGroundColor] = useState("");
   const { height, width } = useWindowDimensions();
+  const getIsThisPlayersTurn = (): boolean => {
+    const ready =
+      players.find((player) => player.userName === userName)?.turnStatus ===
+      "ready";
+    return ready;
+  };
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`;
@@ -69,6 +77,7 @@ const CardPage = ({ location }: any): JSX.Element => {
     });
 
     setPoints(getPointsForPlayer(userName));
+    setIsThisPlayersTurn(getIsThisPlayersTurn());
   }, [players]);
 
   useEffect(() => {
@@ -106,6 +115,22 @@ const CardPage = ({ location }: any): JSX.Element => {
         <div className="waiting-turn-message-container">
           <h1 className="card-word-styling">please wait your turn :)</h1>
           <h3 className="card-word-styling">{category}</h3>
+          {isThisPlayersTurn && (
+            <div className="card-start-button">
+              <Button
+                type="button"
+                onClick={() => {
+                  triggerChangeTurnStatusForUser(userName, "active");
+                }}
+                fullWidth
+                color="secondary"
+                variant="outlined"
+                className="button"
+              >
+                start turn
+              </Button>
+            </div>
+          )}
         </div>
       ) : countdownBeforePlaying > 0 ? (
         <div className="waiting-turn-message-container">

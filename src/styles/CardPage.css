@@ -14,6 +14,11 @@ html, body, #app, #app>div {
   display: flex;
 }
 
+.card-start-button {
+  width: 60%;
+  padding-top: 25px;
+}
+
 .waiting-turn-message-container {
   display: flex;
   justify-content: center;
