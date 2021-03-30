@@ -33,8 +33,7 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
   return (
     <div className="board-page-container">
       <div className="board-page-title">
-        <h1>game board</h1>
-        <h3>{`${pointsToWin} points to win!`}</h3>
+        <h1>{`${pointsToWin} points to win!`}</h1>
       </div>
 
       {playerWhoWon && (
@@ -53,26 +52,34 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
             <Table className="board-page-player-table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="center">player</TableCell>
-                  <TableCell align="center">points</TableCell>
-                  <TableCell align="center">category</TableCell>
-                  <TableCell align="center">status</TableCell>
+                  <TableCell align="center">
+                    <h1>player</h1>
+                  </TableCell>
+                  <TableCell align="center">
+                    <h1>points</h1>
+                  </TableCell>
+                  <TableCell align="center">
+                    <h1>category</h1>
+                  </TableCell>
+                  <TableCell align="center">
+                    <h1>status</h1>
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {players.map((player: Player) => (
                   <TableRow key={player.userName}>
-                    <TableCell size="small" align="center">
-                      {player.userName}
+                    <TableCell size="medium" align="center">
+                      <h2 className="board-cell">{player.userName}</h2>
                     </TableCell>
-                    <TableCell size="small" align="center">
-                      {player.points}
+                    <TableCell size="medium" align="center">
+                      <h2>{player.points}</h2>
                     </TableCell>
-                    <TableCell size="small" align="center">
-                      {player.category}
+                    <TableCell size="medium" align="center">
+                      <h2 className="board-cell">{player.category}</h2>
                     </TableCell>
                     {player.turnStatus === "ready" ? (
-                      <TableCell size="small" align="center">
+                      <TableCell size="medium" align="center">
                         <Button
                           color="primary"
                           variant="outlined"
@@ -83,12 +90,12 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
                             );
                           }}
                         >
-                          take turn
+                          <h4 className="board-cell">take turn</h4>
                         </Button>
                       </TableCell>
                     ) : (
-                      <TableCell size="small" align="center">
-                        <h4>{player.turnStatus}</h4>
+                      <TableCell size="medium" align="center">
+                        <h2 className="board-cell">{player.turnStatus}</h2>
                       </TableCell>
                     )}
                   </TableRow>

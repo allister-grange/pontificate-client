@@ -60,8 +60,8 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
             <CardContent>
               {players.map((player: Player) => (
                 <div className="host-player-table">
-                  <p>{player.userName}</p>
-                  <p>{player.isReady ? ": ready" : ": not ready"}</p>
+                  <h2>{player.userName}</h2>
+                  <h2>{player.isReady ? ": ready" : ": not ready"}</h2>
                 </div>
               ))}
             </CardContent>
@@ -74,10 +74,11 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
           <Button
             variant="contained"
             color="primary"
+            fullWidth
             onClick={() => {
               startGame(gameId);
             }}
-            className="button"
+            style={{ height: "40px" }}
           >
             Start game
           </Button>

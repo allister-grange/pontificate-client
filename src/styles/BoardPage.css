@@ -5,11 +5,8 @@
   flex-direction: column;
 }
 
-.board-page-player-table {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 850px;
+.board-cell {
+  font-weight: 100;
 }
 
 .board-player-row {
@@ -25,7 +22,7 @@
 
 .board-page-player-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 90%;
