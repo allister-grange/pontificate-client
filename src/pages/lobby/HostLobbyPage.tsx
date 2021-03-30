@@ -46,22 +46,22 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
       <div className="title">
         <h2>join on your at phone at</h2>
         <h2 style={{ color: "coral" }}>{" pontificate.click"}</h2>
-      </div>
-
-      <div className="host-player-list">
         {players.length === 0 && (
           <h3>no one has joined the game yet, get out your phones!</h3>
         )}
         {players.length === 1 && (
           <h3>there&apos;s only one player joined, it takes two to tango!</h3>
         )}
+      </div>
+
+      <div className="host-player-list">
         {players.length >= 1 && (
           <Card>
             <CardContent>
               {players.map((player: Player) => (
                 <div className="host-player-table">
-                  <h2>{player.userName}</h2>
-                  <h2>{player.isReady ? ": ready" : ": not ready"}</h2>
+                  <h3>{player.userName}</h3>
+                  <h3>{player.isReady ? ": ready" : ": not ready"}</h3>
                 </div>
               ))}
             </CardContent>
