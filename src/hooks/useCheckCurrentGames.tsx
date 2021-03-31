@@ -46,8 +46,7 @@ const useCheckCurrentGames = (): UseCheckCurrentGames => {
       }
     });
 
-    // Destroys the socket reference
-    // when the connection is closed
+    // Destroys the socket reference when the connection is closed
     return () => {
       socketRef.current.disconnect();
     };

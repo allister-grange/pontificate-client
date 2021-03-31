@@ -46,12 +46,6 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
         state: { pointsToWin },
       });
     });
-
-    // Destroys the socket reference
-    // when the connection is closed
-    // return () => {
-    //     socketRef.current.disconnect();
-    // };
   }, [gameId]);
 
   const createNewGame = (newGameId: string, pointsRequiredToWin: number) => {

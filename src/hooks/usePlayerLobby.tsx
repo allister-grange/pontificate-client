@@ -43,12 +43,6 @@ const usePlayerLobby = (gameId: string, userName: string) => {
       console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
-
-    // Destroys the socket reference
-    // when the connection is closed
-    // return () => {
-    //     socketRef.current.disconnect();
-    // };
   }, [gameId]);
 
   // Sends a message to the server that
@@ -62,7 +56,9 @@ const usePlayerLobby = (gameId: string, userName: string) => {
 
   const setPlayerReady = (isPlayerReady: boolean) => {
     console.log(`Setting ${userName}'s ready status to ${isPlayerReady}`);
-    socketRef.current.emit(PLAYER_READY_EVENT, { query: { isPlayerReady } });
+    socketRef.current.emit(PLAYER_READY_EVENT, {
+      query: { userName, isPlayerReady },
+    });
   };
 
   return { players, addPlayer, setPlayerReady };

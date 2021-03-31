@@ -26,6 +26,7 @@ const CardPage = ({ location }: any): JSX.Element => {
     playerWhoWon,
     getAllPlayersInGame,
     triggerChangeTurnStatusForUser,
+    rejoinExistingGame,
   } = useGameState(gameId);
   const [turnIsActive, setTurnIsActive] = useState(false);
   const [category, setCategory] = useState("object" as Category);
@@ -40,6 +41,7 @@ const CardPage = ({ location }: any): JSX.Element => {
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`;
+    rejoinExistingGame(userName, gameId);
     getAllPlayersInGame();
   }, []);
 

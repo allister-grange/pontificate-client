@@ -21,6 +21,7 @@ type UseGameState = {
   ) => void;
   getPointsForPlayer: (userName: string) => number;
   playerWhoWon: Player | undefined;
+  rejoinExistingGame: (userName: string, gameIdToJoin: string) => void;
 };
 
 const useGameState = (gameId: string): UseGameState => {
@@ -37,7 +38,7 @@ const useGameState = (gameId: string): UseGameState => {
     socketRef.current.on(PLAYERS_IN_GAME_RESPONSE, (data: any) => {
       console.log("PLAYERS_IN_GAME triggered, setting players in game");
       const incomingPlayers = data.playersInGame as Player[];
-      // console.log(incomingPlayers);
+      console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
 
@@ -76,8 +77,7 @@ const useGameState = (gameId: string): UseGameState => {
       }
     });
 
-    // Destroys the socket reference
-    // when the connection is closed
+    // Destroys the socket reference when the connection is closed
     return () => {
       socketRef.current.disconnect();
     };
@@ -88,6 +88,14 @@ const useGameState = (gameId: string): UseGameState => {
 
     socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT, {
       query: { gameId },
+    });
+  };
+
+  const rejoinExistingGame = (userName: string, gameIdToJoin: string) => {
+    console.log(`Rejoining player ${userName} to ${gameIdToJoin}`);
+
+    socketRef.current.emit("rejoin-player", {
+      query: { gameId: gameIdToJoin, userName },
     });
   };
 
@@ -133,6 +141,7 @@ const useGameState = (gameId: string): UseGameState => {
     addPointToPlayer,
     triggerChangeTurnStatusForUser,
     getPointsForPlayer,
+    rejoinExistingGame,
   };
 };
 
