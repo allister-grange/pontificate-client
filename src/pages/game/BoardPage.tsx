@@ -53,16 +53,16 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
               <TableHead>
                 <TableRow>
                   <TableCell align="center">
-                    <h1>player</h1>
+                    <h1 className="board-cell-title">player</h1>
                   </TableCell>
                   <TableCell align="center">
-                    <h1>points</h1>
+                    <h1 className="board-cell-title">points</h1>
                   </TableCell>
                   <TableCell align="center">
-                    <h1>category</h1>
+                    <h1 className="board-cell-title">category</h1>
                   </TableCell>
                   <TableCell align="center">
-                    <h1>status</h1>
+                    <h1 className="board-cell-title">status</h1>
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -73,7 +73,7 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
                       <h2 className="board-cell">{player.userName}</h2>
                     </TableCell>
                     <TableCell size="medium" align="center">
-                      <h2>{player.points}</h2>
+                      <h2 className="board-cell">{player.points}</h2>
                     </TableCell>
                     <TableCell size="medium" align="center">
                       <h2 className="board-cell">{player.category}</h2>

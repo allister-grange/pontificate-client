@@ -54,7 +54,7 @@ const CardPage = ({ location }: any): JSX.Element => {
         setCardBackGroundColor("#5aB9EA");
         break;
       case "person":
-        setCardBackGroundColor("#ffd800");
+        setCardBackGroundColor("#C48B28");
         break;
       case "random":
         setCardBackGroundColor("#F79E02");
