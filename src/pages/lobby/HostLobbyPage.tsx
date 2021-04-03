@@ -1,14 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Button,
-  Card,
-  CardContent,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Button, Card, CardContent } from "@material-ui/core";
 import useHostLobby from "../../hooks/useHostLobby";
 import "../../styles/HostLobbyPage.css";
 import { Player } from "../../types";
