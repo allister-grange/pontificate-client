@@ -2,8 +2,11 @@
 
 Wanting to play the board game ‘Articulate’ anywhere without the board, I took inspiration from ‘JackBox’ and built an online game. The code was written with a Node.js backend with Socket.io for the connections, with React on the frontend. The game is played with the board cast onto a TV, and players joining in on their phones.
 
-
 ---
+
+<p align="center">
+  <img src="demo/demo.gif">
+</p>
 
 ### Tech
 
