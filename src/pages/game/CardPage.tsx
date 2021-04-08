@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import "../../styles/CardPage.css";
 import Confetti from "react-confetti";
 import { Button } from "@material-ui/core";
@@ -9,7 +9,7 @@ import { Category } from "../../types";
 import useWindowDimensions from "../../components/WindowDimensions";
 
 const CardPage = ({ location }: any): JSX.Element => {
-  const TURN_LENGTH = 45;
+  const TURN_LENGTH = 10;
   const COUNTDOWN_LENGTH = 5;
 
   const { gameId, userName } = location.state;
@@ -31,6 +31,7 @@ const CardPage = ({ location }: any): JSX.Element => {
   const [turnIsActive, setTurnIsActive] = useState(false);
   const [category, setCategory] = useState("object" as Category);
   const [cardBackGroundColor, setCardBackGroundColor] = useState("");
+  const wordsSeen = useRef<Array<string>>([] as string[]);
   const { height, width } = useWindowDimensions();
   const getIsThisPlayersTurn = (): boolean => {
     const ready =
@@ -101,6 +102,10 @@ const CardPage = ({ location }: any): JSX.Element => {
     }
   }, [countdownBeforePlaying, turnIsActive]);
 
+  const addWordToWordsSeen = (word: string) => {
+    wordsSeen.current.push(word);
+  };
+
   return (
     <div
       className="card-page-container"
@@ -145,6 +150,8 @@ const CardPage = ({ location }: any): JSX.Element => {
             addPointToPlayer(points + 1, userName);
             setPoints(points + 1);
           }}
+          wordsSeen={wordsSeen.current}
+          addWordToWordsSeen={addWordToWordsSeen}
           counter={counter}
           userName={userName}
           category={category}

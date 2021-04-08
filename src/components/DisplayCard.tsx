@@ -8,6 +8,8 @@ type DisplayCardProps = {
   userName: string;
   counter: number;
   category: Category;
+  wordsSeen: Array<string>;
+  addWordToWordsSeen: (word: string) => void;
 };
 
 const DisplayCard = ({
@@ -15,6 +17,8 @@ const DisplayCard = ({
   counter,
   category,
   addPointToPlayer,
+  wordsSeen,
+  addWordToWordsSeen,
 }: DisplayCardProps): JSX.Element => {
   const [correctCount, setCorrectCount] = useState(0);
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
@@ -22,7 +26,6 @@ const DisplayCard = ({
   const [words, setWords] = useState([] as string[]);
   // assumes that all categories have the same amount of words (they should)
   const lengthOfWordArray = WORDS.actionWords.length;
-  const wordsSeen = useRef(Array<string>());
   const skipped = useRef(false);
 
   useEffect(() => {
@@ -58,10 +61,14 @@ const DisplayCard = ({
     let randomNum = Math.floor(Math.random() * lengthOfWordArray);
     while (
       // eslint-disable-next-line @typescript-eslint/no-loop-func
-      wordsSeen.current.find((word) => word === words[randomNum]) !== undefined
+      wordsSeen.find((word) => word === words[randomNum]) !== undefined
     ) {
+      // console.log(words[randomNum]);
+      // console.log(wordsSeen);
+      console.log("matching word!!");
       randomNum = Math.floor(Math.random() * lengthOfWordArray);
     }
+
     return randomNum;
   };
 
@@ -72,7 +79,7 @@ const DisplayCard = ({
     setIndexOfLastCard(indexOfCurrentCard);
     const nextCardNumber = getNextCardNumber();
     setIndexOfCurrentCard(nextCardNumber);
-    wordsSeen.current.push(words[nextCardNumber]);
+    addWordToWordsSeen(words[nextCardNumber]);
   };
 
   const lastCard = () => {
@@ -87,6 +94,17 @@ const DisplayCard = ({
     }
     skipped.current = true;
   };
+
+  // const nextCard = () => {
+  //   // add points to player
+  //   addPointToPlayer(correctCount + 1, userName);
+  //   setCorrectCount(correctCount + 1);
+
+  //   // get the next card
+  //   next;
+
+  //   //
+  // };
 
   return (
     <div className="display-card-container">
