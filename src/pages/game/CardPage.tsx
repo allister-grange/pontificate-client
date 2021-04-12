@@ -9,7 +9,7 @@ import { Category } from "../../types";
 import useWindowDimensions from "../../components/WindowDimensions";
 
 const CardPage = ({ location }: any): JSX.Element => {
-  const TURN_LENGTH = 10;
+  const TURN_LENGTH = 45;
   const COUNTDOWN_LENGTH = 5;
 
   const { gameId, userName } = location.state;
