@@ -95,7 +95,7 @@ const DisplayCard = ({
     skipped.current = true;
   };
 
-  // const nextCard = () => {
+  // const nextCardHolder = () => {
   //   // add points to player
   //   addPointToPlayer(correctCount + 1, userName);
   //   setCorrectCount(correctCount + 1);

@@ -13,6 +13,7 @@ import useGameState from "../../hooks/useGameState";
 import { Player } from "../../types";
 import "../../styles/BoardPage.css";
 import useWindowDimensions from "../../components/WindowDimensions";
+import Footer from "../../components/Footer";
 
 const BoardPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
@@ -105,6 +106,8 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
           )}
         </div>
       </Card>
+
+      <Footer />
     </div>
   );
 };

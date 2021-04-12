@@ -8,6 +8,7 @@ import "../styles/HomePage.css";
 import JoinGameSelection from "../components/JoinGameSelection";
 import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
 import StartNewGameSelection from "../components/StartNewGameSelection";
+import Footer from "../components/Footer";
 
 function HomePage(): JSX.Element {
   const history = useHistory();
@@ -149,6 +150,7 @@ function HomePage(): JSX.Element {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
