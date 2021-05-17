@@ -7,7 +7,6 @@ import HostLobbyPage from "./pages/lobby/HostLobbyPage";
 import CardPage from "./pages/game/CardPage";
 import BoardPage from "./pages/game/BoardPage";
 import theme from "./components/theme";
-
 import * as ROUTES from "./constants/routes";
 
 function App(): JSX.Element {

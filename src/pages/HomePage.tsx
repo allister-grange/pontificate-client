@@ -39,9 +39,6 @@ function HomePage(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    console.log(`useEffectTriggered; username exists ${userNameIsFree}`);
-    console.log(`useEffectTriggered; gameExists ${gameExists}`);
-
     // to avoid the initial setting of the values triggering error messages
     if (!hasSearched) {
       return;

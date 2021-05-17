@@ -11,10 +11,7 @@ export default function Footer(): JSX.Element {
       align="center"
     >
       made by&nbsp;
-      <Link
-        color="primary"
-        href="https://github.com/allister-grange/pontificate-client"
-      >
+      <Link color="primary" href="https://allistergrange.com">
         Allister Grange
       </Link>
     </Typography>

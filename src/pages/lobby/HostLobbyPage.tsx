@@ -48,12 +48,18 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
 
       <div className="host-player-list">
         {players.length >= 1 && (
-          <Card>
+          <Card style={{ width: "90%" }}>
             <CardContent>
               {players.map((player: Player) => (
                 <div className="host-player-table">
-                  <h3>{player.userName}</h3>
-                  <h3>{player.isReady ? ": ready" : ": not ready"}</h3>
+                  <h3 style={{ color: player.isReady ? "green" : "red" }}>
+                    {player.userName}
+                  </h3>
+                  <h3>
+                    {player.isReady
+                      ? " is ready to go!"
+                      : " isn't ready just yet"}
+                  </h3>
                 </div>
               ))}
             </CardContent>
@@ -70,7 +76,7 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
             onClick={() => {
               startGame(gameId);
             }}
-            style={{ height: "40px" }}
+            style={{ height: "100%" }}
           >
             Start game
           </Button>
