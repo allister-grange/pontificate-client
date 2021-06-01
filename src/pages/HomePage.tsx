@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { Card, CardContent } from "@material-ui/core";
 import cardsSVG from "../assets/cards-svg.svg";
@@ -10,19 +10,22 @@ import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
 import StartNewGameSelection from "../components/StartNewGameSelection";
 import Footer from "../components/Footer";
 
+const generateGameID = (): string =>
+  Math.floor(1000 + Math.random() * 9000).toString();
+
 function HomePage(): JSX.Element {
   const history = useHistory();
+  const newGameId = generateGameID();
   const {
     userNameIsFree,
     gameExists,
     doesGameExistEmit,
     doesUserNameExistInGameEmit,
   } = useCheckCurrentGames();
-  const [newGameId, setNewGameId] = React.useState("");
+  const [gameIdToJoin, setGameIdToJoin] = React.useState("");
   const [userName, setUserName] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
-  const [gameId, setGameId] = React.useState("");
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
@@ -30,13 +33,6 @@ function HomePage(): JSX.Element {
     false
   );
   const [hasSearched, setHasSearched] = React.useState(false);
-
-  const generateGameID = (): string =>
-    (Math.floor(1000 + Math.random() * 9000) - 1).toString();
-
-  useEffect(() => {
-    setNewGameId(generateGameID());
-  }, []);
 
   useEffect(() => {
     // to avoid the initial setting of the values triggering error messages
@@ -50,7 +46,7 @@ function HomePage(): JSX.Element {
 
     if (userNameIsFree && gameExists) {
       history.push({
-        pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameId),
+        pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameIdToJoin),
         state: {
           userName,
         },
@@ -62,13 +58,20 @@ function HomePage(): JSX.Element {
     } else if (!gameExists) {
       setErrorMessage("that game doesn't exist yet");
     }
-  }, [userNameIsFree, gameExists]);
+  }, [
+    userNameIsFree,
+    gameExists,
+    gameIdToJoin,
+    hasSearched,
+    history,
+    userName,
+  ]);
 
   const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 4) {
       return;
     }
-    setGameId(event.target.value);
+    setGameIdToJoin(event.target.value);
   };
 
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,8 +88,8 @@ function HomePage(): JSX.Element {
     // used to check if the player can proceed
     setHasSearched(true);
     setIsLoading(true);
-    doesGameExistEmit(gameId);
-    doesUserNameExistInGameEmit(gameId, userName);
+    doesGameExistEmit(gameIdToJoin);
+    doesUserNameExistInGameEmit(gameIdToJoin, userName);
   };
 
   return (
@@ -102,7 +105,7 @@ function HomePage(): JSX.Element {
               handleGameIdChange={handleGameIdChange}
               handleUserNameChange={handleUserNameChange}
               onSubmit={onSubmit}
-              gameId={gameId}
+              gameId={gameIdToJoin}
               isLoading={isLoading}
               errorMessage={errorMessage}
               setShowingJoinGameOptions={setShowingJoinGameOptions}
@@ -118,6 +121,7 @@ function HomePage(): JSX.Element {
           </div>
         )}
         {!showingJoinGameOptions && !showingStartGameOptions && (
+          // TODO extract this into component
           <div className="game-options">
             <Card variant="outlined" className="home-page-card">
               <CardContent>

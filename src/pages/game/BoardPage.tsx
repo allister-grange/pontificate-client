@@ -19,6 +19,7 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
   const { pointsToWin } = location.state;
   const { height, width } = useWindowDimensions();
+  document.title = `${gameId} | Pontificate`;
   const {
     players,
     getAllPlayersInGame,
@@ -27,9 +28,8 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
   } = useGameState(gameId);
 
   useEffect(() => {
-    document.title = `${gameId} | Pontificate`;
     getAllPlayersInGame();
-  }, []);
+  }, [getAllPlayersInGame]);
 
   return (
     <div className="board-page-container">
