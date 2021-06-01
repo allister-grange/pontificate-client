@@ -100,35 +100,28 @@ function HomePage(): JSX.Element {
       </div>
       <div className="welcome-header-and-options">
         {showingJoinGameOptions && (
-          <div className="join-game-options">
-            <JoinGameSelection
-              userName={userName}
-              handleGameIdChange={handleGameIdChange}
-              handleUserNameChange={handleUserNameChange}
-              onSubmit={onSubmit}
-              gameId={gameIdToJoin}
-              isLoading={isLoading}
-              errorMessage={errorMessage}
-              setShowingJoinGameOptions={setShowingJoinGameOptions}
-            />
-          </div>
+          <JoinGameSelection
+            userName={userName}
+            handleGameIdChange={handleGameIdChange}
+            handleUserNameChange={handleUserNameChange}
+            onSubmit={onSubmit}
+            gameId={gameIdToJoin}
+            isLoading={isLoading}
+            errorMessage={errorMessage}
+            setShowingJoinGameOptions={setShowingJoinGameOptions}
+          />
         )}
         {showingStartGameOptions && (
-          <div className="join-game-options">
-            <StartNewGameSelection
-              newGameId={newGameId}
-              setShowingStartGameOptions={setShowingStartGameOptions}
-            />
-          </div>
+          <StartNewGameSelection
+            newGameId={newGameId}
+            setShowingStartGameOptions={setShowingStartGameOptions}
+          />
         )}
         {!showingJoinGameOptions && !showingStartGameOptions && (
-          // TODO extract this into component
-          <div className="game-options">
-            <StartOrJoinSelection
-              setShowingStartGameOptions={setShowingStartGameOptions}
-              setShowingJoinGameOptions={setShowingJoinGameOptions}
-            />
-          </div>
+          <StartOrJoinSelection
+            setShowingStartGameOptions={setShowingStartGameOptions}
+            setShowingJoinGameOptions={setShowingJoinGameOptions}
+          />
         )}
       </div>
       <Footer />

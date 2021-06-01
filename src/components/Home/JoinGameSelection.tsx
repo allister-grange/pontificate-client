@@ -36,57 +36,63 @@ const JoinGameSelection = ({
     userName.length < 3;
 
   return (
-    <Card className="card-room-details" variant="outlined">
-      <CardContent>
-        <form className="room-details-form" onSubmit={onSubmit}>
-          <TextField
-            color="primary"
-            id="username"
-            label="username"
-            variant="outlined"
-            placeholder="username"
-            autoComplete="off"
-            value={userName}
-            className="room-form-input"
-            onChange={handleUserNameChange}
-          />
-          <div style={{ margin: "10px" }} />
-          <TextField
-            color="primary"
-            id="game-id"
-            label="game id"
-            type="number"
-            variant="outlined"
-            placeholder="game id"
-            className="room-form-input"
-            autoComplete="off"
-            value={gameId}
-            onChange={handleGameIdChange}
-          />
-          <CardActions className="card-room-actions">
-            <hr className="card-room-line" />
-            <div className="card-room-buttons">
-              <Button onClick={() => setShowingJoinGameOptions(false)}>
-                back
-              </Button>
-              <Button
-                type="submit"
-                fullWidth
-                color="primary"
-                variant="outlined"
-                className="button"
-                disabled={isFormInValid}
-              >
-                {isLoading ? <CircularProgress color="primary" /> : "join game"}
-              </Button>
-            </div>
-            <div className="join-game-error-message">
-              <p>{errorMessage}</p>
-            </div>
-          </CardActions>
-        </form>
-      </CardContent>
-    </Card>
+    <div className="join-game-options">
+      <Card className="card-room-details" variant="outlined">
+        <CardContent>
+          <form className="room-details-form" onSubmit={onSubmit}>
+            <TextField
+              color="primary"
+              id="username"
+              label="username"
+              variant="outlined"
+              placeholder="username"
+              autoComplete="off"
+              value={userName}
+              className="room-form-input"
+              onChange={handleUserNameChange}
+            />
+            <div style={{ margin: "10px" }} />
+            <TextField
+              color="primary"
+              id="game-id"
+              label="game id"
+              type="number"
+              variant="outlined"
+              placeholder="game id"
+              className="room-form-input"
+              autoComplete="off"
+              value={gameId}
+              onChange={handleGameIdChange}
+            />
+            <CardActions className="card-room-actions">
+              <hr className="card-room-line" />
+              <div className="card-room-buttons">
+                <Button onClick={() => setShowingJoinGameOptions(false)}>
+                  back
+                </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  color="primary"
+                  variant="outlined"
+                  className="button"
+                  disabled={isFormInValid}
+                >
+                  {isLoading ? (
+                    <CircularProgress color="primary" />
+                  ) : (
+                    "join game"
+                  )}
+                </Button>
+              </div>
+              <div className="join-game-error-message">
+                <p>{errorMessage}</p>
+              </div>
+            </CardActions>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
