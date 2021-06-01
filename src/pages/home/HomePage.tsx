@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { Card, CardContent } from "@material-ui/core";
-import cardsSVG from "../assets/cards-svg.svg";
-import * as ROUTES from "../constants/routes";
-import "../styles/HomePage.css";
-import JoinGameSelection from "../components/Home/JoinGameSelection";
-import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
-import StartNewGameSelection from "../components/Home/StartNewGameSelection";
-import Footer from "../components/Misc/Footer";
+import cardsSVG from "../../assets/cards-svg.svg";
+import * as ROUTES from "../../constants/routes";
+import "../../styles/HomePage.css";
+import JoinGameSelection from "../../components/home/JoinGameSelection";
+import useCheckCurrentGames from "../../hooks/useCheckCurrentGames";
+import StartNewGameSelection from "../../components/home/StartNewGameSelection";
+import Footer from "../../components/misc/Footer";
 
 const generateGameID = (): string =>
   Math.floor(1000 + Math.random() * 9000).toString();

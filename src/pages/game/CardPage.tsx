@@ -3,10 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../styles/CardPage.css";
 import Confetti from "react-confetti";
 import { Button } from "@material-ui/core";
-import DisplayCard from "../../components/Game/DisplayCard";
+import DisplayCard from "../../components/game/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
-import useWindowDimensions from "../../components/Misc/WindowDimensions";
+import useWindowDimensions from "../../components/misc/WindowDimensions";
 
 const CardPage = ({ location }: any): JSX.Element => {
   const TURN_LENGTH = 45;

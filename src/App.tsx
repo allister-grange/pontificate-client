@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
-import HomePage from "./pages/HomePage";
+import HomePage from "./pages/home/HomePage";
 import PlayerLobbyPage from "./pages/lobby/PlayerLobbyPage";
 import HostLobbyPage from "./pages/lobby/HostLobbyPage";
 import CardPage from "./pages/game/CardPage";
 import BoardPage from "./pages/game/BoardPage";
-import theme from "./components/Misc/theme";
+import theme from "./components/misc/theme";
 import * as ROUTES from "./constants/routes";
 
 function App(): JSX.Element {

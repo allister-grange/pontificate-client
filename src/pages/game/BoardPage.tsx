@@ -12,8 +12,8 @@ import Confetti from "react-confetti";
 import useGameState from "../../hooks/useGameState";
 import { Player } from "../../types";
 import "../../styles/BoardPage.css";
-import useWindowDimensions from "../../components/Misc/WindowDimensions";
-import Footer from "../../components/Misc/Footer";
+import useWindowDimensions from "../../components/misc/WindowDimensions";
+import Footer from "../../components/misc/Footer";
 
 const BoardPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
