@@ -9,6 +9,7 @@ import JoinGameSelection from "../../components/home/JoinGameSelection";
 import useCheckCurrentGames from "../../hooks/useCheckCurrentGames";
 import StartNewGameSelection from "../../components/home/StartNewGameSelection";
 import Footer from "../../components/misc/Footer";
+import StartOrJoinSelection from "../../components/home/StartOrJoinSelection";
 
 const generateGameID = (): string =>
   Math.floor(1000 + Math.random() * 9000).toString();
@@ -123,31 +124,10 @@ function HomePage(): JSX.Element {
         {!showingJoinGameOptions && !showingStartGameOptions && (
           // TODO extract this into component
           <div className="game-options">
-            <Card variant="outlined" className="home-page-card">
-              <CardContent>
-                <div className="home-page-button-container">
-                  <h1 style={{ textAlign: "center" }}>pontificate</h1>
-                  <Button
-                    onClick={() => setShowingStartGameOptions(true)}
-                    variant="outlined"
-                    color="primary"
-                    className="button"
-                  >
-                    start new game
-                  </Button>
-                  <div style={{ margin: "10px" }} />
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      setShowingJoinGameOptions(true);
-                    }}
-                    className="button"
-                  >
-                    join game
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <StartOrJoinSelection
+              setShowingStartGameOptions={setShowingStartGameOptions}
+              setShowingJoinGameOptions={setShowingJoinGameOptions}
+            />
           </div>
         )}
       </div>
