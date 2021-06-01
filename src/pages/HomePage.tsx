@@ -5,10 +5,10 @@ import { Card, CardContent } from "@material-ui/core";
 import cardsSVG from "../assets/cards-svg.svg";
 import * as ROUTES from "../constants/routes";
 import "../styles/HomePage.css";
-import JoinGameSelection from "../components/JoinGameSelection";
+import JoinGameSelection from "../components/Home/JoinGameSelection";
 import useCheckCurrentGames from "../hooks/useCheckCurrentGames";
-import StartNewGameSelection from "../components/StartNewGameSelection";
-import Footer from "../components/Footer";
+import StartNewGameSelection from "../components/Home/StartNewGameSelection";
+import Footer from "../components/Misc/Footer";
 
 const generateGameID = (): string =>
   Math.floor(1000 + Math.random() * 9000).toString();

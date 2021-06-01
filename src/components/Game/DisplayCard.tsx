@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import React, { useEffect, useRef, useState } from "react";
-import * as WORDS from "../constants/words";
-import { Category } from "../types";
+import * as WORDS from "../../constants/words";
+import { Category } from "../../types";
 
 type DisplayCardProps = {
   addPointToPlayer: (points: number, userName: string) => void;

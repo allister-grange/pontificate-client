@@ -3,7 +3,7 @@ import { Button, Card, CardContent } from "@material-ui/core";
 import useHostLobby from "../../hooks/useHostLobby";
 import "../../styles/HostLobbyPage.css";
 import { Player } from "../../types";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Misc/Footer";
 
 const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL

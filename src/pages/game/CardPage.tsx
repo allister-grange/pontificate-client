@@ -1,12 +1,12 @@
 /* eslint-disable no-nested-ternary */
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/CardPage.css";
 import Confetti from "react-confetti";
 import { Button } from "@material-ui/core";
-import DisplayCard from "../../components/DisplayCard";
+import DisplayCard from "../../components/Game/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
-import useWindowDimensions from "../../components/WindowDimensions";
+import useWindowDimensions from "../../components/Misc/WindowDimensions";
 
 const CardPage = ({ location }: any): JSX.Element => {
   const TURN_LENGTH = 45;

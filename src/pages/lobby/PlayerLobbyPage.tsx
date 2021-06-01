@@ -11,7 +11,7 @@ import usePlayerLobby from "../../hooks/usePlayerLobby";
 
 import "../../styles/PlayerLobbyPage.css";
 import { Player } from "../../types";
-import Footer from "../../components/Footer";
+import Footer from "../../components/Misc/Footer";
 
 const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets gameId from URL

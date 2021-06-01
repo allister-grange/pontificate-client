@@ -9,7 +9,7 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import * as ROUTES from "../constants/routes";
+import * as ROUTES from "../../constants/routes";
 
 type StartNewGameSelectionProps = {
   newGameId: string;
