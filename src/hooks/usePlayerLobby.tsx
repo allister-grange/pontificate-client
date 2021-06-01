@@ -43,7 +43,7 @@ const usePlayerLobby = (gameId: string, userName: string) => {
       console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
-  }, [gameId]);
+  }, [gameId, history, userName]);
 
   // Sends a message to the server that
   // forwards it to all users in the same game

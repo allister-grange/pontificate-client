@@ -26,7 +26,7 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
     document.title = "Player Lobby | Pontificate";
     addPlayer(userName, gameId);
     console.log(`${userName} ${gameId}`);
-  }, []);
+  }, [addPlayer, gameId, userName]);
 
   const onReadyClick = (): void => {
     if (ready) {

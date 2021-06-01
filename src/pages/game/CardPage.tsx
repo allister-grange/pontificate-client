@@ -33,18 +33,12 @@ const CardPage = ({ location }: any): JSX.Element => {
   const [cardBackGroundColor, setCardBackGroundColor] = useState("");
   const wordsSeen = useRef<Array<string>>([] as string[]);
   const { height, width } = useWindowDimensions();
-  const getIsThisPlayersTurn = (): boolean => {
-    const ready =
-      players.find((player) => player.userName === userName)?.turnStatus ===
-      "ready";
-    return ready;
-  };
 
   useEffect(() => {
     document.title = `${userName} | Pontificate`;
     rejoinExistingGame(userName, gameId);
     getAllPlayersInGame();
-  }, []);
+  }, [gameId, getAllPlayersInGame, rejoinExistingGame, userName]);
 
   useEffect(() => {
     switch (category) {
@@ -72,6 +66,13 @@ const CardPage = ({ location }: any): JSX.Element => {
   }, [category]);
 
   useEffect(() => {
+    const getIsThisPlayersTurn = (): boolean => {
+      const ready =
+        players.find((player) => player.userName === userName)?.turnStatus ===
+        "ready";
+      return ready;
+    };
+
     players.forEach((player) => {
       if (player.userName === userName) {
         setTurnIsActive(player.turnStatus === "active");
@@ -81,7 +82,7 @@ const CardPage = ({ location }: any): JSX.Element => {
 
     setPoints(getPointsForPlayer(userName));
     setIsThisPlayersTurn(getIsThisPlayersTurn());
-  }, [players]);
+  }, [getPointsForPlayer, players, userName]);
 
   useEffect(() => {
     if (counter > 0 && countdownBeforePlaying === 0) {
@@ -91,7 +92,13 @@ const CardPage = ({ location }: any): JSX.Element => {
       setCounter(TURN_LENGTH);
       setCountDownBeforePlaying(COUNTDOWN_LENGTH);
     }
-  }, [counter, countdownBeforePlaying]);
+  }, [
+    counter,
+    countdownBeforePlaying,
+    playerWhoWon,
+    triggerChangeTurnStatusForUser,
+    userName,
+  ]);
 
   useEffect(() => {
     if (countdownBeforePlaying > 0 && turnIsActive) {

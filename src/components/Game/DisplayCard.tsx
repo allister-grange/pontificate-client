@@ -55,7 +55,7 @@ const DisplayCard = ({
       setIndexOfCurrentCard(Math.floor(Math.random() * lengthOfWordArray));
     };
     setWordsForPlayer();
-  }, []);
+  }, [category, lengthOfWordArray]);
 
   const getNextCardNumber = (): number => {
     let randomNum = Math.floor(Math.random() * lengthOfWordArray);

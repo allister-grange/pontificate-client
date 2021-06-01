@@ -81,7 +81,7 @@ const useGameState = (gameId: string): UseGameState => {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [gameId]);
+  }, [gameId, players]);
 
   const getAllPlayersInGame = () => {
     console.log(`Getting players in game with id of ${gameId}`);

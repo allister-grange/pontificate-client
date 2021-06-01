@@ -7,6 +7,7 @@ import Footer from "../../components/misc/Footer";
 
 const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
+  document.title = `${gameId} | Pontificate`;
   const { pointsToWin } = location.state; // Gets points to win from props
   const { players, createNewGame, startGame } = useHostLobby(
     gameId,
@@ -14,9 +15,8 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   );
 
   useEffect(() => {
-    document.title = `${gameId} | Pontificate`;
     createNewGame(gameId, pointsToWin);
-  }, []);
+  }, [createNewGame, gameId, pointsToWin]);
 
   const allPlayersAreReady = (): boolean => {
     let allReady = true;

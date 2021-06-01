@@ -46,7 +46,7 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
         state: { pointsToWin },
       });
     });
-  }, [gameId]);
+  }, [gameId, history, pointsToWin]);
 
   const createNewGame = (newGameId: string, pointsRequiredToWin: number) => {
     console.log(
