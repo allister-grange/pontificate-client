@@ -15,6 +15,7 @@ const generateGameID = (): string =>
   Math.floor(1000 + Math.random() * 9000).toString();
 
 function HomePage(): JSX.Element {
+  document.title = `Home | Pontificate`;
   const history = useHistory();
   const newGameId = generateGameID();
   const {
@@ -78,10 +79,6 @@ function HomePage(): JSX.Element {
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
-
-  useEffect(() => {
-    document.title = `Home | Pontificate`;
-  });
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

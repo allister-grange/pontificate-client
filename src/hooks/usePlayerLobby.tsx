@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import socketIOClient from "socket.io-client";
 import { Player } from "../types";
@@ -9,7 +9,16 @@ const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
 const PLAYER_READY_EVENT = "playerReadyEvent";
 const GAME_STARTED_EVENT = "gameStartedEvent";
 
-const usePlayerLobby = (gameId: string, userName: string) => {
+type UsePlayerLobbyState = {
+  players: Player[];
+  addPlayer: (userNameToAdd: string, gameIdToAddTo: string) => void;
+  setPlayerReady: (isPlayerReady: boolean) => void;
+};
+
+const usePlayerLobby = (
+  gameId: string,
+  userName: string
+): UsePlayerLobbyState => {
   const [players, setPlayers] = useState([] as Player[]);
   const socketRef = useRef({} as SocketIOClient.Socket);
   const history = useHistory();
@@ -47,19 +56,25 @@ const usePlayerLobby = (gameId: string, userName: string) => {
 
   // Sends a message to the server that
   // forwards it to all users in the same game
-  const addPlayer = (userNameToAdd: string, gameIdToAddTo: string) => {
-    console.log(`adding new player ${userNameToAdd} in game ${gameId}`);
-    socketRef.current.emit(NEW_PLAYER_IN_LOBBY_EVENT, {
-      query: { userName: userNameToAdd, gameId: gameIdToAddTo },
-    });
-  };
+  const addPlayer = useCallback(
+    (userNameToAdd: string, gameIdToAddTo: string) => {
+      console.log(`adding new player ${userNameToAdd} in game ${gameId}`);
+      socketRef.current.emit(NEW_PLAYER_IN_LOBBY_EVENT, {
+        query: { userName: userNameToAdd, gameId: gameIdToAddTo },
+      });
+    },
+    [gameId]
+  );
 
-  const setPlayerReady = (isPlayerReady: boolean) => {
-    console.log(`Setting ${userName}'s ready status to ${isPlayerReady}`);
-    socketRef.current.emit(PLAYER_READY_EVENT, {
-      query: { userName, isPlayerReady },
-    });
-  };
+  const setPlayerReady = useCallback(
+    (isPlayerReady: boolean) => {
+      console.log(`Setting ${userName}'s ready status to ${isPlayerReady}`);
+      socketRef.current.emit(PLAYER_READY_EVENT, {
+        query: { userName, isPlayerReady },
+      });
+    },
+    [userName]
+  );
 
   return { players, addPlayer, setPlayerReady };
 };

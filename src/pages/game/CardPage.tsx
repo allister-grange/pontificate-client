@@ -33,9 +33,9 @@ const CardPage = ({ location }: any): JSX.Element => {
   const [cardBackGroundColor, setCardBackGroundColor] = useState("");
   const wordsSeen = useRef<Array<string>>([] as string[]);
   const { height, width } = useWindowDimensions();
+  document.title = `${userName} | Pontificate`;
 
   useEffect(() => {
-    document.title = `${userName} | Pontificate`;
     rejoinExistingGame(userName, gameId);
     getAllPlayersInGame();
   }, [gameId, getAllPlayersInGame, rejoinExistingGame, userName]);

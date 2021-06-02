@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import SOCKET_SERVER_URL from "../constants";
 import { Player, TurnStatusOptions } from "../types";
@@ -58,6 +58,8 @@ const useGameState = (gameId: string): UseGameState => {
       const incomingPlayer = data.player as Player;
       const { turnStatus } = data;
 
+      console.log("I should be called");
+
       const playerToChange = players.find(
         (toFind) => toFind.userName === incomingPlayer.userName
       );
@@ -78,60 +80,71 @@ const useGameState = (gameId: string): UseGameState => {
     });
 
     // Destroys the socket reference when the connection is closed
-    return () => {
-      socketRef.current.disconnect();
-    };
+    // return () => {
+    //   socketRef.current.disconnect();
+    // };
   }, [gameId, players]);
 
-  const getAllPlayersInGame = () => {
+  const getAllPlayersInGame = useCallback(() => {
     console.log(`Getting players in game with id of ${gameId}`);
 
     socketRef.current.emit(GET_CURRENT_PLAYERS_IN_GAME_EVENT, {
       query: { gameId },
     });
-  };
+  }, [gameId]);
 
-  const rejoinExistingGame = (userName: string, gameIdToJoin: string) => {
-    console.log(`Rejoining player ${userName} to ${gameIdToJoin}`);
+  const rejoinExistingGame = useCallback(
+    (userName: string, gameIdToJoin: string) => {
+      console.log(`Rejoining player ${userName} to ${gameIdToJoin}`);
 
-    socketRef.current.emit("rejoin-player", {
-      query: { gameId: gameIdToJoin, userName },
-    });
-  };
+      socketRef.current.emit("rejoin-player", {
+        query: { gameId: gameIdToJoin, userName },
+      });
+    },
+    []
+  );
 
-  const addPointToPlayer = (points: number, userName: string) => {
-    console.log(
-      `Setting points ${points} to player ${userName} in game with id of ${gameId}`
-    );
+  const addPointToPlayer = useCallback(
+    (points: number, userName: string) => {
+      console.log(
+        `Setting points ${points} to player ${userName} in game with id of ${gameId}`
+      );
 
-    socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT, {
-      query: { points, userName },
-    });
-  };
+      socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT, {
+        query: { points, userName },
+      });
+    },
+    [gameId]
+  );
 
-  const triggerChangeTurnStatusForUser = (
-    userName: string,
-    turnStatus: TurnStatusOptions
-  ) => {
-    console.log(
-      `Setting player ${userName} in game ${gameId}'s status ${turnStatus}`
-    );
+  const triggerChangeTurnStatusForUser = useCallback(
+    (userName: string, turnStatus: TurnStatusOptions) => {
+      console.log(
+        `Setting player ${userName} in game ${gameId}'s status ${turnStatus}`
+      );
 
-    socketRef.current.emit(SET_PLAYER_TURN_STATUS, {
-      query: { userName, gameId, turnStatus },
-    });
-  };
+      console.log(socketRef.current.id);
 
-  const getPointsForPlayer = (userName: string): number => {
-    const playerToGetPointsFor = players.find(
-      (toFind) => toFind.userName === userName
-    );
-    if (playerToGetPointsFor) {
-      return playerToGetPointsFor.points;
-    }
+      socketRef.current.emit(SET_PLAYER_TURN_STATUS, {
+        query: { userName, gameId, turnStatus },
+      });
+    },
+    [gameId]
+  );
 
-    return -1;
-  };
+  const getPointsForPlayer = useCallback(
+    (userName: string): number => {
+      const playerToGetPointsFor = players.find(
+        (toFind) => toFind.userName === userName
+      );
+      if (playerToGetPointsFor) {
+        return playerToGetPointsFor.points;
+      }
+
+      return -1;
+    },
+    [players]
+  );
 
   return {
     players,

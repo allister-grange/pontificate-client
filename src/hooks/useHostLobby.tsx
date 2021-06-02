@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import socketIOClient, { Socket } from "socket.io-client";
 import { Player } from "../types";
@@ -29,7 +29,6 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
     // Listens for incoming players
     socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (data: any) => {
       const incomingPlayers = data.playersInGame as Player[];
-
       setPlayers(incomingPlayers);
     });
 
@@ -48,25 +47,28 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
     });
   }, [gameId, history, pointsToWin]);
 
-  const createNewGame = (newGameId: string, pointsRequiredToWin: number) => {
-    console.log(
-      `Creating new game with id of ${newGameId}, with pointsToWin: ${pointsToWin}, with socket url ${SOCKET_SERVER_URL}`
-    );
+  const createNewGame = useCallback(
+    (newGameId: string, pointsRequiredToWin: number) => {
+      console.log(
+        `Creating new game with id of ${newGameId}, with pointsToWin: ${pointsToWin}, with socket url ${SOCKET_SERVER_URL}`
+      );
 
-    socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, {
-      query: { gameId: newGameId, pointsToWin: pointsRequiredToWin },
-    });
-  };
+      socketRef.current.emit(CREATE_NEW_LOBBY_EVENT, {
+        query: { gameId: newGameId, pointsToWin: pointsRequiredToWin },
+      });
+    },
+    [pointsToWin]
+  );
 
-  const startGame = (gameToStart: string) => {
+  const startGame = useCallback((gameToStart: string) => {
     console.log(`Starting game with id of ${gameToStart},`);
 
     socketRef.current.emit(START_NEW_GAME_EVENT, {
       query: { gameId: gameToStart },
     });
-  };
+  }, []);
 
-  return { players, createNewGame, startGame };
+  return { players, startGame, createNewGame };
 };
 
 export default useHostLobby;

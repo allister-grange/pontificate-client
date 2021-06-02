@@ -14,6 +14,7 @@ import { Player } from "../../types";
 import Footer from "../../components/misc/Footer";
 
 const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
+  document.title = "Player Lobby | Pontificate";
   const { gameId } = match.params; // Gets gameId from URL
   const { userName } = location.state; // Gets username from props
   const { players, addPlayer, setPlayerReady } = usePlayerLobby(
@@ -23,9 +24,8 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    document.title = "Player Lobby | Pontificate";
-    addPlayer(userName, gameId);
     console.log(`${userName} ${gameId}`);
+    addPlayer(userName, gameId);
   }, [addPlayer, gameId, userName]);
 
   const onReadyClick = (): void => {

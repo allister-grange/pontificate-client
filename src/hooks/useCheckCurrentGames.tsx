@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import SOCKET_SERVER_URL from "../constants";
 
@@ -52,21 +52,24 @@ const useCheckCurrentGames = (): UseCheckCurrentGames => {
     };
   }, []);
 
-  const doesGameExistEmit = (newGameId: string) => {
+  const doesGameExistEmit = useCallback((newGameId: string) => {
     console.log(`Checking if game exists with id of ${newGameId}`);
 
     socketRef.current.emit(DOES_GAME_EXIST_EVENT, {
       query: { gameId: newGameId },
     });
-  };
+  }, []);
 
-  const doesUserNameExistInGameEmit = (newGameId: string, userName: string) => {
-    console.log(`Checking if user ${newGameId} is in the game ${newGameId}`);
+  const doesUserNameExistInGameEmit = useCallback(
+    (newGameId: string, userName: string) => {
+      console.log(`Checking if user ${newGameId} is in the game ${newGameId}`);
 
-    socketRef.current.emit(DOES_USERNAME_EXIST_EVENT, {
-      query: { userName, gameId: newGameId },
-    });
-  };
+      socketRef.current.emit(DOES_USERNAME_EXIST_EVENT, {
+        query: { userName, gameId: newGameId },
+      });
+    },
+    []
+  );
 
   return {
     userNameIsFree,

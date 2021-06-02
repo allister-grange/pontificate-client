@@ -9,7 +9,7 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
   document.title = `${gameId} | Pontificate`;
   const { pointsToWin } = location.state; // Gets points to win from props
-  const { players, createNewGame, startGame } = useHostLobby(
+  const { players, startGame, createNewGame } = useHostLobby(
     gameId,
     pointsToWin
   );

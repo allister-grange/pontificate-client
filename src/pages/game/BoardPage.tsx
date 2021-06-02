@@ -22,9 +22,9 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
   document.title = `${gameId} | Pontificate`;
   const {
     players,
-    getAllPlayersInGame,
     triggerChangeTurnStatusForUser,
     playerWhoWon,
+    getAllPlayersInGame,
   } = useGameState(gameId);
 
   useEffect(() => {
