@@ -37,7 +37,6 @@ const useCheckCurrentGames = (): UseCheckCurrentGames => {
 
     socketRef.current.on(DOES_USERNAME_EXIST_RES, (data: any) => {
       console.log(`Received does username exist event for game`);
-      console.log(data);
 
       if ("userNameIsFree" in data) {
         setUserNameIsFree(data.userNameIsFree);

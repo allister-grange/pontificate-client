@@ -1,22 +1,18 @@
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Button,
-  Card,
-} from "@material-ui/core";
+import { Card } from "@material-ui/core";
 import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 import useGameState from "../../hooks/useGameState";
-import { Player } from "../../types";
 import "../../styles/BoardPage.css";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
 import Footer from "../../components/misc/Footer";
 import GameBoard from "../../components/game/GameBoard";
 
-const BoardPage = ({ match, location }: any): JSX.Element => {
+type BoardPageProps = {
+  match: any;
+  location: any;
+};
+
+const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
   const { pointsToWin } = location.state;
   const { height, width } = useWindowDimensions();

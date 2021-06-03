@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Table,
@@ -6,7 +7,6 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-import React from "react";
 import { Player, TurnStatusOptions } from "../../types";
 
 type GameBoardProps = {
