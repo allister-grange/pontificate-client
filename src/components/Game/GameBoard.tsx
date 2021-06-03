@@ -21,6 +21,15 @@ const GameBoard = ({
   players,
   triggerChangeTurnStatusForUser,
 }: GameBoardProps): JSX.Element => {
+  const colorsForCategoryName = {
+    action: "#C96567",
+    object: "#5aB9EA",
+    person: "#C48B28",
+    random: "#F79E02",
+    world: "#5680E9",
+    nature: "#3AAFA9",
+  };
+
   return (
     <Table className="board-page-player-table">
       <TableHead>
@@ -49,7 +58,12 @@ const GameBoard = ({
               <h2 className="board-cell">{player.points}</h2>
             </TableCell>
             <TableCell size="medium" align="center">
-              <h2 className="board-cell">{player.category}</h2>
+              <h2
+                className="board-cell"
+                style={{ color: colorsForCategoryName[player.category] }}
+              >
+                {player.category}
+              </h2>
             </TableCell>
             {player.turnStatus === "ready" ? (
               <TableCell size="medium" align="center">

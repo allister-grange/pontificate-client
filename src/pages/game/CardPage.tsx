@@ -7,11 +7,9 @@ import DisplayCard from "../../components/game/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category } from "../../types";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
+import { COUNTDOWN_LENGTH, TURN_LENGTH } from "../../constants";
 
 const CardPage = ({ location }: any): JSX.Element => {
-  const TURN_LENGTH = 45;
-  const COUNTDOWN_LENGTH = 5;
-
   const { gameId, userName } = location.state;
   const [counter, setCounter] = useState(TURN_LENGTH);
   const [isThisPlayersTurn, setIsThisPlayersTurn] = useState(false);

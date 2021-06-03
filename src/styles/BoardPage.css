@@ -20,6 +20,10 @@
   background-color: aquamarine;
 }
 
+.board-page-countdown {
+  font-size: 3rem;
+}
+
 .board-page-title {
   display: flex;
   justify-content: center;

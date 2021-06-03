@@ -1,11 +1,13 @@
 import { Card } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import useGameState from "../../hooks/useGameState";
 import "../../styles/BoardPage.css";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
 import Footer from "../../components/misc/Footer";
 import GameBoard from "../../components/game/GameBoard";
+import { Player } from "../../types";
+import { COUNTDOWN_LENGTH, TURN_LENGTH } from "../../constants";
 
 type BoardPageProps = {
   match: any;
@@ -16,6 +18,7 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
   const { pointsToWin } = location.state;
   const { height, width } = useWindowDimensions();
+  const [timerCountdown, setTimerCountdown] = useState(0);
   document.title = `${gameId} | Pontificate`;
   const {
     players,
@@ -27,6 +30,23 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
   useEffect(() => {
     getAllPlayersInGame();
   }, [getAllPlayersInGame]);
+
+  useEffect(() => {
+    if (players.find((player) => player.turnStatus === "active")) {
+      setTimerCountdown(TURN_LENGTH + COUNTDOWN_LENGTH);
+    }
+  }, [players]);
+
+  useEffect(() => {
+    if (timerCountdown < 1) return;
+
+    const intervalId = setInterval(() => {
+      setTimerCountdown(timerCountdown - 1);
+    }, 1000);
+
+    // eslint-disable-next-line consistent-return
+    return () => clearInterval(intervalId);
+  }, [timerCountdown]);
 
   return (
     <div className="board-page-container">
@@ -54,6 +74,12 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
           )}
         </div>
       </Card>
+
+      {timerCountdown > 0 && (
+        <>
+          <h1 className="board-page-countdown">{timerCountdown}</h1>
+        </>
+      )}
 
       <Footer />
     </div>
