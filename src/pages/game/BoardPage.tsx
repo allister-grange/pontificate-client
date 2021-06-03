@@ -14,6 +14,7 @@ import { Player } from "../../types";
 import "../../styles/BoardPage.css";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
 import Footer from "../../components/misc/Footer";
+import GameBoard from "../../components/game/GameBoard";
 
 const BoardPage = ({ match, location }: any): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
@@ -50,59 +51,10 @@ const BoardPage = ({ match, location }: any): JSX.Element => {
             <p>no one is in your game :( something must be wrong!</p>
           )}
           {!playerWhoWon && players.length > 0 && (
-            <Table className="board-page-player-table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">
-                    <h1 className="board-cell-title">player</h1>
-                  </TableCell>
-                  <TableCell align="center">
-                    <h1 className="board-cell-title">points</h1>
-                  </TableCell>
-                  <TableCell align="center">
-                    <h1 className="board-cell-title">category</h1>
-                  </TableCell>
-                  <TableCell align="center">
-                    <h1 className="board-cell-title">status</h1>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {players.map((player: Player) => (
-                  <TableRow key={player.userName}>
-                    <TableCell size="medium" align="center">
-                      <h2 className="board-cell">{player.userName}</h2>
-                    </TableCell>
-                    <TableCell size="medium" align="center">
-                      <h2 className="board-cell">{player.points}</h2>
-                    </TableCell>
-                    <TableCell size="medium" align="center">
-                      <h2 className="board-cell">{player.category}</h2>
-                    </TableCell>
-                    {player.turnStatus === "ready" ? (
-                      <TableCell size="medium" align="center">
-                        <Button
-                          color="primary"
-                          variant="outlined"
-                          onClick={() => {
-                            triggerChangeTurnStatusForUser(
-                              player.userName,
-                              "active"
-                            );
-                          }}
-                        >
-                          <h4 className="board-cell">take turn</h4>
-                        </Button>
-                      </TableCell>
-                    ) : (
-                      <TableCell size="medium" align="center">
-                        <h2 className="board-cell">{player.turnStatus}</h2>
-                      </TableCell>
-                    )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <GameBoard
+              players={players}
+              triggerChangeTurnStatusForUser={triggerChangeTurnStatusForUser}
+            />
           )}
         </div>
       </Card>
