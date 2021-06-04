@@ -16,6 +16,7 @@ export type Player = {
   points: number;
   turnStatus: TurnStatusOptions;
   category: Category;
+  words: Array<string>;
 };
 
 export type GameData = {

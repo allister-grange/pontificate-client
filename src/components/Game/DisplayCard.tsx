@@ -4,12 +4,11 @@ import * as WORDS from "../../constants/words";
 import { Category } from "../../types";
 
 type DisplayCardProps = {
-  addPointToPlayer: (points: number, userName: string) => void;
+  addPointToPlayer: (points: number, userName: string, word: string) => void;
   userName: string;
   counter: number;
   category: Category;
   wordsSeen: Array<string>;
-  addWordToWordsSeen: (word: string) => void;
 };
 
 const DisplayCard = ({
@@ -18,14 +17,13 @@ const DisplayCard = ({
   category,
   addPointToPlayer,
   wordsSeen,
-  addWordToWordsSeen,
 }: DisplayCardProps): JSX.Element => {
   const [correctCount, setCorrectCount] = useState(0);
   const [indexOfLastCard, setIndexOfLastCard] = useState(-1);
   const [indexOfCurrentCard, setIndexOfCurrentCard] = useState(-1);
   const [words, setWords] = useState([] as string[]);
   // assumes that all categories have the same amount of words (they should)
-  const lengthOfWordArray = WORDS.actionWords.length;
+  const lengthOfWordArray = WORDS.personWords.length;
   const skipped = useRef(false);
 
   useEffect(() => {
@@ -59,27 +57,20 @@ const DisplayCard = ({
 
   const getNextCardNumber = (): number => {
     let randomNum = Math.floor(Math.random() * lengthOfWordArray);
-    while (
-      // eslint-disable-next-line @typescript-eslint/no-loop-func
-      wordsSeen.find((word) => word === words[randomNum]) !== undefined
-    ) {
-      // console.log(words[randomNum]);
-      // console.log(wordsSeen);
-      console.log("matching word!!");
+    // will screw up the session if you run out of words (impossible with the score limit)
+    while (wordsSeen.includes(words[randomNum])) {
       randomNum = Math.floor(Math.random() * lengthOfWordArray);
     }
-
     return randomNum;
   };
 
   const nextCard = () => {
     skipped.current = false;
-    addPointToPlayer(correctCount + 1, userName);
+    addPointToPlayer(correctCount + 1, userName, words[indexOfCurrentCard]);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
     const nextCardNumber = getNextCardNumber();
     setIndexOfCurrentCard(nextCardNumber);
-    addWordToWordsSeen(words[nextCardNumber]);
   };
 
   const lastCard = () => {
@@ -94,17 +85,6 @@ const DisplayCard = ({
     }
     skipped.current = true;
   };
-
-  // const nextCardHolder = () => {
-  //   // add points to player
-  //   addPointToPlayer(correctCount + 1, userName);
-  //   setCorrectCount(correctCount + 1);
-
-  //   // get the next card
-  //   next;
-
-  //   //
-  // };
 
   return (
     <div className="display-card-container">
@@ -153,4 +133,4 @@ const DisplayCard = ({
   );
 };
 
-export default DisplayCard;
+export default React.memo(DisplayCard);

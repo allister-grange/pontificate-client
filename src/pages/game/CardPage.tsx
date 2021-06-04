@@ -3,33 +3,31 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../styles/CardPage.css";
 import Confetti from "react-confetti";
 import { Button } from "@material-ui/core";
+import { couldStartTrivia } from "typescript";
 import DisplayCard from "../../components/game/DisplayCard";
 import useGameState from "../../hooks/useGameState";
-import { Category } from "../../types";
+import { Category, Player } from "../../types";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
 import { COUNTDOWN_LENGTH, TURN_LENGTH } from "../../constants";
 
 const CardPage = ({ location }: any): JSX.Element => {
   const { gameId, userName } = location.state;
   const [counter, setCounter] = useState(TURN_LENGTH);
-  const [isThisPlayersTurn, setIsThisPlayersTurn] = useState(false);
-  const [points, setPoints] = useState(0);
+  // const [isThisPlayersTurn, setIsThisPlayersTurn] = useState(false);
+  const [player, setPlayer] = useState<Player>();
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(
     COUNTDOWN_LENGTH
   );
   const {
     players,
-    getPointsForPlayer,
     addPointToPlayer,
     playerWhoWon,
     getAllPlayersInGame,
     triggerChangeTurnStatusForUser,
     rejoinExistingGame,
   } = useGameState(gameId);
-  const [turnIsActive, setTurnIsActive] = useState(false);
   const [category, setCategory] = useState("object" as Category);
   const [cardBackGroundColor, setCardBackGroundColor] = useState("");
-  const wordsSeen = useRef<Array<string>>([] as string[]);
   const { height, width } = useWindowDimensions();
   document.title = `${userName} | Pontificate`;
 
@@ -64,23 +62,13 @@ const CardPage = ({ location }: any): JSX.Element => {
   }, [category]);
 
   useEffect(() => {
-    const getIsThisPlayersTurn = (): boolean => {
-      const ready =
-        players.find((player) => player.userName === userName)?.turnStatus ===
-        "ready";
-      return ready;
-    };
+    const thisPlayer = players.find((toFind) => toFind.userName === userName);
 
-    players.forEach((player) => {
-      if (player.userName === userName) {
-        setTurnIsActive(player.turnStatus === "active");
-        setCategory(player.category);
-      }
-    });
-
-    setPoints(getPointsForPlayer(userName));
-    setIsThisPlayersTurn(getIsThisPlayersTurn());
-  }, [getPointsForPlayer, players, userName]);
+    if (thisPlayer) {
+      setCategory(thisPlayer.category);
+      setPlayer(thisPlayer);
+    }
+  }, [player, players, userName]);
 
   useEffect(() => {
     if (counter > 0 && countdownBeforePlaying === 0) {
@@ -99,17 +87,13 @@ const CardPage = ({ location }: any): JSX.Element => {
   ]);
 
   useEffect(() => {
-    if (countdownBeforePlaying > 0 && turnIsActive) {
+    if (countdownBeforePlaying > 0 && player?.turnStatus === "active") {
       setTimeout(
         () => setCountDownBeforePlaying(countdownBeforePlaying - 1),
         1000
       );
     }
-  }, [countdownBeforePlaying, turnIsActive]);
-
-  const addWordToWordsSeen = (word: string) => {
-    wordsSeen.current.push(word);
-  };
+  }, [countdownBeforePlaying, player?.turnStatus]);
 
   return (
     <div
@@ -123,11 +107,11 @@ const CardPage = ({ location }: any): JSX.Element => {
           ) : null}
           <h3 className="card-word-styling">{`${playerWhoWon.userName} won!!!`}</h3>
         </div>
-      ) : !turnIsActive ? (
+      ) : !(player?.turnStatus === "active") ? (
         <div className="waiting-turn-message-container">
           <h1 className="card-word-styling">please wait your turn :)</h1>
           <h3 className="card-word-styling">{category}</h3>
-          {isThisPlayersTurn && (
+          {player?.turnStatus === "ready" && (
             <div className="card-start-button">
               <Button
                 type="button"
@@ -151,12 +135,8 @@ const CardPage = ({ location }: any): JSX.Element => {
         </div>
       ) : (
         <DisplayCard
-          addPointToPlayer={() => {
-            addPointToPlayer(points + 1, userName);
-            setPoints(points + 1);
-          }}
-          wordsSeen={wordsSeen.current}
-          addWordToWordsSeen={addWordToWordsSeen}
+          addPointToPlayer={addPointToPlayer}
+          wordsSeen={player?.words}
           counter={counter}
           userName={userName}
           category={category}

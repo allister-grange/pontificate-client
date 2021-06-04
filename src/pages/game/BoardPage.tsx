@@ -6,7 +6,6 @@ import "../../styles/BoardPage.css";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
 import Footer from "../../components/misc/Footer";
 import GameBoard from "../../components/game/GameBoard";
-import { Player } from "../../types";
 import { COUNTDOWN_LENGTH, TURN_LENGTH } from "../../constants";
 
 type BoardPageProps = {
