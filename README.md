@@ -8,23 +8,24 @@ Wanting to play the board game ‘Articulate’ anywhere without the board, I to
   <img src="demo/demo.gif">
 </p>
 
-### Tech
+## Tech
 
 React/TypeScript on the front end with Material.ui
 Node/Socket.io with TypeScript on the backend
 
 This is hosted in AWS with the following;
 
-- **EC2** running an ubunutu instance hosting the Node server 
+- **EC2** running an ubunutu instance hosting the Node server
 
-- **S3 bucket** servering the client behind a **CloudFront** distrubution
+- **S3 bucket** servering the client behind a **CloudFront** distribution
 
-## Local Hosting 
+## Local Hosting
 
-You will need to have the [pontificate-backend](https://github.com/allister-grange/pontificate-backend) running locally. 
+You will need to have the [pontificate-backend](https://github.com/allister-grange/pontificate-backend) running locally
 
 Please also have a ```.env``` file located in your root directory with the following configuration:
-```
+
+```vi
 PORT=3005
 ENV=local
 ```
