@@ -5,7 +5,7 @@ Wanting to play the board game ‘Articulate’ anywhere without the board, I to
 ---
 
 <p align="center">
-  <img src="demo/demo.gif">
+  <img src="demo/pontificate-demo.gif">
 </p>
 
 ### Tech
