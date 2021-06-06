@@ -13,6 +13,7 @@ const CardPage = ({ location }: any): JSX.Element => {
   const { gameId, userName } = location.state;
   const [counter, setCounter] = useState(TURN_LENGTH);
   const [player, setPlayer] = useState<Player>();
+  const [wordsSeen, setWordsSeen] = useState<string[]>([""]);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(
     COUNTDOWN_LENGTH
   );
@@ -50,8 +51,6 @@ const CardPage = ({ location }: any): JSX.Element => {
       default:
         return "";
     }
-
-    return "";
   };
 
   const cardBackGroundColor = getCardBackgroundColor(player?.category);
@@ -67,6 +66,12 @@ const CardPage = ({ location }: any): JSX.Element => {
     if (thisPlayer) {
       setPlayer(thisPlayer);
     }
+
+    const allWordsSeen: string[] = [];
+    players.forEach((playerInfo) => {
+      allWordsSeen.concat(playerInfo.words);
+    });
+    setWordsSeen(allWordsSeen);
   }, [player, players, userName]);
 
   useEffect(() => {
@@ -135,7 +140,7 @@ const CardPage = ({ location }: any): JSX.Element => {
       ) : (
         <DisplayCard
           addPointToPlayer={addPointToPlayer}
-          wordsSeen={player?.words}
+          wordsSeen={wordsSeen}
           counter={counter}
           userName={userName}
           category={player?.category}

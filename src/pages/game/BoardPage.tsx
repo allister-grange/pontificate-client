@@ -30,6 +30,7 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
     getAllPlayersInGame();
   }, [getAllPlayersInGame]);
 
+  // TODO bug here for the board timer changing every time a point is scored
   useEffect(() => {
     if (players.find((player) => player.turnStatus === "active")) {
       setTimerCountdown(TURN_LENGTH + COUNTDOWN_LENGTH);
