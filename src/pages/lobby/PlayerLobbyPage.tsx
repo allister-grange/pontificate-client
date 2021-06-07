@@ -70,7 +70,11 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
                       <TableRow key={player.userName}>
                         <TableCell align="center">{player.userName}</TableCell>
                         <TableCell align="center">
-                          {player.isReady ? "ready" : "not ready"}
+                          {player.isReady ? (
+                            <p style={{ color: "green" }}>ready</p>
+                          ) : (
+                            <p style={{ color: "red" }}>ready</p>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))}
