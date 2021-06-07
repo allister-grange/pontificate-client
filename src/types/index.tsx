@@ -17,6 +17,7 @@ export type Player = {
   turnStatus: TurnStatusOptions;
   category: Category;
   words: Array<string>;
+  timeLeftInTurn: number;
 };
 
 export type GameData = {

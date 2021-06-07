@@ -17,7 +17,7 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
   const { gameId } = match.params; // Gets roomId from URL
   const { pointsToWin } = location.state;
   const { height, width } = useWindowDimensions();
-  const [timerCountdown, setTimerCountdown] = useState(0);
+  const [timeLeftInTurn, setTimeLeftInTurn] = useState(0);
   document.title = `${gameId} | Pontificate`;
   const {
     players,
@@ -30,23 +30,15 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
     getAllPlayersInGame();
   }, [getAllPlayersInGame]);
 
-  // TODO bug here for the board timer changing every time a point is scored
   useEffect(() => {
-    if (players.find((player) => player.turnStatus === "active")) {
-      setTimerCountdown(TURN_LENGTH + COUNTDOWN_LENGTH);
+    const activePlayer = players.find(
+      (player) => player.turnStatus === "active"
+    );
+
+    if (activePlayer) {
+      setTimeLeftInTurn(activePlayer.timeLeftInTurn);
     }
   }, [players]);
-
-  useEffect(() => {
-    if (timerCountdown < 1) return;
-
-    const intervalId = setInterval(() => {
-      setTimerCountdown(timerCountdown - 1);
-    }, 1000);
-
-    // eslint-disable-next-line consistent-return
-    return () => clearInterval(intervalId);
-  }, [timerCountdown]);
 
   return (
     <div className="board-page-container">
@@ -75,9 +67,9 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
         </div>
       </Card>
 
-      {timerCountdown > 0 && (
+      {timeLeftInTurn > 0 && (
         <>
-          <h1 className="board-page-countdown">{timerCountdown}</h1>
+          <h1 className="board-page-countdown">{timeLeftInTurn}</h1>
         </>
       )}
 
