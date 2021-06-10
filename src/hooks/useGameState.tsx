@@ -14,7 +14,7 @@ type UseGameState = {
   players: Player[];
   turnIsActive: boolean;
   getAllPlayersInGame: () => void;
-  addPointToPlayer: (points: number, userName: string, word: string) => void;
+  addPointToPlayer: (userName: string, word: string) => void;
   triggerChangeTurnStatusForUser: (
     userName: string,
     turnStatus: TurnStatusOptions
@@ -100,13 +100,13 @@ const useGameState = (gameId: string): UseGameState => {
   // when a point is added to a player, that word is stored on the backend
   // so that it cannot come back again for that player
   const addPointToPlayer = useCallback(
-    (points: number, userName: string, word: string) => {
+    (userName: string, word: string) => {
       console.log(
-        `Setting points ${points} to player ${userName} in game with id of ${gameId}`
+        `Adding point to player ${userName} in game with id of ${gameId}`
       );
 
       socketRef.current.emit(ADD_POINT_TO_PLAYER_EVENT, {
-        query: { points, userName, word },
+        query: { userName, word },
       });
     },
     [gameId]

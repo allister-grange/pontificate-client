@@ -4,7 +4,7 @@ import * as WORDS from "../../constants/words";
 import { Category } from "../../types";
 
 type DisplayCardProps = {
-  addPointToPlayer: (points: number, userName: string, word: string) => void;
+  addPointToPlayer: (userName: string, word: string) => void;
   userName: string;
   counter: number;
   category: Category;
@@ -66,7 +66,7 @@ const DisplayCard = ({
 
   const nextCard = () => {
     skipped.current = false;
-    addPointToPlayer(correctCount + 1, userName, words[indexOfCurrentCard]);
+    addPointToPlayer(userName, words[indexOfCurrentCard]);
     setCorrectCount(correctCount + 1);
     setIndexOfLastCard(indexOfCurrentCard);
     const nextCardNumber = getNextCardNumber();
