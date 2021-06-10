@@ -73,7 +73,7 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
                           {player.isReady ? (
                             <p style={{ color: "green" }}>ready</p>
                           ) : (
-                            <p style={{ color: "red" }}>ready</p>
+                            <p style={{ color: "red" }}>waiting</p>
                           )}
                         </TableCell>
                       </TableRow>
@@ -90,7 +90,7 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
                 onClick={onReadyClick}
                 className="button"
               >
-                {ready ? "not ready" : "ready"}
+                {ready ? "waiting" : "ready"}
               </Button>
             </div>
           </>

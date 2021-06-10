@@ -7,11 +7,11 @@ import DisplayCard from "../../components/game/DisplayCard";
 import useGameState from "../../hooks/useGameState";
 import { Category, Player } from "../../types";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
-import { COUNTDOWN_LENGTH, TURN_LENGTH } from "../../constants";
+import { COUNTDOWN_LENGTH } from "../../constants";
 
 const CardPage = ({ location }: any): JSX.Element => {
   const { gameId, userName } = location.state;
-  const [counter, setCounter] = useState(TURN_LENGTH);
+  const [timeLeftInTurn, setTimeLeftInTurn] = useState(-1);
   const [player, setPlayer] = useState<Player>();
   const [wordsSeen, setWordsSeen] = useState<string[]>([""]);
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(
@@ -75,30 +75,41 @@ const CardPage = ({ location }: any): JSX.Element => {
   }, [player, players, userName]);
 
   useEffect(() => {
-    if (counter > 0 && countdownBeforePlaying === 0) {
-      setTimeout(() => setCounter(counter - 1), 1000);
-    } else if (counter === 0 && !playerWhoWon) {
+    // sometimes the other useEffect triggers before this one and it resets the countdown timer
+    if (player?.timeLeftInTurn === 0) {
       triggerChangeTurnStatusForUser(userName, "waiting");
-      setCounter(TURN_LENGTH);
-      setCountDownBeforePlaying(COUNTDOWN_LENGTH);
     }
-  }, [
-    counter,
-    countdownBeforePlaying,
-    playerWhoWon,
-    triggerChangeTurnStatusForUser,
-    userName,
-  ]);
 
-  useEffect(() => {
     if (countdownBeforePlaying > 0 && player?.turnStatus === "active") {
       setTimeout(
         () => setCountDownBeforePlaying(countdownBeforePlaying - 1),
         1000
       );
     }
-  }, [countdownBeforePlaying, player?.turnStatus]);
+  }, [
+    countdownBeforePlaying,
+    player?.timeLeftInTurn,
+    player?.turnStatus,
+    triggerChangeTurnStatusForUser,
+    userName,
+  ]);
 
+  useEffect(() => {
+    if (player?.turnStatus === "active" && countdownBeforePlaying === 0) {
+      setTimeLeftInTurn(player.timeLeftInTurn);
+      if (player.timeLeftInTurn <= 0) {
+        triggerChangeTurnStatusForUser(userName, "waiting");
+        setCountDownBeforePlaying(COUNTDOWN_LENGTH);
+      }
+    }
+  }, [
+    countdownBeforePlaying,
+    player,
+    triggerChangeTurnStatusForUser,
+    userName,
+  ]);
+
+  // TODO FIX THE TERNARY OPERATOR
   return (
     <div
       className="card-page-container"
@@ -141,7 +152,7 @@ const CardPage = ({ location }: any): JSX.Element => {
         <DisplayCard
           addPointToPlayer={addPointToPlayer}
           wordsSeen={wordsSeen}
-          counter={counter}
+          counter={timeLeftInTurn}
           userName={userName}
           category={player?.category}
         />
