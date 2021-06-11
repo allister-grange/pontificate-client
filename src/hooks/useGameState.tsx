@@ -19,7 +19,6 @@ type UseGameState = {
     userName: string,
     turnStatus: TurnStatusOptions
   ) => void;
-  getPointsForPlayer: (userName: string) => number;
   playerWhoWon: Player | undefined;
   rejoinExistingGame: (userName: string, gameIdToJoin: string) => void;
 };
@@ -31,14 +30,15 @@ const useGameState = (gameId: string): UseGameState => {
   const socketRef = useRef({} as SocketIOClient.Socket);
 
   useEffect(() => {
-    // Creates a WebSocket connection
+    // Creates the websocket connection
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
+  }, []);
 
+  useEffect(() => {
     // Listens for incoming players when a game is started
-    socketRef.current.on(PLAYERS_IN_GAME_RESPONSE, (data: any) => {
+    socketRef.current.once(PLAYERS_IN_GAME_RESPONSE, (data: any) => {
       console.log("PLAYERS_IN_GAME triggered, setting players in game");
       const incomingPlayers = data.playersInGame as Player[];
-      console.log(incomingPlayers);
       setPlayers(incomingPlayers);
     });
 
@@ -118,27 +118,11 @@ const useGameState = (gameId: string): UseGameState => {
         `Setting player ${userName} in game ${gameId}'s status ${turnStatus}`
       );
 
-      console.log(socketRef.current.id);
-
       socketRef.current.emit(SET_PLAYER_TURN_STATUS, {
         query: { userName, gameId, turnStatus },
       });
     },
     [gameId]
-  );
-
-  const getPointsForPlayer = useCallback(
-    (userName: string): number => {
-      const playerToGetPointsFor = players.find(
-        (toFind) => toFind.userName === userName
-      );
-      if (playerToGetPointsFor) {
-        return playerToGetPointsFor.points;
-      }
-
-      return -1;
-    },
-    [players]
   );
 
   return {
@@ -148,7 +132,6 @@ const useGameState = (gameId: string): UseGameState => {
     getAllPlayersInGame,
     addPointToPlayer,
     triggerChangeTurnStatusForUser,
-    getPointsForPlayer,
     rejoinExistingGame,
   };
 };
