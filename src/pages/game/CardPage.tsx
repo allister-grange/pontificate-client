@@ -1,5 +1,4 @@
-/* eslint-disable no-nested-ternary */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/CardPage.css";
 import Confetti from "react-confetti";
 import { Button } from "@material-ui/core";
@@ -8,6 +7,31 @@ import useGameState from "../../hooks/useGameState";
 import { Category, Player } from "../../types";
 import useWindowDimensions from "../../components/misc/WindowDimensions";
 import { COUNTDOWN_LENGTH } from "../../constants";
+
+const getCardBackgroundColor = (category: Category | undefined): string => {
+  switch (category) {
+    case "action":
+      return "#C96567";
+
+    case "object":
+      return "#5aB9EA";
+
+    case "person":
+      return "#C48B28";
+
+    case "random":
+      return "#F79E02";
+
+    case "world":
+      return "#5680E9";
+
+    case "nature":
+      return "#3AAFA9";
+
+    default:
+      return "";
+  }
+};
 
 const CardPage = ({ location }: any): JSX.Element => {
   const { gameId, userName } = location.state;
@@ -27,31 +51,6 @@ const CardPage = ({ location }: any): JSX.Element => {
   } = useGameState(gameId);
   const { height, width } = useWindowDimensions();
   document.title = `${userName} | Pontificate`;
-
-  const getCardBackgroundColor = (category: Category | undefined): string => {
-    switch (category) {
-      case "action":
-        return "#C96567";
-
-      case "object":
-        return "#5aB9EA";
-
-      case "person":
-        return "#C48B28";
-
-      case "random":
-        return "#F79E02";
-
-      case "world":
-        return "#5680E9";
-
-      case "nature":
-        return "#3AAFA9";
-
-      default:
-        return "";
-    }
-  };
 
   const cardBackGroundColor = getCardBackgroundColor(player?.category);
 
@@ -109,54 +108,82 @@ const CardPage = ({ location }: any): JSX.Element => {
     userName,
   ]);
 
-  // TODO FIX THE TERNARY OPERATOR
-  return (
-    <div
-      className="card-page-container"
-      style={{ backgroundColor: cardBackGroundColor }}
-    >
-      {playerWhoWon ? (
-        <div className="waiting-turn-message-container">
-          {userName === playerWhoWon.userName ? (
-            <Confetti width={width} height={height} />
-          ) : null}
-          <h3 className="card-word-styling">{`${playerWhoWon.userName} won!!!`}</h3>
-        </div>
-      ) : !(player?.turnStatus === "active") ? (
-        <div className="waiting-turn-message-container">
-          <h1 className="card-word-styling">please wait your turn :)</h1>
-          <h3 className="card-word-styling">{player?.category}</h3>
-          {player?.turnStatus === "ready" && (
-            <div className="card-start-button">
-              <Button
-                type="button"
-                onClick={() => {
-                  triggerChangeTurnStatusForUser(userName, "active");
-                }}
-                fullWidth
-                color="secondary"
-                variant="outlined"
-                className="button"
-              >
-                start turn
-              </Button>
-            </div>
-          )}
-        </div>
-      ) : countdownBeforePlaying > 0 ? (
-        <div className="waiting-turn-message-container">
-          <h1 className="card-word-styling">{countdownBeforePlaying}</h1>
-          <h4 className="card-word-styling">{player?.category}</h4>
-        </div>
+  const confettiDisplay = (): JSX.Element => (
+    <div className="waiting-turn-message-container">
+      {userName === playerWhoWon?.userName ? (
+        <>
+          <Confetti width={width} height={height} />
+          <h3 className="card-word-styling">congratulations, you won!</h3>
+        </>
       ) : (
+        <h3 className="card-word-styling">better luck next time :)</h3>
+      )}
+    </div>
+  );
+
+  const playerWaiting = (): JSX.Element => (
+    <div className="waiting-turn-message-container">
+      <h1 className="card-word-styling">please wait your turn :)</h1>
+      <h3 className="card-word-styling">{player?.category}</h3>
+      {player?.turnStatus === "ready" && (
+        <div className="card-start-button">
+          <Button
+            type="button"
+            onClick={() => {
+              triggerChangeTurnStatusForUser(userName, "active");
+            }}
+            fullWidth
+            color="secondary"
+            variant="outlined"
+            className="button"
+          >
+            start turn
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+
+  const countDown = (): JSX.Element => (
+    <div className="waiting-turn-message-container">
+      <h1 className="card-word-styling">{countdownBeforePlaying}</h1>
+      <h4 className="card-word-styling">{player?.category}</h4>
+    </div>
+  );
+
+  const displayCard = (): JSX.Element => {
+    if (player) {
+      return (
         <DisplayCard
           addPointToPlayer={addPointToPlayer}
           wordsSeen={wordsSeen}
           counter={timeLeftInTurn}
           userName={userName}
-          category={player?.category}
+          category={player.category}
         />
-      )}
+      );
+    }
+    return <div />;
+  };
+
+  return (
+    <div
+      className="card-page-container"
+      style={{ backgroundColor: cardBackGroundColor }}
+    >
+      {playerWhoWon && confettiDisplay()}
+
+      {!(player?.turnStatus === "active") && !playerWhoWon && playerWaiting()}
+
+      {player?.turnStatus === "active" &&
+        countdownBeforePlaying > 0 &&
+        !playerWhoWon &&
+        countDown()}
+
+      {player?.turnStatus === "active" &&
+        countdownBeforePlaying === 0 &&
+        !playerWhoWon &&
+        displayCard()}
     </div>
   );
 };
