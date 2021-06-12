@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import { Card, CardContent } from "@material-ui/core";
 import cardsSVG from "../../assets/cards-svg.svg";
 import * as ROUTES from "../../constants/routes";
 import "../../styles/HomePage.css";
@@ -42,8 +40,6 @@ function HomePage(): JSX.Element {
       return;
     }
 
-    // once we've received a response from the socket backend we can
-    // stop the spinner
     setIsLoading(false);
 
     if (userNameIsFree && gameExists) {
@@ -71,7 +67,9 @@ function HomePage(): JSX.Element {
 
   const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 4) {
-      return;
+      setErrorMessage("game ID's are 4 numbers long");
+    } else {
+      setErrorMessage("");
     }
     setGameIdToJoin(event.target.value);
   };
