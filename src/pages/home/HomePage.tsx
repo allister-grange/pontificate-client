@@ -8,6 +8,7 @@ import useCheckCurrentGames from "../../hooks/useCheckCurrentGames";
 import StartNewGameSelection from "../../components/home/StartNewGameSelection";
 import Footer from "../../components/misc/Footer";
 import StartOrJoinSelection from "../../components/home/StartOrJoinSelection";
+import useInput from "../../hooks/useInput";
 
 const generateGameID = (): string =>
   Math.floor(1000 + Math.random() * 9000).toString();
@@ -22,21 +23,36 @@ function HomePage(): JSX.Element {
     doesGameExistEmit,
     doesUserNameExistInGameEmit,
   } = useCheckCurrentGames();
-  const [gameIdToJoin, setGameIdToJoin] = React.useState("");
-  const [userName, setUserName] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState("");
+  const [joiningGameErrorMessage, setJoiningGameErrorMessage] = React.useState(
+    ""
+  );
   const [showingJoinGameOptions, setShowingJoinGameOptions] = React.useState(
     false
   );
   const [showingStartGameOptions, setShowingStartGameOptions] = React.useState(
     false
   );
-  const [hasSearched, setHasSearched] = React.useState(false);
+
+  const {
+    value: gameIdToJoin,
+    hasError: gameIdHasError,
+    valueChangeHandler: gameIdChangeHandler,
+    inputBlurHandler: gameIdBlurHandler,
+  } = useInput((value) => value.trim().length === 4);
+
+  const {
+    value: userName,
+    hasError: userNameHasError,
+    valueChangeHandler: userNameChangeHandler,
+    inputBlurHandler: userNameBlurHandler,
+  } = useInput((value) => value.trim().length >= 3);
 
   useEffect(() => {
     // to avoid the initial setting of the values triggering error messages
-    if (!hasSearched) {
+    console.log(isLoading);
+
+    if (!isLoading) {
       return;
     }
 
@@ -52,37 +68,17 @@ function HomePage(): JSX.Element {
     }
 
     if (!userNameIsFree && gameExists) {
-      setErrorMessage("that username already exists in that game");
+      setJoiningGameErrorMessage("that username already exists in that game");
     } else if (!gameExists) {
-      setErrorMessage("that game doesn't exist yet");
+      setJoiningGameErrorMessage("that game doesn't exist yet");
     }
-  }, [
-    userNameIsFree,
-    gameExists,
-    gameIdToJoin,
-    hasSearched,
-    history,
-    userName,
-  ]);
-
-  const handleGameIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length > 4) {
-      setErrorMessage("game ID's are 4 numbers long");
-    } else {
-      setErrorMessage("");
-    }
-    setGameIdToJoin(event.target.value);
-  };
-
-  const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
-  };
+  }, [userNameIsFree, gameExists, gameIdToJoin, history, userName, isLoading]);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // used to check if the player can proceed
-    setHasSearched(true);
+    // setHasSearched(true);
     setIsLoading(true);
     doesGameExistEmit(gameIdToJoin);
     doesUserNameExistInGameEmit(gameIdToJoin, userName);
@@ -97,12 +93,16 @@ function HomePage(): JSX.Element {
         {showingJoinGameOptions && (
           <JoinGameSelection
             userName={userName}
-            handleGameIdChange={handleGameIdChange}
-            handleUserNameChange={handleUserNameChange}
-            onSubmit={onSubmit}
             gameId={gameIdToJoin}
+            handleGameIdChange={gameIdChangeHandler}
+            userNameBlurHandler={userNameBlurHandler}
+            gameIdBlurHandler={gameIdBlurHandler}
+            handleUserNameChange={userNameChangeHandler}
+            onSubmit={onSubmit}
             isLoading={isLoading}
-            errorMessage={errorMessage}
+            userNameHasError={userNameHasError}
+            gameIdHasError={gameIdHasError}
+            errorMessage={joiningGameErrorMessage}
             setShowingJoinGameOptions={setShowingJoinGameOptions}
           />
         )}

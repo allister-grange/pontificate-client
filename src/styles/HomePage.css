@@ -14,6 +14,9 @@
 .join-game-error-message {
   text-align: center;
   color: red;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .cards-svg {

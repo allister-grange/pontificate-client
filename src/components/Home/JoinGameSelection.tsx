@@ -15,8 +15,12 @@ type JoinGameSelectionProps = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   gameId: string;
   setShowingJoinGameOptions: React.Dispatch<React.SetStateAction<boolean>>;
-  errorMessage: string;
   isLoading: boolean;
+  userNameBlurHandler: () => void;
+  gameIdBlurHandler: () => void;
+  gameIdHasError: boolean;
+  userNameHasError: boolean;
+  errorMessage: string;
 };
 
 const JoinGameSelection = ({
@@ -26,7 +30,11 @@ const JoinGameSelection = ({
   onSubmit,
   gameId,
   setShowingJoinGameOptions,
+  gameIdHasError,
   errorMessage,
+  userNameHasError,
+  userNameBlurHandler,
+  gameIdBlurHandler,
   isLoading,
 }: JoinGameSelectionProps): JSX.Element => {
   const isFormInValid =
@@ -50,6 +58,7 @@ const JoinGameSelection = ({
               value={userName}
               className="room-form-input"
               onChange={handleUserNameChange}
+              onBlur={userNameBlurHandler}
             />
             <div style={{ margin: "10px" }} />
             <TextField
@@ -63,6 +72,7 @@ const JoinGameSelection = ({
               autoComplete="off"
               value={gameId}
               onChange={handleGameIdChange}
+              onBlur={gameIdBlurHandler}
             />
             <CardActions className="card-room-actions">
               <hr className="card-room-line" />
@@ -86,7 +96,9 @@ const JoinGameSelection = ({
                 </Button>
               </div>
               <div className="join-game-error-message">
-                <p>{errorMessage}</p>
+                {gameIdHasError && <p>game ID must be 4 numbers</p>}
+                {userNameHasError && <p>username must be 3 letters long</p>}
+                {errorMessage && <p>{errorMessage}</p>}
               </div>
             </CardActions>
           </form>
