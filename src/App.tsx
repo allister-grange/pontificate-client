@@ -8,6 +8,7 @@ import CardPage from "./pages/game/CardPage";
 import BoardPage from "./pages/game/BoardPage";
 import theme from "./components/misc/theme";
 import * as ROUTES from "./constants/routes";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App(): JSX.Element {
   return (
@@ -19,6 +20,8 @@ function App(): JSX.Element {
           <Route exact path={ROUTES.PLAYERLOBBY} component={PlayerLobbyPage} />
           <Route exact path={ROUTES.BOARDPAGE} component={BoardPage} />
           <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
+          <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
+          <Route component={NotFoundPage} />
         </Switch>
       </Router>
     </ThemeProvider>
