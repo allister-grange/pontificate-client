@@ -66,7 +66,7 @@ const BoardPage = ({ match, location }: BoardPageProps): JSX.Element => {
         </div>
       </Card>
 
-      {timeLeftInTurn > 0 && (
+      {timeLeftInTurn > 0 && !playerWhoWon && (
         <>
           <h1 className="board-page-countdown">{timeLeftInTurn}</h1>
         </>
