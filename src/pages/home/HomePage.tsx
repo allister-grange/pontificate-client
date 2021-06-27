@@ -50,15 +50,16 @@ function HomePage(): JSX.Element {
 
   useEffect(() => {
     // to avoid the initial setting of the values triggering error messages
-    console.log(isLoading);
-
     if (!isLoading) {
       return;
     }
 
-    setIsLoading(false);
+    // only stop loading if we have both responses from API
+    if (gameExists !== null && userNameIsFree !== null) {
+      setIsLoading(false);
+    }
 
-    if (userNameIsFree && gameExists) {
+    if (userNameIsFree === true && gameExists === true) {
       history.push({
         pathname: ROUTES.PLAYERLOBBY.replace(":gameId", gameIdToJoin),
         state: {
@@ -67,12 +68,16 @@ function HomePage(): JSX.Element {
       });
     }
 
-    if (!userNameIsFree && gameExists) {
+    if (userNameIsFree === false && gameExists === true) {
       setJoiningGameErrorMessage("that username already exists in that game");
-    } else if (!gameExists) {
+    } else if (gameExists === false) {
       setJoiningGameErrorMessage("that game doesn't exist yet");
     }
   }, [userNameIsFree, gameExists, gameIdToJoin, history, userName, isLoading]);
+
+  useEffect(() => {
+    console.log(gameExists);
+  }, [gameExists]);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
