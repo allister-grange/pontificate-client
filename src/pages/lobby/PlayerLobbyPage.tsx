@@ -70,7 +70,7 @@ const PlayerLobbyPage = ({ match, location }: any): JSX.Element => {
                       <TableRow key={player.userName}>
                         <TableCell align="center">{player.userName}</TableCell>
                         <TableCell align="center">
-                          {player.isReady ? (
+                          {player.turnStatus === "ready" ? (
                             <p style={{ color: "green" }}>ready</p>
                           ) : (
                             <p style={{ color: "red" }}>waiting</p>

@@ -90,7 +90,7 @@ const useGameState = (gameId: string): UseGameState => {
     (userName: string, gameIdToJoin: string) => {
       console.log(`Rejoining player ${userName} to ${gameIdToJoin}`);
 
-      socketRef.current.emit("rejoin-player", {
+      socketRef.current.emit("rejoinPlayer", {
         query: { gameId: gameIdToJoin, userName },
       });
     },

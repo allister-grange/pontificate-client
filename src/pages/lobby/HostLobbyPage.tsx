@@ -21,7 +21,7 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
   const allPlayersAreReady = (): boolean => {
     let allReady = true;
     players.forEach((player: Player) => {
-      if (!player.isReady) {
+      if (player.turnStatus !== "ready") {
         allReady = false;
       }
     });
@@ -52,11 +52,15 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
             <CardContent>
               {players.map((player: Player) => (
                 <div className="host-player-table">
-                  <h3 style={{ color: player.isReady ? "green" : "red" }}>
+                  <h3
+                    style={{
+                      color: player.turnStatus === "ready" ? "green" : "red",
+                    }}
+                  >
                     {player.userName}
                   </h3>
                   <h3>
-                    {player.isReady
+                    {player.turnStatus === "ready"
                       ? " is ready to go!"
                       : " isn't ready just yet"}
                   </h3>

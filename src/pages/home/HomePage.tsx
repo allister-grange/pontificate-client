@@ -75,10 +75,6 @@ function HomePage(): JSX.Element {
     }
   }, [userNameIsFree, gameExists, gameIdToJoin, history, userName, isLoading]);
 
-  useEffect(() => {
-    console.log(gameExists);
-  }, [gameExists]);
-
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
