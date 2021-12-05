@@ -47,6 +47,7 @@ const CardPage = ({ location }: any): JSX.Element => {
     getAllPlayersInGame,
     triggerChangeTurnStatusForUser,
     rejoinExistingGame,
+    skipWord,
   } = useGameState(gameId);
   const { height, width } = useWindowDimensions();
   document.title = `${userName} | Pontificate`;
@@ -153,6 +154,7 @@ const CardPage = ({ location }: any): JSX.Element => {
           userName={userName}
           word={player.currentWord}
           skippedWord={player.skippedWord}
+          skipWord={skipWord}
         />
       );
     }

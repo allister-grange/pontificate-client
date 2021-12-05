@@ -7,6 +7,7 @@ type DisplayCardProps = {
   counter: number;
   word: string;
   skippedWord: string | undefined;
+  skipWord: (userName: string) => void;
 };
 
 const DisplayCard = ({
@@ -15,16 +16,13 @@ const DisplayCard = ({
   addPointToPlayer,
   skippedWord,
   word,
+  skipWord,
 }: DisplayCardProps): JSX.Element => {
   const [correctCount, setCorrectCount] = useState(0);
 
   const nextCard = () => {
     addPointToPlayer(userName, word);
     setCorrectCount(correctCount + 1);
-  };
-
-  const skipWord = () => {
-    // todo skip word logic here
   };
 
   return (
@@ -51,7 +49,7 @@ const DisplayCard = ({
               borderColor: "white",
               color: "white",
             }}
-            onClick={skipWord}
+            onClick={() => skipWord(userName)}
           >
             skip
           </Button>

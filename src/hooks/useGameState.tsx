@@ -6,6 +6,7 @@ import { Player, TurnStatusOptions } from "../types";
 const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
 const PLAYERS_IN_GAME_RESPONSE = "playersInGame";
 const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent";
+const SKIP_WORD_EVENT = "skipWordEvent";
 const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
 const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
 const GAME_OVER_RES = "gameOverRes";
@@ -21,6 +22,7 @@ type UseGameState = {
   ) => void;
   playerWhoWon: Player | undefined;
   rejoinExistingGame: (userName: string, gameIdToJoin: string) => void;
+  skipWord: (userName: string) => void;
 };
 
 const useGameState = (gameId: string): UseGameState => {
@@ -86,6 +88,17 @@ const useGameState = (gameId: string): UseGameState => {
     });
   }, [gameId]);
 
+  const skipWord = useCallback(
+    (userName: string) => {
+      console.log(`Skipping current word for ${userName}`);
+
+      socketRef.current.emit(SKIP_WORD_EVENT, {
+        query: { userName, gameId },
+      });
+    },
+    [gameId]
+  );
+
   const rejoinExistingGame = useCallback(
     (userName: string, gameIdToJoin: string) => {
       console.log(`Rejoining player ${userName} to ${gameIdToJoin}`);
@@ -133,6 +146,7 @@ const useGameState = (gameId: string): UseGameState => {
     addPointToPlayer,
     triggerChangeTurnStatusForUser,
     rejoinExistingGame,
+    skipWord,
   };
 };
 
