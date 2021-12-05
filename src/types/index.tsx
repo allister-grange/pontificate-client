@@ -17,6 +17,9 @@ export type Player = {
   category: Category;
   words: Array<string>;
   timeLeftInTurn: number;
+  currentWord: string;
+  nextWord: string | undefined;
+  skippedWord: string | undefined;
 };
 
 export type GameData = {

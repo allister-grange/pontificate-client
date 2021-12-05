@@ -15,6 +15,7 @@ type UseHostLobbyRes = {
   players: Player[];
   createNewGame: (newGameId: string, pointsToWin: number) => void;
   startGame: (gameToStart: string) => void;
+  gameId: string;
 };
 
 const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
@@ -68,7 +69,7 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
     });
   }, []);
 
-  return { players, startGame, createNewGame };
+  return { players, startGame, createNewGame, gameId };
 };
 
 export default useHostLobby;
