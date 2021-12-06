@@ -164,7 +164,7 @@ const CardPage = ({ location }: any): JSX.Element => {
           counter={timeLeftInTurn}
           userName={userName}
           word={player.currentWord}
-          skippedWord={player.skippedWord}
+          skippedWords={player.skippedWords}
           skipWord={skipWord}
         />
       );

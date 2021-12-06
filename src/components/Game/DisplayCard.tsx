@@ -6,7 +6,7 @@ type DisplayCardProps = {
   userName: string;
   counter: number;
   word: string;
-  skippedWord: string | undefined;
+  skippedWords: string[] | undefined;
   skipWord: (userName: string) => void;
 };
 
@@ -14,7 +14,7 @@ const DisplayCard = ({
   userName,
   counter,
   addPointToPlayer,
-  skippedWord,
+  skippedWords,
   word,
   skipWord,
 }: DisplayCardProps): JSX.Element => {
@@ -29,7 +29,17 @@ const DisplayCard = ({
     <div className="display-card-container">
       <div className="words-to-guess">
         <h1 className="card-word-styling">{word}</h1>
-        <h4 className="card-word-styling">{skippedWord}</h4>
+        {skippedWords && (
+          <span>
+            {" "}
+            skipped words:
+            {skippedWords?.map((skippedWord: string) => (
+              <h4 key={skippedWord} className="card-word-styling">
+                {skippedWord}
+              </h4>
+            ))}
+          </span>
+        )}
       </div>
 
       <div className="correct-card-count">

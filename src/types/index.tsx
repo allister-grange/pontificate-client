@@ -19,7 +19,7 @@ export type Player = {
   timeLeftInTurn: number;
   currentWord: string;
   nextWord: string | undefined;
-  skippedWord: string | undefined;
+  skippedWords: string[] | undefined;
 };
 
 export type GameData = {
