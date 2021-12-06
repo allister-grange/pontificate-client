@@ -41,7 +41,8 @@ const JoinGameSelection = ({
     userName === "" ||
     gameId === "" ||
     gameId.length !== 4 ||
-    userName.length < 3;
+    userName.length < 3 ||
+    userName.length > 12;
 
   return (
     <div className="join-game-options">

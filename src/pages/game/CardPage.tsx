@@ -34,7 +34,8 @@ const getCardBackgroundColor = (category: Category | undefined): string => {
 };
 
 const CardPage = ({ location }: any): JSX.Element => {
-  const { gameId, userName } = location.state;
+  const gameId = window.location.href.split("/")[4];
+  const userName = window.location.href.split("/")[5];
   const [timeLeftInTurn, setTimeLeftInTurn] = useState(-1);
   const [player, setPlayer] = useState<Player>();
   const [countdownBeforePlaying, setCountDownBeforePlaying] = useState(
@@ -71,6 +72,16 @@ const CardPage = ({ location }: any): JSX.Element => {
     // sometimes the other useEffect triggers before this one and it resets the countdown timer
     if (player?.timeLeftInTurn === 0) {
       triggerChangeTurnStatusForUser(userName, "waiting");
+    }
+
+    // if the player is re-joining mid-turn
+    if (
+      player?.timeLeftInTurn &&
+      player?.timeLeftInTurn < 45 &&
+      player?.timeLeftInTurn > 0
+    ) {
+      setCountDownBeforePlaying(0);
+      return;
     }
 
     if (countdownBeforePlaying > 0 && player?.turnStatus === "active") {
