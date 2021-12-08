@@ -10,6 +10,7 @@ const SKIP_WORD_EVENT = "skipWordEvent";
 const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
 const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
 const GAME_OVER_RES = "gameOverRes";
+const PLAYERS_TURN_OVER = "playersTurnOver";
 
 type UseGameState = {
   players: Player[];
@@ -23,6 +24,7 @@ type UseGameState = {
   playerWhoWon: Player | undefined;
   rejoinExistingGame: (userName: string, gameIdToJoin: string) => void;
   skipWord: (userName: string) => void;
+  endPlayersTurn: (userName: string) => void;
 };
 
 const useGameState = (gameId: string): UseGameState => {
@@ -138,6 +140,17 @@ const useGameState = (gameId: string): UseGameState => {
     [gameId]
   );
 
+  const endPlayersTurn = useCallback(
+    (userName: string) => {
+      console.log(`Ending player ${userName} in game ${gameId}'s turn`);
+
+      socketRef.current.emit(PLAYERS_TURN_OVER, {
+        query: { userName, gameId },
+      });
+    },
+    [gameId]
+  );
+
   return {
     players,
     playerWhoWon,
@@ -147,6 +160,7 @@ const useGameState = (gameId: string): UseGameState => {
     triggerChangeTurnStatusForUser,
     rejoinExistingGame,
     skipWord,
+    endPlayersTurn,
   };
 };
 

@@ -7,7 +7,8 @@ type DisplayCardProps = {
   counter: number;
   word: string;
   skippedWords: string[] | undefined;
-  skipWord: (userName: string) => void;
+  skipWord: (word: string) => void;
+  swapWithLiveWord: (word: string) => void;
 };
 
 const DisplayCard = ({
@@ -17,6 +18,7 @@ const DisplayCard = ({
   skippedWords,
   word,
   skipWord,
+  swapWithLiveWord,
 }: DisplayCardProps): JSX.Element => {
   const [correctCount, setCorrectCount] = useState(0);
 
@@ -30,15 +32,19 @@ const DisplayCard = ({
       <div className="words-to-guess">
         <h1 className="card-word-styling">{word}</h1>
         {skippedWords && (
-          <span>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             {" "}
             skipped words:
             {skippedWords?.map((skippedWord: string) => (
-              <h4 key={skippedWord} className="card-word-styling">
-                {skippedWord}
-              </h4>
+              <Button
+                key={skippedWord}
+                style={{ textAlign: "left" }}
+                onClick={() => swapWithLiveWord(skippedWord)}
+              >
+                <h4 className="card-word-styling">{skippedWord}</h4>
+              </Button>
             ))}
-          </span>
+          </div>
         )}
       </div>
 

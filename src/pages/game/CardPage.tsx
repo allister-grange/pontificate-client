@@ -49,6 +49,7 @@ const CardPage = ({ location }: any): JSX.Element => {
     triggerChangeTurnStatusForUser,
     rejoinExistingGame,
     skipWord,
+    endPlayersTurn,
   } = useGameState(gameId);
   const { height, width } = useWindowDimensions();
   document.title = `${userName} | Pontificate`;
@@ -71,7 +72,7 @@ const CardPage = ({ location }: any): JSX.Element => {
   useEffect(() => {
     // sometimes the other useEffect triggers before this one and it resets the countdown timer
     if (player?.timeLeftInTurn === 0) {
-      triggerChangeTurnStatusForUser(userName, "waiting");
+      endPlayersTurn(userName);
     }
 
     // if the player is re-joining mid-turn
@@ -92,6 +93,7 @@ const CardPage = ({ location }: any): JSX.Element => {
     }
   }, [
     countdownBeforePlaying,
+    endPlayersTurn,
     player?.timeLeftInTurn,
     player?.turnStatus,
     triggerChangeTurnStatusForUser,
@@ -112,6 +114,19 @@ const CardPage = ({ location }: any): JSX.Element => {
     triggerChangeTurnStatusForUser,
     userName,
   ]);
+
+  const swapWithLiveWord = (word: string) => {
+    console.log("booyah");
+
+    if (player?.currentWord) {
+      const playerToChange = { ...player };
+
+      playerToChange.skippedWords?.push(player.currentWord);
+      playerToChange.currentWord = word;
+
+      setPlayer(playerToChange);
+    }
+  };
 
   const confettiDisplay = (): JSX.Element => (
     <div className="waiting-turn-message-container">
@@ -166,6 +181,7 @@ const CardPage = ({ location }: any): JSX.Element => {
           word={player.currentWord}
           skippedWords={player.skippedWords}
           skipWord={skipWord}
+          swapWithLiveWord={swapWithLiveWord}
         />
       );
     }
