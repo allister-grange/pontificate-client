@@ -32,18 +32,21 @@ const DisplayCard = ({
       <div className="words-to-guess">
         <h1 className="card-word-styling">{word}</h1>
         {skippedWords && (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="skip-words-container">
             {" "}
-            skipped words:
-            {skippedWords?.map((skippedWord: string) => (
-              <Button
-                key={skippedWord}
-                style={{ textAlign: "left" }}
-                onClick={() => swapWithLiveWord(skippedWord)}
-              >
-                <h4 className="card-word-styling">{skippedWord}</h4>
-              </Button>
-            ))}
+            skipped words (touch to play):
+            <div className="skip-words">
+              {skippedWords?.map((skippedWord: string) => (
+                <button
+                  key={skippedWord}
+                  type="button"
+                  className="skipped-word-button"
+                  onClick={() => swapWithLiveWord(skippedWord)}
+                >
+                  <h2 className="card-word-styling">{skippedWord}</h2>
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -88,4 +91,4 @@ const DisplayCard = ({
   );
 };
 
-export default React.memo(DisplayCard);
+export default DisplayCard;

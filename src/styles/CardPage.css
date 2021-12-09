@@ -71,4 +71,21 @@ html, body, #app, #app>div {
 .card-word-styling {
     /* Prefix required. Even Firefox only supports the -webkit- prefix */
   color: white;
+  text-transform: none;
+}
+
+.skipped-word-button {
+  text-align: left;
+  background-color: transparent;
+  border: transparent;
+}
+
+.skip-words {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.skip-words-container:hover {
+  cursor: pointer;
 }

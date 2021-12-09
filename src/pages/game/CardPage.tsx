@@ -50,6 +50,7 @@ const CardPage = ({ location }: any): JSX.Element => {
     rejoinExistingGame,
     skipWord,
     endPlayersTurn,
+    swapSkippedWord,
   } = useGameState(gameId);
   const { height, width } = useWindowDimensions();
   document.title = `${userName} | Pontificate`;
@@ -118,14 +119,15 @@ const CardPage = ({ location }: any): JSX.Element => {
   const swapWithLiveWord = (word: string) => {
     console.log("booyah");
 
-    if (player?.currentWord) {
-      const playerToChange = { ...player };
+    swapSkippedWord(userName, word);
+    // if (player?.currentWord) {
+    //   const playerToChange = { ...player };
 
-      playerToChange.skippedWords?.push(player.currentWord);
-      playerToChange.currentWord = word;
+    //   playerToChange.skippedWords?.push(player.currentWord);
+    //   playerToChange.currentWord = word;
 
-      setPlayer(playerToChange);
-    }
+    //   setPlayer(playerToChange);
+    // }
   };
 
   const confettiDisplay = (): JSX.Element => (

@@ -11,6 +11,7 @@ const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
 const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
 const GAME_OVER_RES = "gameOverRes";
 const PLAYERS_TURN_OVER = "playersTurnOver";
+const SWAPPED_SKIP_WORD_EVENT = "swappedSkipWordEvent";
 
 type UseGameState = {
   players: Player[];
@@ -25,6 +26,7 @@ type UseGameState = {
   rejoinExistingGame: (userName: string, gameIdToJoin: string) => void;
   skipWord: (userName: string) => void;
   endPlayersTurn: (userName: string) => void;
+  swapSkippedWord: (userName: string, word: string) => void;
 };
 
 const useGameState = (gameId: string): UseGameState => {
@@ -101,6 +103,17 @@ const useGameState = (gameId: string): UseGameState => {
     [gameId]
   );
 
+  const swapSkippedWord = useCallback(
+    (userName: string, word: string) => {
+      console.log(`Swapping skipped word for ${userName}`);
+
+      socketRef.current.emit(SWAPPED_SKIP_WORD_EVENT, {
+        query: { userName, word, gameId },
+      });
+    },
+    [gameId]
+  );
+
   const rejoinExistingGame = useCallback(
     (userName: string, gameIdToJoin: string) => {
       console.log(`Rejoining player ${userName} to ${gameIdToJoin}`);
@@ -161,6 +174,7 @@ const useGameState = (gameId: string): UseGameState => {
     rejoinExistingGame,
     skipWord,
     endPlayersTurn,
+    swapSkippedWord,
   };
 };
 
