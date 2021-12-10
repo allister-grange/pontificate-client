@@ -4,10 +4,11 @@ import socketIOClient from "socket.io-client";
 import { Player } from "../types";
 import * as ROUTES from "../constants/routes";
 import SOCKET_SERVER_URL from "../constants";
-
-const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
-const PLAYER_READY_EVENT = "playerReadyEvent";
-const GAME_STARTED_EVENT = "gameStartedEvent";
+import {
+  GAME_STARTED_EVENT,
+  NEW_PLAYER_LOBBY_EVENT,
+  PLAYER_READY_EVENT,
+} from "../constants/socketMessages";
 
 type UsePlayerLobbyState = {
   players: Player[];
@@ -28,7 +29,7 @@ const usePlayerLobby = (
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players
-    socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (data: any) => {
+    socketRef.current.on(NEW_PLAYER_LOBBY_EVENT, (data: any) => {
       const incomingPlayers = data.playersInGame;
       setPlayers(incomingPlayers);
     });
@@ -59,7 +60,7 @@ const usePlayerLobby = (
   const addPlayer = useCallback(
     (userNameToAdd: string, gameIdToAddTo: string) => {
       console.log(`adding new player ${userNameToAdd} in game ${gameId}`);
-      socketRef.current.emit(NEW_PLAYER_IN_LOBBY_EVENT, {
+      socketRef.current.emit(NEW_PLAYER_LOBBY_EVENT, {
         query: { userName: userNameToAdd, gameId: gameIdToAddTo },
       });
     },

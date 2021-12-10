@@ -4,12 +4,13 @@ import socketIOClient, { Socket } from "socket.io-client";
 import { Player } from "../types";
 import * as ROUTES from "../constants/routes";
 import SOCKET_SERVER_URL from "../constants";
-
-const CREATE_NEW_LOBBY_EVENT = "createNewLobbyEvent";
-const START_NEW_GAME_EVENT = "startNewGameEvent";
-const PLAYER_READY_EVENT = "playerReadyEvent";
-const GAME_STARTED_EVENT = "gameStartedEvent";
-const NEW_PLAYER_IN_LOBBY_EVENT = "newPlayerLobbyEvent";
+import {
+  PLAYER_READY_EVENT,
+  CREATE_NEW_LOBBY_EVENT,
+  START_NEW_GAME_EVENT,
+  GAME_STARTED_EVENT,
+  NEW_PLAYER_LOBBY_EVENT,
+} from "../constants/socketMessages";
 
 type UseHostLobbyRes = {
   players: Player[];
@@ -28,7 +29,7 @@ const useHostLobby = (gameId: string, pointsToWin: number): UseHostLobbyRes => {
     socketRef.current = socketIOClient(SOCKET_SERVER_URL);
 
     // Listens for incoming players
-    socketRef.current.on(NEW_PLAYER_IN_LOBBY_EVENT, (data: any) => {
+    socketRef.current.on(NEW_PLAYER_LOBBY_EVENT, (data: any) => {
       const incomingPlayers = data.playersInGame as Player[];
       setPlayers(incomingPlayers);
     });

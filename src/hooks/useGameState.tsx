@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import SOCKET_SERVER_URL from "../constants";
+import {
+  PLAYERS_IN_GAME_RESPONSE,
+  GAME_OVER_RES,
+  CHANGE_TURN_STATUS_FOR_PLAYER,
+  GET_CURRENT_PLAYERS_IN_GAME_EVENT,
+  SKIP_WORD_EVENT,
+  SWAPPED_SKIP_WORD_EVENT,
+  ADD_POINT_TO_PLAYER_EVENT,
+  SET_PLAYER_TURN_STATUS,
+  PLAYERS_TURN_OVER,
+} from "../constants/socketMessages";
 import { Player, TurnStatusOptions } from "../types";
-
-const GET_CURRENT_PLAYERS_IN_GAME_EVENT = "getCurrentPlayersInGameEvent";
-const PLAYERS_IN_GAME_RESPONSE = "playersInGame";
-const ADD_POINT_TO_PLAYER_EVENT = "addPointToPlayerEvent";
-const SKIP_WORD_EVENT = "skipWordEvent";
-const CHANGE_TURN_STATUS_FOR_PLAYER = "changeTurnStatusForPlayer";
-const SET_PLAYER_TURN_STATUS = "setPlayerTurnStatus";
-const GAME_OVER_RES = "gameOverRes";
-const PLAYERS_TURN_OVER = "playersTurnOver";
-const SWAPPED_SKIP_WORD_EVENT = "swappedSkipWordEvent";
 
 type UseGameState = {
   players: Player[];

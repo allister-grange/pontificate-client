@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import socketIOClient from "socket.io-client";
 import SOCKET_SERVER_URL from "../constants";
-
-const DOES_GAME_EXIST_EVENT = "doesGameExistEvent";
-const DOES_GAME_EXIST_RES = "doesGameExistRes";
-const DOES_USERNAME_EXIST_EVENT = "doesUserNameExistEvent";
-const DOES_USERNAME_EXIST_RES = "doesUserNameExistRes";
+import {
+  DOES_GAME_EXIST_RES,
+  DOES_USERNAME_EXIST_RES,
+  DOES_GAME_EXIST_EVENT,
+  DOES_USERNAME_EXIST_EVENT,
+} from "../constants/socketMessages";
 
 type UseCheckCurrentGames = {
   userNameIsFree: boolean | null;
