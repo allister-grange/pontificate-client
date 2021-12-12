@@ -32,12 +32,12 @@ const HostLobbyPage = ({ match, location }: any): JSX.Element => {
     <div className="container">
       <div className="room-code">
         <h1>your room code is</h1>
-        <h1 style={{ color: "coral" }}>{` ${gameId}`}</h1>
+        <h1 style={{ color: "white" }}>{` ${gameId}`}</h1>
       </div>
 
       <div className="title">
         <h2>join on your at phone at</h2>
-        <h2 style={{ color: "coral" }}>{" pontificate.click"}</h2>
+        <h2 style={{ color: "white" }}>{" pontificate.click"}</h2>
         {players.length === 0 && (
           <h3>no one has joined the game yet, get out your phones!</h3>
         )}

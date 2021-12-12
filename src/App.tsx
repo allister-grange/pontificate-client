@@ -14,15 +14,21 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Switch>
-          <Route exact path={ROUTES.HOMEPAGE} component={HomePage} />
-          <Route exact path={ROUTES.HOSTLOBBY} component={HostLobbyPage} />
-          <Route exact path={ROUTES.PLAYERLOBBY} component={PlayerLobbyPage} />
-          <Route exact path={ROUTES.BOARDPAGE} component={BoardPage} />
-          <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
-          <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
+        <div className="App">
+          <Switch>
+            <Route exact path={ROUTES.HOMEPAGE} component={HomePage} />
+            <Route exact path={ROUTES.HOSTLOBBY} component={HostLobbyPage} />
+            <Route
+              exact
+              path={ROUTES.PLAYERLOBBY}
+              component={PlayerLobbyPage}
+            />
+            <Route exact path={ROUTES.BOARDPAGE} component={BoardPage} />
+            <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
+            <Route exact path={ROUTES.CARDPAGE} component={CardPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
       </Router>
     </ThemeProvider>
   );
